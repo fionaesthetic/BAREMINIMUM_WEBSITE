@@ -9,9 +9,7 @@ const dispenserLocations = [
         address: "อาคารมหาจักรีสิรินธร คณะอักษรศาสตร์",
         description: "ตู้จ่ายตั้งอยู่บริเวณทางเข้าห้องน้ำหญิง ชั้น 1 ของอาคารมหาจักรีสิรินธร",
         lat: 13.739247,
-        lon: 100.529851,
-        inventory: 45, // Available
-        statusText: "มีสินค้าพร้อมบริการ"
+        lon: 100.529851
     },
     {
         id: "vm-samyan-mitrtown",
@@ -20,9 +18,7 @@ const dispenserLocations = [
         address: "ชั้น 3 โซนทางเดินห้องน้ำสาธารณะ",
         description: "ตู้จ่ายตั้งอยู่บริเวณห้องน้ำสาธารณะ ชั้น 3 ติดกับบันไดเลื่อนหลักฝั่งทิศใต้",
         lat: 13.733560,
-        lon: 100.528405,
-        inventory: 12, // Low stock
-        statusText: "สินค้าใกล้หมด"
+        lon: 100.528405
     },
     {
         id: "vm-tu-law",
@@ -31,9 +27,7 @@ const dispenserLocations = [
         address: "คณะนิติศาสตร์ (ท่าพระจันทร์) ชั้น 2",
         description: "ตู้จ่ายอยู่บริเวณห้องน้ำหญิงชั้น 2 ใกล้กับห้องธุรการคณะนิติศาสตร์",
         lat: 13.757849,
-        lon: 100.490802,
-        inventory: 0, // Out of stock
-        statusText: "สินค้าหมดชั่วคราว"
+        lon: 100.490802
     },
     {
         id: "vm-chula-hospital",
@@ -42,9 +36,7 @@ const dispenserLocations = [
         address: "อาคารภูมิสิริมังคลานุสรณ์ ชั้น 1",
         description: "ตู้จ่ายติดตั้งอยู่ข้างตู้เครื่องดื่มอัตโนมัติ ใกล้ห้องน้ำหญิงโถงต้อนรับชั้น 1",
         lat: 13.731478,
-        lon: 100.536924,
-        inventory: 38, // Available
-        statusText: "มีสินค้าพร้อมบริการ"
+        lon: 100.536924
     },
     {
         id: "vm-siam-discovery",
@@ -53,9 +45,7 @@ const dispenserLocations = [
         address: "ชั้น 2 โถงห้องน้ำสาธารณะ",
         description: "ตู้จ่ายอยู่ในพื้นที่พักคอยหน้าห้องน้ำหญิง ชั้น 2 ใกล้ร้านค้าหลัก",
         lat: 13.746532,
-        lon: 100.531742,
-        inventory: 52, // Available
-        statusText: "มีสินค้าพร้อมบริการ"
+        lon: 100.531742
     }
 ];
 
@@ -89,21 +79,11 @@ function initMap() {
         // Plot all dispenser markers
         dispenserLocations.forEach(location => {
             try {
-                // Define pin icon color based on inventory status
-                let pinIconUrl = 'https://map.longdo.com/mmmap/images/pin_mark.png'; // Fallback default
-                if (location.inventory === 0) {
-                    pinIconUrl = 'https://api.longdo.com/map/images/pin_red.png'; // Red for empty
-                } else if (location.inventory <= 20) {
-                    pinIconUrl = 'https://api.longdo.com/map/images/pin_orange.png'; // Orange for low stock
-                } else {
-                    pinIconUrl = 'https://api.longdo.com/map/images/pin_green.png'; // Green for good stock
-                }
-
                 const marker = new longdo.Marker({ lon: location.lon, lat: location.lat }, {
                     title: location.name,
-                    detail: `${location.address}<br><strong>สถานะ:</strong> ${location.statusText}`,
+                    detail: `${location.address}<br>${location.description}`,
                     icon: {
-                        url: pinIconUrl,
+                        url: 'https://api.longdo.com/map/images/pin_red.png',
                         offset: { x: 0, y: -20 }
                     }
                 });
@@ -136,23 +116,12 @@ function renderLocationsList() {
     if (!listContainer) return;
 
     listContainer.innerHTML = '';
-    let activeDispensers = 0;
 
     dispenserLocations.forEach(loc => {
-        let statusClass = 'status-available';
-        if (loc.inventory === 0) {
-            statusClass = 'status-empty';
-        } else if (loc.inventory <= 20) {
-            statusClass = 'status-low';
-        } else {
-            activeDispensers++;
-        }
-
         const itemHTML = `
             <div class="location-item" data-id="${loc.id}" onclick="focusLocation('${loc.id}')">
                 <div class="item-header">
                     <span class="item-title">${loc.name}</span>
-                    <span class="item-status ${statusClass}">${loc.statusText}</span>
                 </div>
                 <div class="item-description">${loc.address}</div>
                 <div style="font-size: 0.78rem; color: #a6a4a0; margin-top: 0.35rem;">
@@ -169,9 +138,9 @@ function renderLocationsList() {
 }
 
 // 4. Focus Map & Highlight Selected Location List Item
-window.focusLocation = function(id) {
+window.focusLocation = function (id) {
     const matched = mapMarkers.find(m => m.id === id);
-    
+
     // Update active visual state in list item panel (run regardless of map status)
     document.querySelectorAll('.location-item').forEach(item => {
         item.classList.remove('active');
@@ -202,7 +171,7 @@ window.focusLocation = function(id) {
 // 5. Scroll Reveal Effect
 function initScrollReveal() {
     const revealElements = document.querySelectorAll('[data-reveal]');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -243,13 +212,13 @@ function setupModals() {
         triggers[key].forEach(trigger => {
             trigger.addEventListener('click', (e) => {
                 e.preventDefault();
-                
+
                 // If Become Member is clicked on Mobile device, redirect to LINE LIFF link immediately
                 if (key === 'member' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                     window.location.href = 'https://lin.ee/QVbHF6t';
                     return;
                 }
-                
+
                 // Otherwise open modal
                 modals[key].classList.add('active');
                 document.body.style.overflow = 'hidden'; // Disable page scrolling
@@ -292,7 +261,7 @@ function setupModals() {
         if (!forms[key]) return;
         forms[key].addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             // Trigger toast alert
             if (toast) {
                 toast.classList.add('active');
@@ -329,7 +298,7 @@ function initGeneralUI() {
         menuToggle.addEventListener('click', () => {
             mobileNav.classList.toggle('active');
             menuToggle.classList.toggle('active');
-            
+
             // Hamburger animation
             const bars = menuToggle.querySelectorAll('.bar');
             if (mobileNav.classList.contains('active')) {
@@ -348,7 +317,7 @@ function initGeneralUI() {
             link.addEventListener('click', () => {
                 mobileNav.classList.remove('active');
                 menuToggle.classList.remove('active');
-                
+
                 const bars = menuToggle.querySelectorAll('.bar');
                 bars[0].style.transform = '';
                 bars[1].style.opacity = '1';
@@ -363,7 +332,7 @@ function initGeneralUI() {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             e.preventDefault();
             const targetEl = document.querySelector(targetId);
             if (targetEl) {
@@ -392,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 300);
     }
-    
+
     renderLocationsList();
     initScrollReveal();
     setupModals();
