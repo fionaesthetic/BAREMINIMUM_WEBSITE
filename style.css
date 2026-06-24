@@ -118,18 +118,18 @@ strong {
 }
 
 .header-logo {
-    height: 120px;
+    height: 150px;
     width: auto;
     object-fit: contain;
-    margin-top: -45px;
-    margin-bottom: -45px;
+    margin-top: -55px;
+    margin-bottom: -55px;
     transition: var(--transition-smooth);
 }
 
 .header.scrolled .header-logo {
-    height: 100px;
-    margin-top: -38px;
-    margin-bottom: -38px;
+    height: 120px;
+    margin-top: -44px;
+    margin-bottom: -44px;
 }
 
 .header-logo:hover {
@@ -819,15 +819,24 @@ strong {
     margin-bottom: 4rem;
 }
 
-.footer-brand .logo-text {
-    color: #f6f4f0;
+.footer-logo {
+    height: 140px;
+    width: auto;
+    object-fit: contain;
+    margin-top: -50px;
+    margin-bottom: -45px;
+    transition: var(--transition-smooth);
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
 }
 
 .footer-brand p {
     margin-top: 1.5rem;
     margin-bottom: 2rem;
     max-width: 320px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #dedcd8;
 }
 
@@ -857,15 +866,15 @@ strong {
 }
 
 .footer-links-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    display: flex;
+    justify-content: flex-end;
 }
 
-.footer-links-col h4 {
-    color: #ffffff;
-    font-size: 1.05rem;
-    margin-bottom: 1.5rem;
+.footer-links-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
 }
 
 .footer-links-col a {
@@ -873,7 +882,7 @@ strong {
     color: #a6a4a0;
     text-decoration: none;
     margin-bottom: 0.85rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: var(--transition-quick);
 }
 
@@ -1180,15 +1189,15 @@ strong {
     }
     
     .header-logo {
-        height: 100px;
-        margin-top: -38px;
-        margin-bottom: -38px;
+        height: 125px;
+        margin-top: -45px;
+        margin-bottom: -45px;
     }
     
     .header.scrolled .header-logo {
-        height: 90px;
-        margin-top: -34px;
-        margin-bottom: -34px;
+        height: 105px;
+        margin-top: -38px;
+        margin-bottom: -38px;
     }
     
     .hero-tagline {
@@ -1253,9 +1262,14 @@ strong {
     .footer-container {
         grid-template-columns: 1fr;
         gap: 2.5rem;
+        text-align: center;
     }
     .footer-links-group {
-        gap: 1rem;
+        justify-content: center;
+    }
+    .footer-links-col {
+        align-items: center;
+        text-align: center;
     }
     .footer-bottom-container {
         flex-direction: column;
