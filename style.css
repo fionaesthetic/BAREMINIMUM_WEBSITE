@@ -327,8 +327,8 @@ strong {
 
 .hero-logo-wrapper {
     position: relative;
-    width: 320px;
-    height: 320px;
+    width: 380px;
+    height: 380px;
     margin-bottom: 2.5rem;
     display: flex;
     align-items: center;
@@ -366,6 +366,16 @@ strong {
     color: var(--color-text-muted);
 }
 
+.hero-subtitle-english {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-top: -2.2rem;
+    margin-bottom: 3.2rem;
+    letter-spacing: -0.01em;
+}
+
 .hero-buttons {
     display: flex;
     gap: 1.5rem;
@@ -376,8 +386,8 @@ strong {
 
 /* Intro Grid Card system */
 .intro-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     width: 100%;
     margin-top: 2rem;
@@ -393,6 +403,24 @@ strong {
     transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    flex: 1 1 calc(50% - 1rem);
+    min-width: 300px;
+}
+
+.intro-card-full {
+    flex: 1 1 100% !important;
+    padding: 3.5rem 4rem !important;
+}
+
+.intro-card-full h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.intro-card-full p {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    max-width: 85%;
 }
 
 .intro-card::before {
@@ -647,9 +675,10 @@ strong {
 }
 
 .advertiser-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
+    justify-content: center;
 }
 
 .adv-card {
@@ -661,6 +690,9 @@ strong {
     transition: var(--transition-smooth);
     display: flex;
     flex-direction: column;
+    flex: 1 1 calc(33.333% - 1.5rem);
+    min-width: 320px;
+    max-width: 100%;
 }
 
 .adv-card:hover {
@@ -697,7 +729,7 @@ strong {
 
 /* Special Featured Partner card (Solid Dark contrast card in light theme) */
 .adv-card-featured {
-    grid-column: span 2;
+    flex: 1 1 100% !important;
     background: linear-gradient(135deg, #222222 0%, #171717 100%);
     border: none;
     color: var(--color-text-dark);
@@ -785,6 +817,10 @@ strong {
     grid-template-columns: 1.5fr 1fr;
     gap: 4rem;
     margin-bottom: 4rem;
+}
+
+.footer-brand .logo-text {
+    color: #f6f4f0;
 }
 
 .footer-brand p {
@@ -1124,11 +1160,8 @@ strong {
     .locations-layout {
         grid-template-columns: 1.1fr 1fr;
     }
-    .advertiser-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .adv-card-featured {
-        grid-column: span 2;
+    .adv-card {
+        flex: 1 1 calc(50% - 1.5rem);
     }
 }
 
@@ -1141,8 +1174,8 @@ strong {
     }
     
     .hero-logo-wrapper {
-        width: 220px;
-        height: 220px;
+        width: 260px;
+        height: 260px;
         margin-bottom: 2rem;
     }
     
@@ -1186,11 +1219,28 @@ strong {
         height: 420px;
     }
     
-    .advertiser-grid {
-        grid-template-columns: 1fr;
+    .intro-grid {
+        flex-direction: column;
+        gap: 1.25rem;
     }
-    .adv-card-featured {
-        grid-column: span 1;
+    .intro-card {
+        flex: 1 1 100%;
+    }
+    .intro-card-full {
+        padding: 2rem 1.8rem !important;
+    }
+    .intro-card-full h2 {
+        font-size: 1.7rem;
+    }
+    .intro-card-full p {
+        font-size: 1.05rem;
+        max-width: 100%;
+    }
+    .advertiser-grid {
+        flex-direction: column;
+    }
+    .adv-card {
+        flex: 1 1 100%;
     }
     .adv-card-featured h3 {
         font-size: 1.5rem;
