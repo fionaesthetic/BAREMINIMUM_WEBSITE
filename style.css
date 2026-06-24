@@ -473,7 +473,7 @@ strong {
 
 /* Our Mission Section */
 .mission-section {
-    padding: 5rem 2rem;
+    padding: 5rem 4rem;
     background-color: rgba(34, 34, 34, 0.02);
     border: 1px solid var(--border-light);
     border-radius: 30px;
@@ -482,13 +482,54 @@ strong {
     box-shadow: var(--shadow-inset);
 }
 
-.mission-text {
-    font-size: 1.35rem;
-    line-height: 1.9;
+.mission-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+}
+
+.mission-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mission-logo-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 280px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
+    transition: var(--transition-smooth);
+}
+
+.mission-logo-img:hover {
+    transform: scale(1.03);
+}
+
+.mission-content {
+    flex: 1.2;
+    text-align: left;
+}
+
+.mission-content .section-badge {
+    margin-bottom: 0.75rem;
+}
+
+.mission-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
     color: var(--color-text-light);
-    max-width: 850px;
-    margin: 0 auto;
+}
+
+.mission-text {
+    font-size: 1.25rem;
+    line-height: 1.85;
+    color: var(--color-text-light);
     font-weight: 400;
+    margin: 0;
 }
 
 /* Section Common Styling */
@@ -1335,6 +1376,21 @@ strong {
         padding: 3.5rem 1.5rem;
         margin: 3rem 1.25rem;
         border-radius: 20px;
+    }
+    .mission-container {
+        flex-direction: column;
+        gap: 2.5rem;
+        text-align: center;
+    }
+    .mission-content {
+        text-align: center;
+    }
+    .mission-content h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .mission-logo-img {
+        max-height: 200px;
     }
     .mission-text {
         font-size: 1.15rem;
