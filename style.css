@@ -13,8 +13,8 @@
     --bg-card: rgba(34, 34, 34, 0.03); /* Translucent dark tint for cards */
     --border-light: rgba(34, 34, 34, 0.08); /* Soft borders for light background */
     
-    --font-heading: 'Outfit', 'Sarabun', sans-serif;
-    --font-body: 'Sarabun', sans-serif;
+    --font-heading: 'Outfit', 'IBM Plex Sans Thai', sans-serif;
+    --font-body: 'IBM Plex Sans Thai', sans-serif;
     
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-quick: all 0.2s ease;
@@ -370,8 +370,8 @@ strong {
     font-family: var(--font-heading);
     font-size: 1.45rem;
     font-weight: 700;
-    color: var(--color-accent);
-    margin-top: -2.2rem;
+    color: #333333;
+    margin-top: 1.5rem;
     margin-bottom: 3.2rem;
     letter-spacing: -0.01em;
 }
@@ -820,11 +820,12 @@ strong {
 }
 
 .footer-logo {
-    height: 140px;
+    height: 180px;
     width: auto;
     object-fit: contain;
-    margin-top: -50px;
-    margin-bottom: -45px;
+    margin-top: -65px;
+    margin-bottom: -55px;
+    margin-left: -25px;
     transition: var(--transition-smooth);
 }
 
@@ -832,17 +833,21 @@ strong {
     transform: scale(1.05);
 }
 
-.footer-brand p {
-    margin-top: 1.5rem;
-    margin-bottom: 2rem;
-    max-width: 320px;
+.footer-english-text {
+    font-family: var(--font-heading);
     font-size: 0.95rem;
+    font-weight: 600;
     color: #dedcd8;
+    margin-top: 1.2rem;
+    margin-bottom: 2rem;
+    margin-left: -15px;
+    max-width: 320px;
 }
 
 .social-links {
     display: flex;
     gap: 1rem;
+    margin-left: -15px;
 }
 
 .social-links a {
@@ -1270,6 +1275,17 @@ strong {
     .footer-links-col {
         align-items: center;
         text-align: center;
+    }
+    .footer-logo {
+        height: 140px;
+        margin-left: 0;
+        margin-top: -50px;
+        margin-bottom: -40px;
+    }
+    .footer-thai-text, .footer-english-text {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
     .footer-bottom-container {
         flex-direction: column;

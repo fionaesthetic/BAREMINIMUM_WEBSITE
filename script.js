@@ -246,7 +246,7 @@ function setupModals() {
                 
                 // If Become Member is clicked on Mobile device, redirect to LINE LIFF link immediately
                 if (key === 'member' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    window.location.href = 'https://liff.line.me/2010487787-1JI9RAL6';
+                    window.location.href = 'https://lin.ee/QVbHF6t';
                     return;
                 }
                 
