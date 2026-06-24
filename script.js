@@ -1,7 +1,12 @@
 // BARE MINIMUM Static Website Core Script
 
-// 1. Vending Machine Data Set
-const dispenserLocations = [
+// API URL selection based on current hostname
+const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:8080'
+    : 'https://bareminimum-production.up.railway.app';
+
+// 1. Fallback Vending Machine Data Set (used if backend fetch fails)
+let dispenserLocations = [
     {
         id: "vm-chula-arts",
         name: "จุฬาลงกรณ์มหาวิทยาลัย",
@@ -49,6 +54,29 @@ const dispenserLocations = [
     }
 ];
 
+// Async function to fetch locations from backend API
+async function loadDispenserLocations() {
+    try {
+        const response = await fetch(`${apiUrl}/api/machines`);
+        if (!response.ok) throw new Error("Failed to fetch from backend");
+        const data = await response.json();
+        
+        if (Array.isArray(data) && data.length > 0) {
+            dispenserLocations = data.map(m => ({
+                id: m.id,
+                name: m.name,
+                address: m.location,
+                description: "ตู้จ่ายผ้าอนามัย BARE MINIMUM พร้อมให้บริการรับฟรีสำหรับสมาชิก",
+                lat: m.latitude,
+                lon: m.longitude
+            }));
+            console.log("Loaded locations from backoffice API:", dispenserLocations);
+        }
+    } catch (err) {
+        console.warn("Backend API not reachable. Using fallback locations.", err);
+    }
+}
+
 let map;
 let mapMarkers = [];
 
@@ -83,8 +111,9 @@ function initMap() {
                     title: location.name,
                     detail: `${location.address}<br>${location.description}`,
                     icon: {
-                        url: 'https://api.longdo.com/map/images/pin_red.png',
-                        offset: { x: 0, y: -20 }
+                        url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjQ4Ij48cGF0aCBmaWxsPSIjZWY0NDQ0IiBkPSJNMTIgMkM4LjEzIDIgNSA1LjEzIDUgOWMwIDUuMjUgNyAxMyA3IDEzczctNy43NSA3LTEzYzAtMy44Ny0zLjEzLTctNy03em0wIDkuNWMtMS4zOCAwLTIuNS0xLjEyLTIuNS0yLjVzMS4xMi0yLjUgMi41LTIuNSAyLjUgMS4xMiAyLjUgMi41LTEuMTIgMi41LTIuNSAyLjV6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSI5IiByPSIyLjUiIGZpbGw9IiNGRkZGRkYiLz48L3N2Zz4=',
+                        size: { width: 28, height: 38 },
+                        offset: { x: 14, y: 38 }
                     }
                 });
 
@@ -348,7 +377,10 @@ function initGeneralUI() {
 }
 
 // 8. Document Ready Hook
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load dispenser locations from backoffice API
+    await loadDispenserLocations();
+
     // Wait until Longdo Map library finishes load, then initialize map
     if (typeof longdo !== 'undefined') {
         initMap();
