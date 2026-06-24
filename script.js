@@ -230,8 +230,10 @@ function setupModals() {
                 }
 
                 // Otherwise open modal
-                modals[key].classList.add('active');
-                document.body.style.overflow = 'hidden'; // Disable page scrolling
+                if (modals[key]) {
+                    modals[key].classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Disable page scrolling
+                }
             });
         });
     });
@@ -357,26 +359,65 @@ function initGeneralUI() {
     });
 }
 
-// 8. Document Ready Hook
-document.addEventListener('DOMContentLoaded', async () => {
-    // Load dispenser locations from backoffice API
-    await loadDispenserLocations();
+// 8. Highlight Active Navigation Links
+function highlightActiveNavLink() {
+    const currentPath = window.location.pathname;
+    const pageName = currentPath.substring(currentPath.lastIndexOf('/') + 1);
 
-    // Wait until Longdo Map library finishes load, then initialize map
-    if (typeof longdo !== 'undefined') {
-        initMap();
-    } else {
-        // Fallback check
-        const checkMapLib = setInterval(() => {
-            if (typeof longdo !== 'undefined') {
-                initMap();
-                clearInterval(checkMapLib);
-            }
-        }, 300);
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        // Extract target page name from href
+        const targetPage = href.split('#')[0];
+
+        let isActive = false;
+        if (pageName === 'locations.html' && targetPage === 'locations.html') {
+            isActive = true;
+        } else if (pageName === 'advertisers.html' && targetPage === 'advertisers.html') {
+            isActive = true;
+        } else if ((pageName === '' || pageName === 'index.html') && (targetPage === 'index.html' || href.startsWith('#about') || href === '#')) {
+            isActive = true;
+        }
+
+        if (isActive) {
+            link.classList.add('active-nav');
+        } else {
+            link.classList.remove('active-nav');
+        }
+    });
+}
+
+// 9. Document Ready Hook
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load dispenser locations from backoffice API only on map pages
+    const hasMapOrList = document.getElementById('map') || document.getElementById('location-items');
+    if (hasMapOrList) {
+        await loadDispenserLocations();
+        renderLocationsList();
     }
 
-    renderLocationsList();
+    // Wait until Longdo Map library finishes load, then initialize map
+    const mapContainer = document.getElementById('map');
+    if (mapContainer) {
+        if (typeof longdo !== 'undefined') {
+            initMap();
+        } else {
+            // Fallback check
+            const checkMapLib = setInterval(() => {
+                if (typeof longdo !== 'undefined') {
+                    initMap();
+                    clearInterval(checkMapLib);
+                }
+            }, 300);
+            // Clear check after 10 seconds to avoid infinite loop
+            setTimeout(() => clearInterval(checkMapLib), 10000);
+        }
+    }
+
     initScrollReveal();
     setupModals();
     initGeneralUI();
+    highlightActiveNavLink();
 });

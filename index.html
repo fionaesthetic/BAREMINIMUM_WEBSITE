@@ -31,9 +31,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Longdo Map API -->
-    <script type="text/javascript" src="https://api.longdo.com/map3/?key=529dab3468ba89ae1ea6e3ff5663cdd4"></script>
 </head>
 
 <body>
@@ -46,9 +43,9 @@
             </a>
 
             <nav class="nav-menu">
-                <a href="#about" class="nav-link">รู้จัก BARE MINIMUM</a>
-                <a href="#locations" class="nav-link">ค้นหาตู้จ่ายผ้าอนามัย</a>
-                <a href="#advertisers" class="nav-link">ร่วมเป็นพาร์ทเนอร์</a>
+                <a href="index.html" class="nav-link">รู้จัก BARE MINIMUM</a>
+                <a href="locations.html" class="nav-link">ค้นหาตู้จ่ายผ้าอนามัย</a>
+                <a href="advertisers.html" class="nav-link">ร่วมเป็นพาร์ทเนอร์</a>
             </nav>
 
             <div class="nav-actions">
@@ -67,9 +64,9 @@
 
     <!-- Mobile Navigation Drawer -->
     <div class="mobile-nav" id="mobile-nav">
-        <a href="#about" class="mobile-nav-link">รู้จัก BARE MINIMUM</a>
-        <a href="#locations" class="mobile-nav-link">ค้นหาตู้จ่ายผ้าอนามัย</a>
-        <a href="#advertisers" class="mobile-nav-link">ร่วมเป็นพาร์ทเนอร์</a>
+        <a href="index.html" class="mobile-nav-link">รู้จัก BARE MINIMUM</a>
+        <a href="locations.html" class="mobile-nav-link">ค้นหาตู้จ่ายผ้าอนามัย</a>
+        <a href="advertisers.html" class="mobile-nav-link">ร่วมเป็นพาร์ทเนอร์</a>
         <a href="https://lin.ee/QVbHF6t" class="btn btn-primary btn-member-trigger" style="margin-top: 1.5rem;">
             <i class="fab fa-line"></i> สมัครสมาชิก
         </a>
@@ -98,10 +95,10 @@
                     <a href="https://lin.ee/QVbHF6t" class="btn btn-primary btn-lg btn-member-trigger">
                         <i class="fab fa-line"></i> Become Our Member
                     </a>
-                    <a href="#locations" class="btn btn-secondary btn-lg">
+                    <a href="locations.html" class="btn btn-secondary btn-lg">
                         <i class="fas fa-map-marker-alt"></i> Check Dispenser Location
                     </a>
-                    <a href="#advertisers" class="btn btn-outline btn-lg">
+                    <a href="advertisers.html" class="btn btn-outline btn-lg">
                         <i class="fas fa-handshake"></i> Become Our Partner
                     </a>
                 </div>
@@ -170,128 +167,7 @@
             </div>
         </section>
 
-        <!-- Divider Wave / Line -->
-        <div class="section-divider"></div>
 
-        <!-- Location Section -->
-        <section id="locations" class="locations-section">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">Dispenser Locations</span>
-                    <h2>ตู้จ่ายผ้าอนามัยใกล้คุณ</h2>
-                    <p class="section-subtitle">ค้นหาจุดติดตั้งตู้จ่ายผ้าอนามัยของ BARE MINIMUM ในสถานที่ต่าง ๆ ใกล้คุณ</p>
-                </div>
-
-                <div class="locations-layout">
-                    <!-- Map Wrapper -->
-                    <div class="map-wrapper" data-reveal>
-                        <div id="map" class="map-container"></div>
-                        <div class="map-overlay-instructions">
-                            <p><i class="fas fa-info-circle"></i> คลิกที่หมุดบนแผนที่เพื่อดูรายละเอียดและเส้นทาง</p>
-                        </div>
-                    </div>
-
-                    <!-- Locations List -->
-                    <div class="locations-panel" data-reveal>
-                        <div class="panel-header">
-                            <h3>จุดบริการทั้งหมด</h3>
-                            <span class="location-count"><span id="active-count">0</span> จุดบริการ</span>
-                        </div>
-
-                        <div class="location-list" id="location-items">
-                            <!-- Dynamic location items inserted here by JS -->
-                        </div>
-
-                        <!-- Host Our Dispenser Button -->
-                        <div class="panel-footer">
-                            <button class="btn btn-primary btn-full" id="btn-host-trigger">
-                                <i class="fas fa-building"></i> Host our dispenser (ติดตั้งตู้จ่ายในพื้นที่ของคุณ)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Divider Wave / Line -->
-        <div class="section-divider"></div>
-
-        <!-- Advertiser / Partner Section -->
-        <section id="advertisers" class="advertisers-section">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">Become Our Partner</span>
-                    <h2>Not more impressions, just better one.</h2>
-                    <p class="section-subtitle">
-                        ใช้งบโฆษณาของคุณให้เข้าถึงกลุ่มเป้าหมายมากขึ้น เข้าถึงกลุ่มลูกค้าของคุณในช่วงเวลาที่สำคัญที่สุด
-                    </p>
-                </div>
-
-                <!-- Advertiser Cards Grid -->
-                <div class="advertiser-grid">
-                    <!-- Card 1: Hyper-Target -->
-                    <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-bullseye"></i></div>
-                        <h3>Hyper-Targeted Audience</h3>
-                        <p>เข้าถึงกลุ่มผู้หญิงโดยตรง 100% ในช่วงอายุ 15-45 ปี โดยไร้ wasted engagement
-                            งบโฆษณาของคุณจะถูกใช้เพื่อสื่อสารกับกลุ่มเป้าหมายของคุณเท่านั้น</p>
-                    </div>
-
-                    <!-- Card 2: Point-of-need -->
-                    <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-clock"></i></div>
-                        <h3>Point-of-need Moment</h3>
-                        <p> ทุกแบรนด์ต้องการเข้าถึงกลุ่มลูกค้าผู้หญิง แต่ BARE MINIMUM
-                            จะทำให้พวกเธอรู้สึกซาบซึ้งและผูกพันกับแบรนด์ของคุณ</p>
-                    </div>
-
-                    <!-- Card 3: Zero Distraction -->
-                    <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-volume-mute"></i></div>
-                        <h3>Zero Distraction</h3>
-                        <p> ปราศจากสิ่งรบกวน และ scroll reflex
-                            ด้วยพื้นที่ส่วนตัวในห้องน้ำ</p>
-                    </div>
-
-                    <!-- Card 4: 45x Longer Dwell Time -->
-                    <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-hourglass-half"></i></div>
-                        <h3>45x Longer Dwell Time</h3>
-                        <p>ผู้ใช้บริการจดจ่ออยู่กับสื่อโฆษณาเฉลี่ย 45-60 วินาที ซึ่งยาวนานกว่าสื่อ OOH ทั่วไป
-                            ที่เฉลี่ยเพียงแค่ 2 วินาทีเท่านั้น</p>
-                    </div>
-
-                    <!-- Card 5: Premium Locations -->
-                    <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-map-marked-alt"></i></div>
-                        <h3>Premium Locations</h3>
-                        <p>ติดตั้งในพื้นที่ที่มี foot traffic สูงและตรงกลุ่มเป้าหมายของคุณ ไม่ว่าจะเป็น
-                            มหาวิทยาลัยชื่อดัง, โรงพยาบาลชั้นนำ, ห้างสรรพสินค้า, อาคารสำนักงานเกรด A หรือสนามบิน</p>
-                    </div>
-
-                    <!-- Card 6: Who should advertise with us -->
-                    <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-users"></i></div>
-                        <h3>Who Should Advertise With Us?</h3>
-                        <p>แบรนด์ FMCG และทุกแบรนด์ที่ต้องการเข้าถึงกลุ่มเป้าหมายผู้หญิงอายุ 15-45 ปี</p>
-                    </div>
-
-                    <!-- Card 7: Become Our Partner (Biggest Box, different color) -->
-                    <div class="adv-card adv-card-featured" data-reveal>
-                        <div class="featured-content">
-                            <span class="featured-tag">LIMITED PILOT AVAILABILITY</span>
-                            <h3>Become our partner, lock in the best rates we will ever offer.</h3>
-                            <p>ร่วมเป็นส่วนหนึ่งของการเดินทางไปพร้อมกับ BARE MINIMUM วันนี้
-                                รับสิทธิ์ในการเลือกพื้นที่โฆษณาระดับพรีเมียมก่อนใคร
-                                พร้อมข้อเสนออัตราค่าบริการและแคมเปญที่ดีที่สุด</p>
-                            <button class="btn btn-secondary" id="btn-partner-trigger">
-                                <i class="fas fa-envelope"></i> ร่วมเป็นพาร์ทเนอร์กับเรา
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
     </main>
 
@@ -314,9 +190,9 @@
 
             <div class="footer-links-group">
                 <div class="footer-links-col">
-                    <a href="#about">รู้จัก BARE MINIMUM</a>
-                    <a href="#locations">ค้นหาตู้จ่ายผ้าอนามัย</a>
-                    <a href="#advertisers">ร่วมเป็นพาร์ทเนอร์</a>
+                    <a href="index.html">รู้จัก BARE MINIMUM</a>
+                    <a href="locations.html">ค้นหาตู้จ่ายผ้าอนามัย</a>
+                    <a href="advertisers.html">ร่วมเป็นพาร์ทเนอร์</a>
                     <a href="mailto:literallybareminimum@gmail.com"
                         class="footer-email-link">literallybareminimum@gmail.com</a>
                 </div>
@@ -354,79 +230,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Host our Dispenser / Request Machine -->
-    <div class="modal" id="modal-host">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Close modal">&times;</button>
-            <h3 class="modal-title">เสนอพื้นที่ติดตั้งตู้จ่าย BARE MINIMUM</h3>
-            <p class="modal-subtitle">มาร่วมเป็นส่วนหนึ่งของการขยายจุดบริการเพื่อสังคมในอาคารหรือหน่วยงานของคุณ</p>
 
-            <form id="host-form" class="modal-form">
-                <div class="form-group">
-                    <label for="host-name">ชื่อผู้ติดต่อ / หน่วยงาน</label>
-                    <input type="text" id="host-name" required placeholder="เช่น มหาวิทยาลัยเอบีซี / ฝ่ายบริหารอาคาร">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="host-email">อีเมลติดต่อ</label>
-                        <input type="email" id="host-email" required placeholder="contact@yourbuilding.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="host-phone">เบอร์โทรศัพท์</label>
-                        <input type="tel" id="host-phone" required placeholder="089-XXX-XXXX">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="host-location-details">รายละเอียดและสถานที่ติดตั้งที่เสนอ</label>
-                    <textarea id="host-location-details" rows="3" required
-                        placeholder="เช่น ห้องน้ำหญิง อาคารวิศวกรรมศาสตร์ ชั้น 1 มีผู้เข้าใช้บริการประมาณ 500 คน/วัน"></textarea>
-                </div>
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="host-terms" required>
-                    <label for="host-terms">ฉันยินยอมให้ทีมงาน BARE MINIMUM
-                        ติดต่อกลับเพื่อนำเสนอรายละเอียดการติดตั้งตู้จ่าย</label>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">ส่งข้อมูลเสนอพื้นที่</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: Partner / Advertiser Inquiry -->
-    <div class="modal" id="modal-partner">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Close modal">&times;</button>
-            <h3 class="modal-title">ร่วมเป็นพาร์ทเนอร์โฆษณากับเรา</h3>
-            <p class="modal-subtitle">เริ่มต้นสร้าง Campaign OOH รูปแบบใหม่ที่สร้าง Impact
-                สูงสุดให้กับแบรนด์และสังคมของคุณ</p>
-
-            <form id="partner-form" class="modal-form">
-                <div class="form-group">
-                    <label for="partner-company">ชื่อบริษัท / แบรนด์สินค้า</label>
-                    <input type="text" id="partner-company" required placeholder="เช่น บริษัท แบรนด์สุขอนามัย จำกัด">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="partner-contact">ชื่อผู้ติดต่อ</label>
-                        <input type="text" id="partner-contact" required placeholder="คุณกานดา รักดี">
-                    </div>
-                    <div class="form-group">
-                        <label for="partner-phone">เบอร์โทรศัพท์</label>
-                        <input type="tel" id="partner-phone" required placeholder="081-XXX-XXXX">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="partner-email">อีเมลบริษัท</label>
-                    <input type="email" id="partner-email" required placeholder="kanda@brandcompany.com">
-                </div>
-                <div class="form-group">
-                    <label for="partner-msg">รายละเอียดแคมเปญหรือความต้องการเพิ่มเติม (ไม่บังคับ)</label>
-                    <textarea id="partner-msg" rows="3"
-                        placeholder="ระบุกลุ่มเป้าหมายหรือช่วงเวลาแคมเปญที่คุณต้องการ เช่น ไตรมาส 3 กลุ่มเป้าหมายนักศึกษามหาวิทยาลัย"></textarea>
-                </div>
-                <button type="submit" class="btn btn-secondary btn-full">ส่งคำขอข้อมูลพาร์ทเนอร์</button>
-            </form>
-        </div>
-    </div>
 
     <!-- Toast Notification for Successful Form Submissions -->
     <div class="toast" id="toast">

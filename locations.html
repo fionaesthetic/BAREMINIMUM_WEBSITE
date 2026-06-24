@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ค้นหาตู้จ่ายผ้าอนามัย - BARE MINIMUM</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="ค้นหาจุดติดตั้งตู้จ่ายผ้าอนามัยของ BARE MINIMUM ในสถานที่ต่าง ๆ ใกล้คุณ ไม่ว่าจะเป็นโรงเรียน มหาวิทยาลัย ออฟฟิศ โรงพยาบาล หรือห้างสรรพสินค้า">
+    <meta name="keywords"
+        content="ผ้าอนามัย, ผ้าอนามัยฟรี, BARE MINIMUM, ตู้จ่ายผ้าอนามัย, ค้นหาตู้จ่ายผ้าอนามัย">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ค้นหาตู้จ่ายผ้าอนามัย - BARE MINIMUM">
+    <meta property="og:description"
+        content="ค้นหาจุดติดตั้งตู้จ่ายผ้าอนามัยของ BARE MINIMUM ในสถานที่ต่าง ๆ ใกล้คุณ">
+    <meta property="og:image" content="assets/Logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Longdo Map API -->
+    <script type="text/javascript" src="https://api.longdo.com/map3/?key=529dab3468ba89ae1ea6e3ff5663cdd4"></script>
+</head>
+
+<body>
+
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/2.png" alt="BARE MINIMUM Logo" class="header-logo">
+            </a>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">รู้จัก BARE MINIMUM</a>
+                <a href="locations.html" class="nav-link">ค้นหาตู้จ่ายผ้าอนามัย</a>
+                <a href="advertisers.html" class="nav-link">ร่วมเป็นพาร์ทเนอร์</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="https://lin.ee/QVbHF6t" class="btn btn-primary btn-sm btn-member-trigger">
+                    <i class="fab fa-line"></i> สมัครสมาชิก
+                </a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="index.html" class="mobile-nav-link">รู้จัก BARE MINIMUM</a>
+        <a href="locations.html" class="mobile-nav-link">ค้นหาตู้จ่ายผ้าอนามัย</a>
+        <a href="advertisers.html" class="mobile-nav-link">ร่วมเป็นพาร์ทเนอร์</a>
+        <a href="https://lin.ee/QVbHF6t" class="btn btn-primary btn-member-trigger" style="margin-top: 1.5rem;">
+            <i class="fab fa-line"></i> สมัครสมาชิก
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Location Section -->
+        <section id="locations" class="locations-section standalone-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Dispenser Locations</span>
+                    <h2>ตู้จ่ายผ้าอนามัยใกล้คุณ</h2>
+                    <p class="section-subtitle">ค้นหาจุดติดตั้งตู้จ่ายผ้าอนามัยของ BARE MINIMUM ในสถานที่ต่าง ๆ ใกล้คุณ</p>
+                </div>
+
+                <div class="locations-layout">
+                    <!-- Map Wrapper -->
+                    <div class="map-wrapper" data-reveal>
+                        <div id="map" class="map-container"></div>
+                        <div class="map-overlay-instructions">
+                            <p><i class="fas fa-info-circle"></i> คลิกที่หมุดบนแผนที่เพื่อดูรายละเอียดและเส้นทาง</p>
+                        </div>
+                    </div>
+
+                    <!-- Locations List -->
+                    <div class="locations-panel" data-reveal>
+                        <div class="panel-header">
+                            <h3>จุดบริการทั้งหมด</h3>
+                            <span class="location-count"><span id="active-count">0</span> จุดบริการ</span>
+                        </div>
+
+                        <div class="location-list" id="location-items">
+                            <!-- Dynamic location items inserted here by JS -->
+                        </div>
+
+                        <!-- Host Our Dispenser Button -->
+                        <div class="panel-footer">
+                            <button class="btn btn-primary btn-full" id="btn-host-trigger">
+                                <i class="fas fa-building"></i> Host our dispenser (ติดตั้งตู้จ่ายในพื้นที่ของคุณ)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/3.png" alt="BARE MINIMUM Logo" class="footer-logo">
+                </a>
+                <p class="footer-english-text">Free pads? Bare Minimum.</p>
+                <div class="social-links">
+                    <a href="https://lin.ee/QVbHF6t" target="_blank" aria-label="LINE"><i class="fab fa-line"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="mailto:literallybareminimum@gmail.com" aria-label="Gmail"><i
+                            class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-group">
+                <div class="footer-links-col">
+                    <a href="index.html">รู้จัก BARE MINIMUM</a>
+                    <a href="locations.html">ค้นหาตู้จ่ายผ้าอนามัย</a>
+                    <a href="advertisers.html">ร่วมเป็นพาร์ทเนอร์</a>
+                    <a href="mailto:literallybareminimum@gmail.com"
+                        class="footer-email-link">literallybareminimum@gmail.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p>&copy; 2026 BARE MINIMUM Co., Ltd. All rights reserved. </p>
+                <div class="footer-meta-links">
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">ข้อตกลงการใช้งาน</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: LINE QR Code (For Desktop users to easily scan and open LIFF) -->
+    <div class="modal" id="modal-member">
+        <div class="modal-content text-center">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <h3 class="modal-title">ร่วมเป็นสมาชิก BARE MINIMUM</h3>
+            <p class="modal-subtitle">สแกน QR Code ด้านล่างผ่านสมาร์ตโฟนของคุณเพื่อแอด LINE OA
+                และเริ่มรับผ้าอนามัยฟรีได้ทันที</p>
+            <div class="qr-container">
+                <img src="https://qr-official.line.me/gs/M_489gqvbh_BW.png?oat_content=qr" alt="LINE QR Code"
+                    class="qr-img"
+                    style="width: 200px; height: 200px; margin: 1rem auto; display: block; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="line-badge-container">
+                    <span class="line-badge"><i class="fab fa-line"></i> LINE @489gqvbh</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://lin.ee/QVbHF6t" target="_blank" class="btn btn-outline btn-sm">หรือคลิกที่นี่</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Host our Dispenser / Request Machine -->
+    <div class="modal" id="modal-host">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <h3 class="modal-title">เสนอพื้นที่ติดตั้งตู้จ่าย BARE MINIMUM</h3>
+            <p class="modal-subtitle">มาร่วมเป็นส่วนหนึ่งของการขยายจุดบริการเพื่อสังคมในอาคารหรือหน่วยงานของคุณ</p>
+
+            <form id="host-form" class="modal-form">
+                <div class="form-group">
+                    <label for="host-name">ชื่อผู้ติดต่อ / หน่วยงาน</label>
+                    <input type="text" id="host-name" required placeholder="เช่น มหาวิทยาลัยเอบีซี / ฝ่ายบริหารอาคาร">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="host-email">อีเมลติดต่อ</label>
+                        <input type="email" id="host-email" required placeholder="contact@yourbuilding.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="host-phone">เบอร์โทรศัพท์</label>
+                        <input type="tel" id="host-phone" required placeholder="089-XXX-XXXX">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="host-location-details">รายละเอียดและสถานที่ติดตั้งที่เสนอ</label>
+                    <textarea id="host-location-details" rows="3" required
+                        placeholder="เช่น ห้องน้ำหญิง อาคารวิศวกรรมศาสตร์ ชั้น 1 มีผู้เข้าใช้บริการประมาณ 500 คน/วัน"></textarea>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="host-terms" required>
+                    <label for="host-terms">ฉันยินยอมให้ทีมงาน BARE MINIMUM
+                        ติดต่อกลับเพื่อนำเสนอรายละเอียดการติดตั้งตู้จ่าย</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">ส่งข้อมูลเสนอพื้นที่</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification for Successful Form Submissions -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle toast-icon"></i>
+            <div class="toast-text">
+                <h4 class="toast-title">ส่งข้อมูลสำเร็จ!</h4>
+                <p class="toast-message">เจ้าหน้าที่ของ BARE MINIMUM จะติดต่อกลับหาท่านโดยเร็วที่สุด</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="script.js?v=2.0"></script>
+</body>
+
+</html>

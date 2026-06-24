@@ -1397,3 +1397,23 @@ strong {
         line-height: 1.7;
     }
 }
+
+/* Standalone Pages & Active Navigation Styles */
+.standalone-section {
+    padding-top: 10rem !important;
+    background: radial-gradient(circle at top, rgba(229, 168, 158, 0.15) 0%, rgba(246, 244, 240, 0) 65%) !important;
+}
+
+.nav-link.active-nav {
+    color: var(--color-text-light) !important;
+}
+
+.nav-link.active-nav::after {
+    width: 100% !important;
+}
+
+.mobile-nav-link.active-nav {
+    color: var(--color-text-light) !important;
+    font-weight: 700 !important;
+}
+
