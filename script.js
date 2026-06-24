@@ -59,25 +59,50 @@ function initMap() {
             console.warn("Failed to set map UI settings:", uiError);
         }
 
-        // Plot all dispenser markers
-        dispenserLocations.forEach(location => {
-            try {
-                const marker = new longdo.Marker({ lon: location.lon, lat: location.lat }, {
-                    title: location.name,
-                    detail: `${location.address}<br>${location.description}`,
-                    icon: {
-                        url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjQ4Ij48cGF0aCBmaWxsPSIjZWY0NDQ0IiBkPSJNMTIgMkM4LjEzIDIgNSA1LjEzIDUgOWMwIDUuMjUgNyAxMyA3IDEzczctNy43NSA3LTEzYzAtMy44Ny0zLjEzLTctNy03em0wIDkuNWMtMS4zOCAwLTIuNS0xLjEyLTIuNS0yLjVzMS4xMi0yLjUgMi41LTIuNSAyLjUgMS4xMiAyLjUgMi41LTEuMTIgMi41LTIuNSAyLjV6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSI5IiByPSIyLjUiIGZpbGw9IiNGRkZGRkYiLz48L3N2Zz4=',
-                        size: { width: 28, height: 38 },
-                        offset: { x: 14, y: 38 }
+        // Wait until map is ready before adding markers
+        map.Event.bind('ready', function() {
+            // Plot all dispenser markers
+            dispenserLocations.forEach(location => {
+                try {
+                    console.log("Plotting marker:", location.name, "at lat:", location.lat, "lon:", location.lon);
+                    if (location.lat === null || location.lon === null || location.lat === undefined || location.lon === undefined) {
+                        console.warn("Skipping marker due to invalid coordinates:", location);
+                        return;
                     }
-                });
+                    const marker = new longdo.Marker({ lon: location.lon, lat: location.lat }, {
+                        title: location.name,
+                        detail: `${location.address}<br>${location.description}`,
+                        icon: {
+                            html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="48"><path fill="#ef4444" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><circle cx="12" cy="9" r="2.5" fill="#FFFFFF"/></svg>',
+                            offset: { x: 18, y: 48 }
+                        }
+                    });
 
-                if (map && map.Overlays) {
-                    map.Overlays.add(marker);
-                    mapMarkers.push({ id: location.id, markerObj: marker, data: location });
+                    if (map && map.Overlays) {
+                        map.Overlays.add(marker);
+                        mapMarkers.push({ id: location.id, markerObj: marker, data: location });
+                    }
+                } catch (markerError) {
+                    console.error("Failed to add map marker:", markerError, location);
                 }
-            } catch (markerError) {
-                console.error("Failed to add map marker:", markerError);
+            });
+
+            // Adjust bounds/zoom to fit the dispensers
+            if (dispenserLocations.length > 0) {
+                if (dispenserLocations.length === 1) {
+                    map.location({ lat: dispenserLocations[0].lat, lon: dispenserLocations[0].lon }, true);
+                    map.zoom(14, true);
+                } else {
+                    const lats = dispenserLocations.map(l => l.lat).filter(l => l !== null);
+                    const lons = dispenserLocations.map(l => l.lon).filter(l => l !== null);
+                    if (lats.length > 0 && lons.length > 0) {
+                        const minLat = Math.min(...lats);
+                        const maxLat = Math.max(...lats);
+                        const minLon = Math.min(...lons);
+                        const maxLon = Math.max(...lons);
+                        map.bound({ minLat, minLon, maxLat, maxLon });
+                    }
+                }
             }
         });
     } catch (mapError) {
@@ -124,12 +149,12 @@ function renderLocationsList() {
 
 // 4. Focus Map & Highlight Selected Location List Item
 window.focusLocation = function (id) {
-    const matched = mapMarkers.find(m => m.id === id);
+    const matched = mapMarkers.find(m => String(m.id) === String(id));
 
     // Update active visual state in list item panel (run regardless of map status)
     document.querySelectorAll('.location-item').forEach(item => {
         item.classList.remove('active');
-        if (item.getAttribute('data-id') === id) {
+        if (String(item.getAttribute('data-id')) === String(id)) {
             item.classList.add('active');
             item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
