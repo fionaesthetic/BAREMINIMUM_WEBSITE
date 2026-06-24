@@ -5,54 +5,8 @@ const apiUrl = window.location.hostname === 'localhost' || window.location.hostn
     ? 'http://localhost:8080'
     : 'https://bareminimum-production.up.railway.app';
 
-// 1. Fallback Vending Machine Data Set (used if backend fetch fails)
-let dispenserLocations = [
-    {
-        id: "vm-chula-arts",
-        name: "จุฬาลงกรณ์มหาวิทยาลัย",
-        locationType: "มหาวิทยาลัย",
-        address: "อาคารมหาจักรีสิรินธร คณะอักษรศาสตร์",
-        description: "ตู้จ่ายตั้งอยู่บริเวณทางเข้าห้องน้ำหญิง ชั้น 1 ของอาคารมหาจักรีสิรินธร",
-        lat: 13.739247,
-        lon: 100.529851
-    },
-    {
-        id: "vm-samyan-mitrtown",
-        name: "สามย่านมิตรทาวน์",
-        locationType: "ห้างสรรพสินค้า / ออฟฟิศ",
-        address: "ชั้น 3 โซนทางเดินห้องน้ำสาธารณะ",
-        description: "ตู้จ่ายตั้งอยู่บริเวณห้องน้ำสาธารณะ ชั้น 3 ติดกับบันไดเลื่อนหลักฝั่งทิศใต้",
-        lat: 13.733560,
-        lon: 100.528405
-    },
-    {
-        id: "vm-tu-law",
-        name: "มหาวิทยาลัยธรรมศาสตร์",
-        locationType: "มหาวิทยาลัย",
-        address: "คณะนิติศาสตร์ (ท่าพระจันทร์) ชั้น 2",
-        description: "ตู้จ่ายอยู่บริเวณห้องน้ำหญิงชั้น 2 ใกล้กับห้องธุรการคณะนิติศาสตร์",
-        lat: 13.757849,
-        lon: 100.490802
-    },
-    {
-        id: "vm-chula-hospital",
-        name: "โรงพยาบาลจุฬาลงกรณ์ สภากาชาดไทย",
-        locationType: "โรงพยาบาล",
-        address: "อาคารภูมิสิริมังคลานุสรณ์ ชั้น 1",
-        description: "ตู้จ่ายติดตั้งอยู่ข้างตู้เครื่องดื่มอัตโนมัติ ใกล้ห้องน้ำหญิงโถงต้อนรับชั้น 1",
-        lat: 13.731478,
-        lon: 100.536924
-    },
-    {
-        id: "vm-siam-discovery",
-        name: "สยามดิสคัฟเวอรี",
-        locationType: "ห้างสรรพสินค้า",
-        address: "ชั้น 2 โถงห้องน้ำสาธารณะ",
-        description: "ตู้จ่ายอยู่ในพื้นที่พักคอยหน้าห้องน้ำหญิง ชั้น 2 ใกล้ร้านค้าหลัก",
-        lat: 13.746532,
-        lon: 100.531742
-    }
-];
+// 1. Vending Machine Data Set (loaded dynamically from database)
+let dispenserLocations = [];
 
 // Async function to fetch locations from backend API
 async function loadDispenserLocations() {
@@ -61,7 +15,7 @@ async function loadDispenserLocations() {
         if (!response.ok) throw new Error("Failed to fetch from backend");
         const data = await response.json();
         
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data)) {
             dispenserLocations = data.map(m => ({
                 id: m.id,
                 name: m.name,
@@ -74,7 +28,7 @@ async function loadDispenserLocations() {
             console.log("Loaded locations from backoffice API:", dispenserLocations);
         }
     } catch (err) {
-        console.warn("Backend API not reachable. Using fallback locations.", err);
+        console.error("Backend API not reachable. Unable to load dispenser locations.", err);
     }
 }
 
