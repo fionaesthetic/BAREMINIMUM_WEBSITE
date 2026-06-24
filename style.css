@@ -471,6 +471,26 @@ strong {
     margin: 4rem 0;
 }
 
+/* Our Mission Section */
+.mission-section {
+    padding: 5rem 2rem;
+    background-color: rgba(34, 34, 34, 0.02);
+    border: 1px solid var(--border-light);
+    border-radius: 30px;
+    margin: 4rem auto;
+    max-width: 1200px;
+    box-shadow: var(--shadow-inset);
+}
+
+.mission-text {
+    font-size: 1.35rem;
+    line-height: 1.9;
+    color: var(--color-text-light);
+    max-width: 850px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
 /* Section Common Styling */
 .section-header {
     text-align: center;
@@ -820,11 +840,11 @@ strong {
 }
 
 .footer-logo {
-    height: 180px;
+    height: 220px;
     width: auto;
     object-fit: contain;
-    margin-top: -65px;
-    margin-bottom: -55px;
+    margin-top: -75px;
+    margin-bottom: -65px;
     margin-left: -25px;
     transition: var(--transition-smooth);
 }
@@ -893,6 +913,12 @@ strong {
 
 .footer-links-col a:hover {
     color: #ffffff;
+}
+
+.footer-links-col a.footer-email-link {
+    margin-top: 1rem;
+    color: var(--color-primary);
+    font-weight: 500;
 }
 
 .footer-bottom {
@@ -1277,10 +1303,10 @@ strong {
         text-align: center;
     }
     .footer-logo {
-        height: 140px;
+        height: 170px;
         margin-left: 0;
-        margin-top: -50px;
-        margin-bottom: -40px;
+        margin-top: -60px;
+        margin-bottom: -50px;
     }
     .footer-thai-text, .footer-english-text {
         max-width: 100%;
@@ -1304,5 +1330,14 @@ strong {
     }
     .form-row {
         grid-template-columns: 1fr;
+    }
+    .mission-section {
+        padding: 3.5rem 1.5rem;
+        margin: 3rem 1.25rem;
+        border-radius: 20px;
+    }
+    .mission-text {
+        font-size: 1.15rem;
+        line-height: 1.7;
     }
 }
