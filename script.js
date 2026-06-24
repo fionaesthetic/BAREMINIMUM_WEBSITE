@@ -65,10 +65,11 @@ async function loadDispenserLocations() {
             dispenserLocations = data.map(m => ({
                 id: m.id,
                 name: m.name,
-                address: m.location,
-                description: "ตู้จ่ายผ้าอนามัย BARE MINIMUM พร้อมให้บริการรับฟรีสำหรับสมาชิก",
-                lat: m.latitude,
-                lon: m.longitude
+                locationType: m.location_type,
+                address: m.address,
+                description: m.description || "ตู้จ่ายผ้าอนามัย BARE MINIMUM พร้อมให้บริการรับฟรีสำหรับสมาชิก",
+                lat: m.lat,
+                lon: m.lon
             }));
             console.log("Loaded locations from backoffice API:", dispenserLocations);
         }
@@ -149,8 +150,9 @@ function renderLocationsList() {
     dispenserLocations.forEach(loc => {
         const itemHTML = `
             <div class="location-item" data-id="${loc.id}" onclick="focusLocation('${loc.id}')">
-                <div class="item-header">
+                <div class="item-header" style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
                     <span class="item-title">${loc.name}</span>
+                    ${loc.locationType ? `<span class="location-badge" style="font-size: 0.7rem; background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 4px; padding: 2px 6px; font-weight: 600; text-transform: uppercase;">${loc.locationType}</span>` : ''}
                 </div>
                 <div class="item-description">${loc.address}</div>
                 <div style="font-size: 0.78rem; color: #a6a4a0; margin-top: 0.35rem;">
