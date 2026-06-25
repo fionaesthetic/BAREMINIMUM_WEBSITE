@@ -1355,7 +1355,7 @@ strong {
         margin-right: auto;
     }
     .social-links {
-        justify-content: flex-start;
+        justify-content: center;
         margin-left: 0;
     }
     .footer-bottom-container {
