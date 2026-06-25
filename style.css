@@ -1343,6 +1343,14 @@ strong {
         align-items: center;
         text-align: center;
     }
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-brand .logo-link {
+        justify-content: center;
+    }
     .footer-logo {
         height: 170px;
         margin-left: 0;
