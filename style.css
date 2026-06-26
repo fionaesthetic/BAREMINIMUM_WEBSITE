@@ -663,7 +663,7 @@ strong {
 /* Our Mission Section */
 .mission-section {
     padding: 5rem 0;
-    margin: 4rem auto;
+    margin: 4rem auto 20rem;
 }
 
 .mission-container {
@@ -1569,7 +1569,7 @@ strong {
     }
     .mission-section {
         padding: 3.5rem 0;
-        margin: 3rem auto;
+        margin: 3rem auto 15rem;
     }
     .mission-container {
         flex-direction: column;
