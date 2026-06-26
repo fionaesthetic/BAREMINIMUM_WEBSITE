@@ -662,13 +662,8 @@ strong {
 
 /* Our Mission Section */
 .mission-section {
-    padding: 5rem 4rem;
-    background-color: rgba(34, 34, 34, 0.02);
-    border: 1px solid var(--border-light);
-    border-radius: 30px;
+    padding: 5rem 0;
     margin: 4rem auto;
-    max-width: 1200px;
-    box-shadow: var(--shadow-inset);
 }
 
 .mission-container {
@@ -1573,9 +1568,8 @@ strong {
         grid-template-columns: 1fr;
     }
     .mission-section {
-        padding: 3.5rem 1.5rem;
-        margin: 3rem 1.25rem;
-        border-radius: 20px;
+        padding: 3.5rem 0;
+        margin: 3rem auto;
     }
     .mission-container {
         flex-direction: column;
