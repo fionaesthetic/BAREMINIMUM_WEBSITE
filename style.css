@@ -465,6 +465,170 @@ strong {
     line-height: 1.6;
 }
 
+/* Intro Stacking Cards Layout */
+.intro-stack-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin-top: 4rem; /* Spacing after hero content */
+}
+
+.intro-sticky-wrapper {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 80px !important; /* Offset for desktop header */
+    height: calc(100vh - 80px) !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: calc(10 + var(--card-index)) !important;
+}
+
+.intro-stacked-card {
+    width: 480px !important;
+    max-width: 90% !important;
+    height: auto !important;
+    background-color: #fcfbfa !important; /* Solid cream bg to hide cards behind */
+    box-shadow: 0 20px 40px rgba(34, 34, 34, 0.08) !important;
+    border: 1px solid rgba(34, 34, 34, 0.08) !important;
+    border-radius: 24px !important;
+    padding: 2.5rem !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
+    margin: 0 auto !important;
+}
+
+@media (max-width: 768px) {
+    .intro-sticky-wrapper {
+        top: 70px !important; /* Offset for mobile header */
+        height: calc(100vh - 70px) !important;
+    }
+    .intro-stacked-card {
+        padding: 1.75rem !important; /* Tighter padding to save vertical space on mobile */
+    }
+}
+
+/* Rotation styles for a natural stacked look */
+.card-rotate-2 {
+    transform: rotate(1deg);
+}
+.card-rotate-neg-1 {
+    transform: rotate(-0.5deg);
+}
+.card-rotate-1 {
+    transform: rotate(0.5deg);
+}
+.card-rotate-neg-2 {
+    transform: rotate(-1deg);
+}
+
+@media (min-width: 640px) {
+    .card-rotate-2 {
+        transform: rotate(2deg);
+    }
+    .card-rotate-neg-1 {
+        transform: rotate(-1deg);
+    }
+    .card-rotate-1 {
+        transform: rotate(1deg);
+    }
+    .card-rotate-neg-2 {
+        transform: rotate(-2deg);
+    }
+}
+
+/* Float reveal compatibility with rotation */
+[data-reveal].card-rotate-2 {
+    transform: translateY(30px) rotate(1deg);
+}
+[data-reveal].card-rotate-neg-1 {
+    transform: translateY(30px) rotate(-0.5deg);
+}
+[data-reveal].card-rotate-1 {
+    transform: translateY(30px) rotate(0.5deg);
+}
+[data-reveal].card-rotate-neg-2 {
+    transform: translateY(30px) rotate(-1deg);
+}
+
+@media (min-width: 640px) {
+    [data-reveal].card-rotate-2 {
+        transform: translateY(30px) rotate(2deg);
+    }
+    [data-reveal].card-rotate-neg-1 {
+        transform: translateY(30px) rotate(-1deg);
+    }
+    [data-reveal].card-rotate-1 {
+        transform: translateY(30px) rotate(1deg);
+    }
+    [data-reveal].card-rotate-neg-2 {
+        transform: translateY(30px) rotate(-2deg);
+    }
+}
+
+[data-reveal].revealed.card-rotate-2 {
+    transform: translateY(0) rotate(1deg);
+}
+[data-reveal].revealed.card-rotate-neg-1 {
+    transform: translateY(0) rotate(-0.5deg);
+}
+[data-reveal].revealed.card-rotate-1 {
+    transform: translateY(0) rotate(0.5deg);
+}
+[data-reveal].revealed.card-rotate-neg-2 {
+    transform: translateY(0) rotate(-1deg);
+}
+
+@media (min-width: 640px) {
+    [data-reveal].revealed.card-rotate-2 {
+        transform: translateY(0) rotate(2deg);
+    }
+    [data-reveal].revealed.card-rotate-neg-1 {
+        transform: translateY(0) rotate(-1deg);
+    }
+    [data-reveal].revealed.card-rotate-1 {
+        transform: translateY(0) rotate(1deg);
+    }
+    [data-reveal].revealed.card-rotate-neg-2 {
+        transform: translateY(0) rotate(-2deg);
+    }
+}
+
+/* Hover translation combined with rotation */
+.intro-stacked-card.card-rotate-2:hover {
+    transform: translateY(-8px) rotate(1deg);
+    box-shadow: var(--shadow-premium) !important;
+}
+.intro-stacked-card.card-rotate-neg-1:hover {
+    transform: translateY(-8px) rotate(-0.5deg);
+    box-shadow: var(--shadow-premium) !important;
+}
+.intro-stacked-card.card-rotate-1:hover {
+    transform: translateY(-8px) rotate(0.5deg);
+    box-shadow: var(--shadow-premium) !important;
+}
+.intro-stacked-card.card-rotate-neg-2:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    box-shadow: var(--shadow-premium) !important;
+}
+
+@media (min-width: 640px) {
+    .intro-stacked-card.card-rotate-2:hover {
+        transform: translateY(-8px) rotate(2deg);
+    }
+    .intro-stacked-card.card-rotate-neg-1:hover {
+        transform: translateY(-8px) rotate(-1deg);
+    }
+    .intro-stacked-card.card-rotate-1:hover {
+        transform: translateY(-8px) rotate(1deg);
+    }
+    .intro-stacked-card.card-rotate-neg-2:hover {
+        transform: translateY(-8px) rotate(-2deg);
+    }
+}
+
 /* Section Divider */
 .section-divider {
     height: 1px;
