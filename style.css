@@ -1701,8 +1701,7 @@ strong {
     .card-sticky-wrapper .adv-card {
         width: 100% !important;
         max-width: 680px !important;
-        height: 380px !important; /* Uniform height for Card 1-7 */
-        min-height: auto !important;
+        height: 380px !important; /* Uniform height matching Dwell Time card */
         overflow: hidden !important;
         background-color: #fcfbfa !important; /* Slightly solid cream bg to hide background cards */
         box-shadow: 0 20px 40px rgba(34, 34, 34, 0.06) !important;
@@ -1714,7 +1713,6 @@ strong {
 
     /* Keep the Become Our Partner card prominent and larger */
     .card-sticky-wrapper .adv-card-featured {
-        height: auto !important; /* Allow Become Our Partner card to wrap naturally */
         min-height: 400px !important;
     }
 
