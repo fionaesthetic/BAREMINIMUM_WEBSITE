@@ -402,17 +402,6 @@ function initStickyCards() {
     }
 
     function updateCardScales() {
-        if (window.innerWidth <= 768) {
-            wrappers.forEach(wrapper => {
-                const card = wrapper.querySelector('.adv-card');
-                if (card) {
-                    card.style.transform = '';
-                    card.style.opacity = '';
-                }
-            });
-            return;
-        }
-
         const rect = container.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         
