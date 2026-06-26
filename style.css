@@ -792,7 +792,8 @@ strong {
 /* Special Featured Partner card (Solid Dark contrast card in light theme) */
 .adv-card-featured {
     flex: 1 1 100% !important;
-    background: linear-gradient(135deg, #222222 0%, #171717 100%);
+    background-color: #171717;
+    background-image: linear-gradient(135deg, #222222 0%, #171717 100%);
     border: none;
     color: var(--color-text-dark);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -814,7 +815,8 @@ strong {
 
 .adv-card-featured:hover {
     transform: translateY(-5px);
-    background: #111111;
+    background-color: #0a0a0a;
+    background-image: none;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
 }
 
@@ -1711,9 +1713,30 @@ strong {
     will-change: transform, opacity;
 }
 
-/* Keep the Become Our Partner card prominent and larger */
-.card-sticky-wrapper .adv-card-featured {
+/* Keep the Become Our Partner card prominent, dark, and larger */
+.card-sticky-wrapper .adv-card-featured,
+.wrapper-featured .adv-card-featured {
     min-height: 400px !important;
+    background-color: #171717 !important;
+    background-image: linear-gradient(135deg, #222222 0%, #171717 100%) !important;
+    color: var(--color-text-dark) !important;
+    border: none !important;
+}
+
+.card-sticky-wrapper .adv-card-featured:hover,
+.card-sticky-wrapper .adv-card-featured:active,
+.card-sticky-wrapper .adv-card-featured:focus,
+.wrapper-featured .adv-card-featured:hover,
+.wrapper-featured .adv-card-featured:active,
+.wrapper-featured .adv-card-featured:focus,
+.adv-card-featured:hover,
+.adv-card-featured:active,
+.adv-card-featured:focus {
+    background-color: #0a0a0a !important; /* Extremely dark charcoal on pointer/click */
+    background-image: none !important;
+    color: var(--color-text-dark) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
+    border: none !important;
 }
 
 .card-sticky-wrapper .adv-card:hover {
