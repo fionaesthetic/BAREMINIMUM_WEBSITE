@@ -1672,141 +1672,116 @@ strong {
     border-color: var(--color-secondary);
 }
 
-/* Deck Scroll Container Layout */
-@media (min-width: 769px) {
-    .deck-scroll-container {
-        position: relative;
-        height: 480vh; /* Scroll duration length */
-        width: 100%;
-        margin-bottom: 2rem;
-    }
+/* Horizontal Sticky Stacking Cards Scroll CSS */
+.sticky-scroll-container {
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+}
 
-    .deck-sticky-wrapper {
-        position: sticky;
-        top: 80px;
-        height: calc(100vh - 80px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        width: 100%;
-    }
+.scroll-track {
+    position: relative;
+    width: 100%;
+    height: 400vh; /* Determines length/duration of the scroll effect */
+}
 
-    .deck-wrapper {
-        position: relative;
-        width: 480px; /* Width of the card deck area */
-        height: 520px; /* Height of the card deck area */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.sticky-viewport {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Soft gradient background overlay to create a depth effect */
+    background: radial-gradient(circle at center, rgba(229, 168, 158, 0.03) 0%, transparent 70%);
+}
 
-    .deck-card {
-        position: absolute !important;
-        width: 100% !important;
-        max-width: 420px !important;
-        height: 470px !important;
-        margin: 0 !important;
-        transform-origin: center bottom;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-        transition: none !important;
-        will-change: transform, opacity;
-        z-index: var(--card-z-index);
-        background-color: #fcfbfa; /* Slightly solid cream background to block cards behind it */
-        border: 1px solid rgba(34, 34, 34, 0.08);
-    }
-    
-    /* Hover effects for individual cards on desktop */
-    .deck-card:hover {
-        border-color: rgba(34, 34, 34, 0.15) !important;
-        box-shadow: var(--shadow-premium) !important;
-    }
+.horizontal-grid {
+    position: relative;
+    width: 480px;
+    max-width: 85vw;
+    height: 520px;
+    max-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    /* Scaling / fitting internal diagrams and charts */
-    .deck-card .dwell-chart-container {
-        margin-top: 1rem;
-    }
-    
-    .deck-card .touchpoints-diagram-container {
-        margin-top: 0.8rem;
-        height: 140px;
-    }
-    
-    .deck-card .touchpoints-diagram-container .diagram-orbital {
-        width: 110px;
-        height: 110px;
-    }
-    
-    .deck-card .touchpoints-diagram-container .orbital-ring {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .deck-card .touchpoints-diagram-container .node-center {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
-    }
-    
-    .deck-card .touchpoints-diagram-container .node-packaging,
-    .deck-card .touchpoints-diagram-container .node-digital,
-    .deck-card .touchpoints-diagram-container .node-social {
-        width: 28px;
-        height: 28px;
-        font-size: 0.8rem;
-    }
-    
-    .deck-card .touchpoints-diagram-container .node-packaging {
-        top: 19px;
-        right: 8px;
-    }
-    
-    .deck-card .touchpoints-diagram-container .node-digital {
-        top: 19px;
-        left: 8px;
-    }
-    
-    .deck-card .touchpoints-diagram-container .node-social {
-        bottom: 2px;
-    }
+.adv-card-horizontal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    flex: none !important;
+    max-width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    will-change: transform, scale, opacity;
+}
 
-    .advertiser-featured-section {
-        margin-top: 4rem;
-        width: 100%;
-        padding: 0 1.5rem;
+.adv-card-horizontal:hover {
+    transform: none !important; /* Disable standard translateY hover effect */
+    border-color: var(--color-accent) !important;
+    box-shadow: 0 15px 35px rgba(229, 168, 158, 0.15) !important;
+}
+
+/* Responsive adjustments for horizontal stacking cards */
+@media (max-width: 768px) {
+    .horizontal-grid {
+        width: 330px;
+        height: 450px;
+        max-height: 65vh;
+    }
+    
+    .adv-card-horizontal {
+        padding: 1.5rem !important;
+    }
+    
+    .adv-card-horizontal h3 {
+        font-size: 1.15rem !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .adv-card-horizontal p {
+        font-size: 0.8rem !important;
+        line-height: 1.45 !important;
+    }
+    
+    .stat-visual-container, .dwell-chart-container, .touchpoints-diagram-container {
+        margin-top: 0.8rem !important;
+    }
+    
+    .touchpoints-diagram-container {
+        height: 130px !important;
+    }
+    
+    .diagram-orbital {
+        transform: scale(0.75);
+    }
+    
+    .stat-big-number {
+        font-size: 1.8rem !important;
+    }
+    
+    .stat-subtitle {
+        font-size: 0.75rem !important;
     }
 }
 
-/* Mobile responsive fallback */
-@media (max-width: 768px) {
-    .deck-scroll-container {
-        display: block;
-        height: auto;
+/* Landscape orientation viewport height fixes */
+@media (max-height: 600px) {
+    .horizontal-grid {
+        height: 380px;
     }
-    .deck-sticky-wrapper {
-        position: relative;
-        top: 0;
-        height: auto;
-        overflow: visible;
+    .adv-card-horizontal {
+        padding: 1rem !important;
     }
-    .deck-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
-        height: auto;
-        padding: 1.5rem 0;
-    }
-    .deck-card {
-        width: 100% !important;
-        position: relative !important;
-        height: auto !important;
-        opacity: 1 !important;
-        transform: none !important;
-    }
-    .advertiser-featured-section {
-        margin-top: 1.5rem;
-        width: 100%;
+    .stat-visual-container, .dwell-chart-container, .touchpoints-diagram-container {
+        display: none !important; /* Hide visual graphics if screens are too short */
     }
 }
 

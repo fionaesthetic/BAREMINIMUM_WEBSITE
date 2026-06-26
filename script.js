@@ -389,105 +389,6 @@ function highlightActiveNavLink() {
     });
 }
 
-// 8. Stacked Cards Deck Scroll Animation
-function initDeckAnimation() {
-    const container = document.querySelector('.deck-scroll-container');
-    const cards = document.querySelectorAll('.deck-card');
-    if (!container || cards.length === 0) return;
-
-    const totalCards = cards.length;
-    const centerIndex = (totalCards - 1) / 2; // e.g., center is index 3
-    const maxRot = 8; // maximum rotation at the edges (deg)
-    const maxX = 35; // maximum translation at the edges (px)
-    const maxY = 12; // maximum Y offset at the edges (px)
-
-    const basePositions = Array.from({ length: totalCards }, (_, i) => {
-        const offset = i - centerIndex;
-        const ratio = offset / centerIndex;
-        return {
-            rotation: ratio * maxRot,
-            x: ratio * maxX,
-            y: Math.abs(ratio) * maxY,
-            zIndex: totalCards - i
-        };
-    });
-
-    cards.forEach((card, idx) => {
-        card.style.setProperty('--card-z-index', basePositions[idx].zIndex);
-    });
-
-    function updateDeck() {
-        if (window.innerWidth <= 768) {
-            cards.forEach(card => {
-                card.style.transform = '';
-                card.style.opacity = '';
-            });
-            return;
-        }
-
-        const rect = container.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const totalScrollableDist = rect.height - viewportHeight;
-        
-        let progress = -rect.top / totalScrollableDist;
-        progress = Math.max(0, Math.min(1, progress));
-
-        const transitionIntervals = totalCards - 1;
-        const step = 1 / transitionIntervals;
-
-        cards.forEach((card, idx) => {
-            const base = basePositions[idx];
-            
-            if (idx === totalCards - 1) {
-                // Last card: slowly moves to absolute center (0 rot, 0 x, 0 y) as it's active
-                const prevStepStart = (idx - 1) * step;
-                let activeProgress = 0;
-                if (progress > prevStepStart) {
-                    activeProgress = (progress - prevStepStart) / step;
-                    activeProgress = Math.max(0, Math.min(1, activeProgress));
-                }
-                const rot = base.rotation * (1 - activeProgress);
-                const x = base.x * (1 - activeProgress);
-                const y = base.y * (1 - activeProgress);
-                
-                card.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rot}deg)`;
-                card.style.opacity = '1';
-                return;
-            }
-
-            const startProgress = idx * step;
-            const endProgress = (idx + 1) * step;
-
-            if (progress <= startProgress) {
-                card.style.transform = `translate3d(${base.x}px, ${base.y}px, 0) rotate(${base.rotation}deg)`;
-                card.style.opacity = '1';
-            } else if (progress >= endProgress) {
-                const dir = idx % 2 === 0 ? -1 : 1;
-                // Move out of view (using vw to ensure it exits page width fully)
-                card.style.transform = `translate3d(${dir * 120}vw, -80px, 0) rotate(${dir * 25}deg)`;
-                card.style.opacity = '0';
-            } else {
-                const t = (progress - startProgress) / step;
-                const easeT = t * t * (3 - 2 * t); // smoothstep ease
-                const dir = idx % 2 === 0 ? -1 : 1;
-                
-                // Exits with a smooth slide out
-                const targetX = base.x + easeT * (dir * window.innerWidth * 0.6);
-                const targetY = base.y - easeT * 80;
-                const targetRot = base.rotation + easeT * (dir * 25 - base.rotation);
-                const opacity = 1 - easeT;
-
-                card.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) rotate(${targetRot}deg)`;
-                card.style.opacity = opacity;
-            }
-        });
-    }
-
-    window.addEventListener('scroll', updateDeck);
-    window.addEventListener('resize', updateDeck);
-    updateDeck();
-}
-
 // 9. Document Ready Hook
 document.addEventListener('DOMContentLoaded', async () => {
     // Load dispenser locations from backoffice API only on map pages
@@ -519,5 +420,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModals();
     initGeneralUI();
     highlightActiveNavLink();
-    initDeckAnimation();
 });
