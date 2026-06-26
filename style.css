@@ -1687,21 +1687,15 @@ strong {
 
     .card-sticky-wrapper {
         position: sticky !important;
-        top: calc(100px + var(--card-index) * 25px) !important;
+        top: 80px !important; /* Offset for the navigation header */
         width: 100% !important;
-        height: 55vh !important; /* Viewport height for smaller cards */
+        height: calc(100vh - 80px) !important; /* Vertically center in remaining viewport space */
         display: flex !important;
-        align-items: flex-start !important;
+        align-items: center !important; /* Vertically center the card */
         justify-content: center !important;
-        margin-bottom: 5vh !important;
+        margin-bottom: 0 !important;
         will-change: transform;
         z-index: calc(10 + var(--card-index)) !important;
-    }
-
-    /* Keep the Become Our Partner card wrapper taller */
-    .card-sticky-wrapper.wrapper-featured {
-        height: 75vh !important;
-        margin-bottom: 8vh !important;
     }
 
     .card-sticky-wrapper .adv-card {
@@ -1713,7 +1707,7 @@ strong {
         background-color: #fcfbfa !important; /* Slightly solid cream bg to hide background cards */
         box-shadow: 0 20px 40px rgba(34, 34, 34, 0.06) !important;
         border: 1px solid rgba(34, 34, 34, 0.08) !important;
-        transform-origin: top center !important;
+        transform-origin: center center !important; /* Symmetrical scaling */
         transition: transform 0.1s ease-out, opacity 0.1s ease-out, box-shadow 0.3s ease !important;
         will-change: transform, opacity;
     }
@@ -1734,7 +1728,9 @@ strong {
         position: relative !important;
         top: 0 !important;
         width: 100% !important;
+        height: auto !important; /* Reset viewport height on mobile */
         margin-bottom: 1.5rem !important;
+        display: block !important;
     }
     .card-sticky-wrapper .adv-card {
         width: 100% !important;

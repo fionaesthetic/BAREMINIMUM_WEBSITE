@@ -416,12 +416,12 @@ function initStickyCards() {
         const rect = container.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         
-        // Track the container scrolling relative to viewport
-        const totalScrollable = rect.height - viewportHeight;
+        // Track the container scrolling relative to viewport, offsetting for the sticky top (80px)
+        const totalScrollable = rect.height - viewportHeight + 80;
         if (totalScrollable <= 0) return;
 
-        // Progress: 0 when container top is pinned, 1 when last card is stacked and bottom reaches viewport bottom
-        let progress = -rect.top / totalScrollable;
+        // Progress: 0 when container top is pinned at 80px, 1 when last card is stacked and bottom reaches viewport bottom
+        let progress = (80 - rect.top) / totalScrollable;
         progress = Math.max(0, Math.min(1, progress));
 
         const totalCards = wrappers.length;
