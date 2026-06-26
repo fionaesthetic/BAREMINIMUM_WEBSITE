@@ -1689,20 +1689,26 @@ strong {
         position: sticky !important;
         top: calc(100px + var(--card-index) * 25px) !important;
         width: 100% !important;
-        height: 75vh !important; /* Proper vertical scroll spacing */
+        height: 55vh !important; /* Viewport height for smaller cards */
         display: flex !important;
         align-items: flex-start !important;
         justify-content: center !important;
-        margin-bottom: 8vh !important;
+        margin-bottom: 5vh !important;
         will-change: transform;
         z-index: calc(10 + var(--card-index)) !important;
+    }
+
+    /* Keep the Become Our Partner card wrapper taller */
+    .card-sticky-wrapper.wrapper-featured {
+        height: 75vh !important;
+        margin-bottom: 8vh !important;
     }
 
     .card-sticky-wrapper .adv-card {
         width: 100% !important;
         max-width: 680px !important;
         height: auto !important;
-        min-height: 480px !important;
+        min-height: auto !important; /* Allow dynamic height based on text proportion */
         overflow: hidden !important;
         background-color: #fcfbfa !important; /* Slightly solid cream bg to hide background cards */
         box-shadow: 0 20px 40px rgba(34, 34, 34, 0.06) !important;
@@ -1710,6 +1716,11 @@ strong {
         transform-origin: top center !important;
         transition: transform 0.1s ease-out, opacity 0.1s ease-out, box-shadow 0.3s ease !important;
         will-change: transform, opacity;
+    }
+
+    /* Keep the Become Our Partner card prominent and larger */
+    .card-sticky-wrapper .adv-card-featured {
+        min-height: 400px !important;
     }
 
     .card-sticky-wrapper .adv-card:hover {
