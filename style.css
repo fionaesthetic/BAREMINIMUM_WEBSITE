@@ -1672,4 +1672,64 @@ strong {
     border-color: var(--color-secondary);
 }
 
+/* Sticky Stacking Cards Scroll CSS */
+@media (min-width: 769px) {
+    .advertiser-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0 !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: 800px !important;
+        margin: 0 auto !important;
+    }
+
+    .card-sticky-wrapper {
+        position: sticky !important;
+        top: calc(100px + var(--card-index) * 25px) !important;
+        width: 100% !important;
+        height: 75vh !important; /* Proper vertical scroll spacing */
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        margin-bottom: 8vh !important;
+        will-change: transform;
+        z-index: calc(10 + var(--card-index)) !important;
+    }
+
+    .card-sticky-wrapper .adv-card {
+        width: 100% !important;
+        max-width: 680px !important;
+        height: auto !important;
+        min-height: 480px !important;
+        overflow: hidden !important;
+        background-color: #fcfbfa !important; /* Slightly solid cream bg to hide background cards */
+        box-shadow: 0 20px 40px rgba(34, 34, 34, 0.06) !important;
+        border: 1px solid rgba(34, 34, 34, 0.08) !important;
+        transform-origin: top center !important;
+        transition: transform 0.1s ease-out, opacity 0.1s ease-out, box-shadow 0.3s ease !important;
+        will-change: transform, opacity;
+    }
+
+    .card-sticky-wrapper .adv-card:hover {
+        box-shadow: var(--shadow-premium) !important;
+        border-color: rgba(34, 34, 34, 0.15) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-sticky-wrapper {
+        position: relative !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .card-sticky-wrapper .adv-card {
+        width: 100% !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+}
+
 

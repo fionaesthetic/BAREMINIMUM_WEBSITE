@@ -389,7 +389,69 @@ function highlightActiveNavLink() {
     });
 }
 
-// 9. Document Ready Hook
+// 9. Sticky Stacking Cards Scroll Animation
+function initStickyCards() {
+    const container = document.querySelector('.advertiser-grid');
+    const wrappers = document.querySelectorAll('.card-sticky-wrapper');
+    if (!container || wrappers.length === 0) return;
+
+    function mapRange(value, inMin, inMax, outMin, outMax) {
+        if (value <= inMin) return outMin;
+        if (value >= inMax) return outMax;
+        return outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin);
+    }
+
+    function updateCardScales() {
+        if (window.innerWidth <= 768) {
+            wrappers.forEach(wrapper => {
+                const card = wrapper.querySelector('.adv-card');
+                if (card) {
+                    card.style.transform = '';
+                    card.style.opacity = '';
+                }
+            });
+            return;
+        }
+
+        const rect = container.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // Track the container scrolling relative to viewport
+        const totalScrollable = rect.height - viewportHeight;
+        if (totalScrollable <= 0) return;
+
+        // Progress: 0 when container top is pinned, 1 when last card is stacked and bottom reaches viewport bottom
+        let progress = -rect.top / totalScrollable;
+        progress = Math.max(0, Math.min(1, progress));
+
+        const totalCards = wrappers.length;
+
+        wrappers.forEach((wrapper, idx) => {
+            const card = wrapper.querySelector('.adv-card');
+            if (!card) return;
+
+            // Target scale decreases for earlier cards: Card 0 goes down to ~0.72, Card 7 stays at 1.0
+            const targetScale = 1 - (totalCards - idx - 1) * 0.04;
+            
+            // Card starts scaling down after its specific progress window
+            const startRange = idx / totalCards;
+            
+            // Animate scale and dim background cards slightly for a deep parallax feel
+            const currentScale = mapRange(progress, startRange, 1, 1, targetScale);
+            const targetOpacity = 1 - (totalCards - idx - 1) * 0.035;
+            const currentOpacity = mapRange(progress, startRange, 1, 1, targetOpacity);
+
+            card.style.transform = `scale(${currentScale})`;
+            card.style.opacity = currentOpacity;
+        });
+    }
+
+    window.addEventListener('scroll', updateCardScales);
+    window.addEventListener('resize', updateCardScales);
+    updateCardScales();
+}
+
+// 10. Document Ready Hook
 document.addEventListener('DOMContentLoaded', async () => {
     // Load dispenser locations from backoffice API only on map pages
     const hasMapOrList = document.getElementById('map') || document.getElementById('location-items');
@@ -420,4 +482,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModals();
     initGeneralUI();
     highlightActiveNavLink();
+    initStickyCards();
 });
