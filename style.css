@@ -508,6 +508,11 @@ strong {
     .intro-stacked-card {
         padding: 1.75rem !important; /* Tighter padding to save vertical space on mobile */
     }
+    .btn-where {
+        font-size: 0.8rem;
+        padding: 0.6rem 1rem;
+        white-space: nowrap;
+    }
 }
 
 @media (min-width: 769px) {
