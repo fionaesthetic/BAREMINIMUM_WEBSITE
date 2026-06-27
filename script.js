@@ -471,5 +471,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModals();
     initGeneralUI();
     highlightActiveNavLink();
-    initStickyCards();
+    // initStickyCards();
 });
