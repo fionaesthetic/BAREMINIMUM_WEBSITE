@@ -2089,20 +2089,8 @@ strong {
     align-items: stretch;
     width: 100%;
     position: relative;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-top: 1rem;
-}
-
-/* Horizontal line between steps on desktop */
-.timeline-container::before {
-    content: '';
-    position: absolute;
-    top: 35px;
-    left: 10%;
-    width: 80%;
-    height: 2px;
-    background-color: rgba(229, 168, 158, 0.3);
-    z-index: 0;
 }
 
 .timeline-step {
@@ -2113,6 +2101,22 @@ strong {
     text-align: center;
     position: relative;
     z-index: 1;
+}
+
+.timeline-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    opacity: 0.6;
+    font-size: 1.1rem;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.timeline-arrow:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .step-num {
@@ -2182,15 +2186,17 @@ strong {
         line-height: 1.45 !important;
     }
     .timeline-container {
-        gap: 1.5rem;
-    }
-    .timeline-container::before {
-        top: 48px;
+        gap: 0.75rem;
     }
     .step-icon {
         width: 64px;
         height: 64px;
         font-size: 1.8rem;
+    }
+    .timeline-arrow {
+        height: 64px;
+        margin-top: 32px;
+        font-size: 1.3rem;
     }
 }
 
@@ -2199,15 +2205,8 @@ strong {
     .timeline-container {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1.25rem;
+        gap: 0.75rem;
         margin-top: 0.5rem;
-    }
-    
-    .timeline-container::before {
-        left: 25px;
-        top: 20px;
-        width: 2px;
-        height: 80%;
     }
     
     .timeline-step {
@@ -2216,6 +2215,22 @@ strong {
         align-items: center;
         gap: 1rem;
         width: 100%;
+    }
+    
+    .timeline-arrow {
+        width: 32px;
+        height: 16px;
+        transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        margin-left: 0;
+        margin-top: -4px;
+        margin-bottom: -4px;
+        font-size: 0.85rem;
+    }
+    
+    .timeline-arrow:hover {
+        transform: rotate(90deg) scale(1.1);
+        -webkit-transform: rotate(90deg) scale(1.1);
     }
     
     .step-num {
