@@ -146,7 +146,7 @@
 
                     <!-- Card 2: Better Brand Perception -->
                     <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-clock"></i></div>
+                        <div class="adv-badge"><i class="fas fa-thumbs-up"></i></div>
                         <h3>Better Brand Perception</h3>
                         <p>สิ่งที่โฆษณาส่วนใหญ่ทำไม่ได้ คือการทำให้พวกเธอรู้สึก "ซาบซึ้ง" และ "ผูกพัน"
                             กับแบรนด์อย่างแท้จริง สิ่งนั้นจะเปลี่ยนไปเมื่อคุณแสดงให้พวกเธอเห็นว่าคุณอยู่ข้างๆ พวกเธอ</p>
@@ -157,15 +157,13 @@
                             </div>
                             <div class="svg-wrapper">
                                 <svg viewBox="0 0 300 120" class="spike-chart">
-                                    <!-- Grid Lines -->
-                                    <line x1="0" y1="20" x2="300" y2="20" stroke="rgba(34, 34, 34, 0.05)" stroke-dasharray="4,4" />
-                                    <line x1="0" y1="60" x2="300" y2="60" stroke="rgba(34, 34, 34, 0.05)" stroke-dasharray="4,4" />
-                                    <line x1="0" y1="100" x2="300" y2="100" stroke="rgba(34, 34, 34, 0.05)" stroke-dasharray="4,4" />
+                                    <!-- Axes -->
+                                    <path d="M 30,20 L 30,100 L 270,100" fill="none" stroke="var(--color-secondary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
                                     
                                     <!-- X Axis indicators -->
-                                    <text x="15" y="115" class="chart-axis-text">Before</text>
+                                    <text x="45" y="115" class="chart-axis-text">Before</text>
                                     <text x="150" y="115" class="chart-axis-text-accent">Point of Need</text>
-                                    <text x="285" y="115" class="chart-axis-text" style="text-anchor: end;">After</text>
+                                    <text x="255" y="115" class="chart-axis-text" style="text-anchor: end;">After</text>
 
                                     <!-- Gradient under the curve -->
                                     <defs>
@@ -176,16 +174,13 @@
                                     </defs>
 
                                     <!-- Area Path -->
-                                    <path class="spike-gradient-fill" d="M 0,100 L 100,100 L 125,95 L 150,20 L 175,50 L 200,45 L 300,45 L 300,100 L 0,100 Z" fill="url(#spike-grad)" />
+                                    <path class="spike-gradient-fill" d="M 45,100 L 45,90 L 80,60 L 110,85 L 140,50 L 170,75 L 200,30 L 230,60 L 255,25 L 255,100 Z" fill="url(#spike-grad)" />
 
                                     <!-- Line Path -->
-                                    <path class="spike-path" d="M 0,100 L 100,100 L 125,95 L 150,20 L 175,50 L 200,45 L 300,45" fill="none" stroke="#D48C7F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path class="spike-path" d="M 45,90 L 80,60 L 110,85 L 140,50 L 170,75 L 200,30 L 230,60 L 255,25" fill="none" stroke="#D48C7F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
 
-                                    <!-- Highlight Dot on the peak -->
-                                    <g class="spike-dot">
-                                        <circle cx="150" cy="20" r="5" fill="#D48C7F" />
-                                        <circle cx="150" cy="20" r="9" fill="none" stroke="#E5A89E" stroke-width="1.5" />
-                                    </g>
+                                    <!-- Arrow Head -->
+                                    <path class="spike-arrow" d="M 240,30 L 255,25 L 250,42" fill="none" stroke="#D48C7F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </div>
                         </div>
