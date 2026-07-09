@@ -1976,6 +1976,287 @@ strong {
     }
 }
 
+/* ==========================================
+   Card Flip Layout and Animation
+   ========================================== */
+.flip-card-container {
+    perspective: 1500px;
+    -webkit-perspective: 1500px;
+    cursor: pointer;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: -webkit-transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+.flip-card-container.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 24px;
+    background-color: #fcfbfa;
+    box-shadow: 0 20px 40px rgba(34, 34, 34, 0.08);
+    border: 1px solid rgba(34, 34, 34, 0.08);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flip-card-front {
+    position: relative;
+    padding: 2.5rem;
+    z-index: 2;
+}
+
+.flip-card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.flip-card-container:hover .flip-card-front,
+.flip-card-container:hover .flip-card-back {
+    background-color: rgba(252, 251, 250, 0.98);
+    box-shadow: var(--shadow-premium);
+    border-color: rgba(34, 34, 34, 0.12);
+}
+
+/* Timeline Styling */
+.flip-back-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.flip-back-header h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 0 !important;
+    color: var(--color-accent) !important;
+}
+
+.click-to-flip-back {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+}
+
+.click-to-flip-back:hover {
+    color: var(--color-accent);
+}
+
+.click-to-flip-hint {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.timeline-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    position: relative;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Horizontal line between steps on desktop */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background-color: rgba(229, 168, 158, 0.3);
+    z-index: 0;
+}
+
+.timeline-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.step-num {
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    border: 2px solid #fcfbfa;
+    box-shadow: 0 2px 6px rgba(229, 168, 158, 0.4);
+}
+
+.step-icon {
+    font-size: 1.5rem;
+    color: var(--color-text-light);
+    margin-bottom: 0.75rem;
+    background: rgba(229, 168, 158, 0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.timeline-step:hover .step-icon {
+    transform: scale(1.1);
+    background: rgba(229, 168, 158, 0.2);
+    color: var(--color-accent);
+}
+
+.step-content h4 {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    color: #111111;
+    font-weight: 600;
+}
+
+.step-content p {
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
+    color: var(--color-text-muted);
+}
+
+/* Desktop sizing adaptation for faces */
+@media (min-width: 769px) {
+    .flip-card-front, .flip-card-back {
+        border-radius: 30px;
+        padding: 5rem 4rem;
+    }
+    .flip-back-header h2 {
+        font-size: 2rem !important;
+    }
+    .step-content h4 {
+        font-size: 1.05rem;
+        margin-bottom: 0.4rem;
+    }
+    .step-content p {
+        font-size: 0.85rem !important;
+        line-height: 1.45 !important;
+    }
+    .timeline-container {
+        gap: 1.5rem;
+    }
+    .timeline-container::before {
+        top: 48px;
+    }
+    .step-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 1.8rem;
+    }
+}
+
+/* Mobile responsive styles for timeline */
+@media (max-width: 768px) {
+    .timeline-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+        margin-top: 0.5rem;
+    }
+    
+    .timeline-container::before {
+        left: 25px;
+        top: 20px;
+        width: 2px;
+        height: 80%;
+    }
+    
+    .timeline-step {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+    }
+    
+    .step-num {
+        margin-bottom: 0;
+        position: absolute;
+        left: 13px;
+        top: -6px;
+        z-index: 2;
+    }
+    
+    .step-icon {
+        font-size: 1.1rem;
+        width: 32px;
+        height: 32px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .step-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .step-content h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.15rem;
+    }
+    
+    .step-content p {
+        font-size: 0.75rem !important;
+    }
+    
+    .flip-back-header {
+        margin-bottom: 1.25rem;
+    }
+    
+    .flip-back-header h2 {
+        font-size: 1.2rem !important;
+    }
+}
+
 
 
 

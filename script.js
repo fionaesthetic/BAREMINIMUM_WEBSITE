@@ -357,6 +357,14 @@ function initGeneralUI() {
             }
         });
     });
+
+    // Toggle Card Flip on click
+    const flipCard = document.getElementById('how-it-works-card');
+    if (flipCard) {
+        flipCard.addEventListener('click', () => {
+            flipCard.classList.toggle('flipped');
+        });
+    }
 }
 
 // 8. Highlight Active Navigation Links
