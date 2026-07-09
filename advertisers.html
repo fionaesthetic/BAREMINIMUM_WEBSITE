@@ -144,13 +144,51 @@
                         </div>
                     </div>
 
-                    <!-- Card 2: Point-of-need -->
+                    <!-- Card 2: Better Brand Perception -->
                     <div class="adv-card" data-reveal>
                         <div class="adv-badge"><i class="fas fa-clock"></i></div>
-                        <h3>Point-of-need Moment</h3>
-                        <p>ทุกแบรนด์อยากเข้าถึงใจกลุ่มลูกค้าผู้หญิง
-                            แต่สิ่งที่โฆษณาส่วนใหญ่ทำไม่ได้ คือการทำให้พวกเธอรู้สึก "ซาบซึ้ง" และ "ผูกพัน"
-                            กับแบรนด์อย่างแท้จริง ซึ่งเป็นสิ่งที่คุณทำได้เมื่อโฆษณากับ BARE MINIMUM</p>
+                        <h3>Better Brand Perception</h3>
+                        <p>สิ่งที่โฆษณาส่วนใหญ่ทำไม่ได้ คือการทำให้พวกเธอรู้สึก "ซาบซึ้ง" และ "ผูกพัน"
+                            กับแบรนด์อย่างแท้จริง สิ่งนั้นจะเปลี่ยนไปเมื่อคุณแสดงให้พวกเธอเห็นว่าคุณอยู่ข้างๆ พวกเธอ</p>
+                        <div class="perception-chart-container">
+                            <div class="chart-header">
+                                <span class="chart-title-accent">Brand Connection & Trust</span>
+                                <span class="chart-value-accent">+85% Increase</span>
+                            </div>
+                            <div class="svg-wrapper">
+                                <svg viewBox="0 0 300 120" class="spike-chart">
+                                    <!-- Grid Lines -->
+                                    <line x1="0" y1="20" x2="300" y2="20" stroke="rgba(34, 34, 34, 0.05)" stroke-dasharray="4,4" />
+                                    <line x1="0" y1="60" x2="300" y2="60" stroke="rgba(34, 34, 34, 0.05)" stroke-dasharray="4,4" />
+                                    <line x1="0" y1="100" x2="300" y2="100" stroke="rgba(34, 34, 34, 0.05)" stroke-dasharray="4,4" />
+                                    
+                                    <!-- X Axis indicators -->
+                                    <text x="15" y="115" class="chart-axis-text">Before</text>
+                                    <text x="150" y="115" class="chart-axis-text-accent">Point of Need</text>
+                                    <text x="285" y="115" class="chart-axis-text" style="text-anchor: end;">After</text>
+
+                                    <!-- Gradient under the curve -->
+                                    <defs>
+                                        <linearGradient id="spike-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#E5A89E" stop-opacity="0.45" />
+                                            <stop offset="100%" stop-color="#E5A89E" stop-opacity="0" />
+                                        </linearGradient>
+                                    </defs>
+
+                                    <!-- Area Path -->
+                                    <path class="spike-gradient-fill" d="M 0,100 L 100,100 L 125,95 L 150,20 L 175,50 L 200,45 L 300,45 L 300,100 L 0,100 Z" fill="url(#spike-grad)" />
+
+                                    <!-- Line Path -->
+                                    <path class="spike-path" d="M 0,100 L 100,100 L 125,95 L 150,20 L 175,50 L 200,45 L 300,45" fill="none" stroke="#D48C7F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+                                    <!-- Highlight Dot on the peak -->
+                                    <g class="spike-dot">
+                                        <circle cx="150" cy="20" r="5" fill="#D48C7F" />
+                                        <circle cx="150" cy="20" r="9" fill="none" stroke="#E5A89E" stroke-width="1.5" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Card 3: Zero Distraction -->

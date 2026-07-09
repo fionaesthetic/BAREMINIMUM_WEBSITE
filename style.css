@@ -1883,6 +1883,99 @@ strong {
     border-color: var(--color-secondary);
 }
 
+/* Brand Perception Spike Graph styling */
+.perception-chart-container {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background-color: rgba(229, 168, 158, 0.04);
+    border-radius: 16px;
+    border: 1px solid rgba(229, 168, 158, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.perception-chart-container .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.perception-chart-container .chart-title-accent {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+}
+
+.perception-chart-container .chart-value-accent {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-accent-hover);
+    background-color: rgba(229, 168, 158, 0.15);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+}
+
+.perception-chart-container .svg-wrapper {
+    width: 100%;
+}
+
+.perception-chart-container svg.spike-chart {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.perception-chart-container text.chart-axis-text {
+    font-size: 8px;
+    font-family: var(--font-body);
+    fill: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.perception-chart-container text.chart-axis-text-accent {
+    font-size: 8.5px;
+    font-family: var(--font-body);
+    fill: var(--color-accent-hover);
+    font-weight: 700;
+    text-anchor: middle;
+}
+
+/* SVG Reveal Animations */
+.spike-path {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+}
+
+[data-reveal].revealed .spike-path {
+    animation: draw-spike 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.spike-gradient-fill {
+    opacity: 0;
+    transition: opacity 1.2s ease-out 1.2s;
+}
+
+[data-reveal].revealed .spike-gradient-fill {
+    opacity: 1;
+}
+
+.spike-dot {
+    transform: scale(0);
+    transform-origin: 150px 20px;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s;
+}
+
+[data-reveal].revealed .spike-dot {
+    transform: scale(1);
+}
+
+@keyframes draw-spike {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
 
 
 
