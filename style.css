@@ -1007,7 +1007,7 @@ strong {
 
 @media (min-width: 769px) {
     .adv-card-featured {
-        grid-column: span 2;
+        grid-column: span 3;
     }
 }
 
