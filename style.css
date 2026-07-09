@@ -2022,6 +2022,9 @@ strong {
     padding: 2.5rem;
     z-index: 2;
     pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .flip-card-back {
@@ -2037,16 +2040,23 @@ strong {
     z-index: 1;
     box-sizing: border-box;
     pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .flip-card-container.flipped .flip-card-front {
     z-index: 1;
     pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
 }
 
 .flip-card-container.flipped .flip-card-back {
     z-index: 2;
     pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
 }
 
 .flip-card-container:hover .flip-card-front,
