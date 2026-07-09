@@ -372,12 +372,14 @@ function highlightActiveNavLink() {
         // Extract target page name from href
         const targetPage = href.split('#')[0];
 
+        // Clean pageName and targetPage to match both extensioned and extensionless URLs
+        const cleanPageName = pageName.replace('.html', '') || 'index';
+        const cleanTargetPage = targetPage.replace('.html', '').replace('./', '') || 'index';
+
         let isActive = false;
-        if (pageName === 'locations.html' && targetPage === 'locations.html') {
+        if (cleanPageName === cleanTargetPage) {
             isActive = true;
-        } else if (pageName === 'advertisers.html' && targetPage === 'advertisers.html') {
-            isActive = true;
-        } else if ((pageName === '' || pageName === 'index.html') && (targetPage === 'index.html' || href.startsWith('#about') || href === '#')) {
+        } else if (cleanPageName === 'index' && (href.startsWith('#about') || href === '#')) {
             isActive = true;
         }
 
