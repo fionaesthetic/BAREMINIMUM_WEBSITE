@@ -126,21 +126,30 @@ function renderLocationsList() {
 
     listContainer.innerHTML = '';
 
-    dispenserLocations.forEach(loc => {
-        const itemHTML = `
-            <div class="location-item" data-id="${loc.id}" onclick="focusLocation('${loc.id}')">
-                <div class="item-header" style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
-                    <span class="item-title">${loc.name}</span>
-                    ${loc.locationType ? `<span class="location-badge" style="font-size: 0.7rem; background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 4px; padding: 2px 6px; font-weight: 600; text-transform: uppercase;">${loc.locationType}</span>` : ''}
-                </div>
-                <div class="item-description">${loc.address}</div>
-                <div style="font-size: 0.78rem; color: #a6a4a0; margin-top: 0.35rem;">
-                    <i class="fas fa-info-circle"></i> ${loc.description}
-                </div>
+    if (dispenserLocations.length === 0) {
+        listContainer.innerHTML = `
+            <div class="no-locations-fallback" style="padding: 3rem 1.5rem; text-align: center; color: var(--color-text-muted); font-size: 1.05rem; font-weight: 500; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                <i class="fas fa-map-marker-slash" style="font-size: 2.2rem; color: var(--color-accent-hover); opacity: 0.85;"></i>
+                <span>แบร์ มินิมัม จะให้บริการเร็วๆนี้</span>
             </div>
         `;
-        listContainer.insertAdjacentHTML('beforeend', itemHTML);
-    });
+    } else {
+        dispenserLocations.forEach(loc => {
+            const itemHTML = `
+                <div class="location-item" data-id="${loc.id}" onclick="focusLocation('${loc.id}')">
+                    <div class="item-header" style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                        <span class="item-title">${loc.name}</span>
+                        ${loc.locationType ? `<span class="location-badge" style="font-size: 0.7rem; background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 4px; padding: 2px 6px; font-weight: 600; text-transform: uppercase;">${loc.locationType}</span>` : ''}
+                    </div>
+                    <div class="item-description">${loc.address}</div>
+                    <div style="font-size: 0.78rem; color: #a6a4a0; margin-top: 0.35rem;">
+                        <i class="fas fa-info-circle"></i> ${loc.description}
+                    </div>
+                </div>
+            `;
+            listContainer.insertAdjacentHTML('beforeend', itemHTML);
+        });
+    }
 
     if (activeCountEl) {
         activeCountEl.textContent = dispenserLocations.length;
