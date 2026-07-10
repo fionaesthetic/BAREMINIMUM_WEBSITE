@@ -418,16 +418,42 @@ function initScrollLinkedHorizontalCards() {
             // Only animate if the grid is entering or inside the viewport
             if (rect.bottom < 0 || rect.top > viewportHeight) return;
 
-            // Calculate progress: 0 when top enters viewport bottom, 1 when grid is centered/fully visible
-            const startY = viewportHeight;
-            const endY = viewportHeight * 0.25; // Stop animating when grid is 25% from top
-            let progress = (startY - rect.top) / (startY - endY);
-            progress = Math.max(0, Math.min(1, progress));
+            // Check if this is the top services section (#what-we-offer)
+            const isTopSection = grid.closest('#what-we-offer');
 
             // Select only the visible cards inside this grid
             const cards = Array.from(grid.querySelectorAll('.adv-card')).filter(card => {
                 return window.getComputedStyle(card).display !== 'none';
             });
+
+            if (isTopSection) {
+                cards.forEach((card, idx) => {
+                    if (idx === 0) {
+                        // Card 1 is always fully visible on initial load
+                        card.style.setProperty('--scroll-tx', '0px');
+                        card.style.setProperty('--scroll-opacity', '1');
+                        return;
+                    }
+
+                    // Card 2: animates from scrollY 50px to 250px
+                    // Card 3: animates from scrollY 250px to 450px
+                    const startScrollY = idx === 1 ? 50 : 250;
+                    const endScrollY = idx === 1 ? 250 : 450;
+
+                    const currentTranslateX = mapRange(window.scrollY, startScrollY, endScrollY, -60, 0);
+                    const currentOpacity = mapRange(window.scrollY, startScrollY, endScrollY, 0, 1);
+
+                    card.style.setProperty('--scroll-tx', `${currentTranslateX}px`);
+                    card.style.setProperty('--scroll-opacity', currentOpacity);
+                });
+                return;
+            }
+
+            // Calculate progress: 0 when top enters viewport bottom, 1 when grid is centered/fully visible
+            const startY = viewportHeight;
+            const endY = viewportHeight * 0.25; // Stop animating when grid is 25% from top
+            let progress = (startY - rect.top) / (startY - endY);
+            progress = Math.max(0, Math.min(1, progress));
 
             const normalCardsCount = cards.filter(c => !c.classList.contains('adv-card-featured')).length;
             const windowSize = 1.0 / normalCardsCount;
