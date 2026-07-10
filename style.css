@@ -1479,7 +1479,7 @@ strong {
 }
 
 #advertisers .adv-card-featured:hover {
-    transform: translateY(-5px) !important;
+    transform: translateX(var(--scroll-tx)) translateY(-5px);
 }
 
 /* Responsive Media Queries */
