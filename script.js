@@ -433,7 +433,7 @@ function initScrollLinkedHorizontalCards() {
 
             // Calculate progress: 0 when top enters viewport bottom, 1 when grid is centered/fully visible
             const startY = viewportHeight;
-            const endY = viewportHeight * 0.55; // Stop animating when grid is 55% from top (slides in faster while header is visible)
+            const endY = viewportHeight * 0.75; // Stop animating when grid is 75% from top (slides in extremely fast)
             let progress = (startY - rect.top) / (startY - endY);
             progress = Math.max(0, Math.min(1, progress));
 
