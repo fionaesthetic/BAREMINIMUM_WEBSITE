@@ -1448,16 +1448,24 @@ strong {
     transform: translateY(0);
 }
 
-/* Staggered slide from right for what-we-offer cards in advertisers.html */
-#what-we-offer .adv-card[data-reveal] {
+/* Staggered slide from right for what-we-offer and advertisers section cards in advertisers.html */
+#what-we-offer .adv-card[data-reveal],
+.advertisers-section .adv-card[data-reveal] {
     opacity: 0;
     transform: translateX(50px);
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-#what-we-offer .adv-card[data-reveal].revealed {
+#what-we-offer .adv-card[data-reveal].revealed,
+.advertisers-section .adv-card[data-reveal].revealed {
     opacity: 1;
     transform: translateX(0);
+}
+
+/* Ensure hover effect overrides the revealed state transition */
+#what-we-offer .adv-card[data-reveal].revealed:hover,
+.advertisers-section .adv-card[data-reveal].revealed:hover {
+    transform: translateY(-5px);
 }
 
 #what-we-offer .adv-card:nth-child(1) {
@@ -1470,6 +1478,23 @@ strong {
 
 #what-we-offer .adv-card:nth-child(3) {
     transition-delay: 0.5s;
+}
+
+/* Staggered delay for partner cards (skipping hidden child indexes 3, 5, 6, 7) */
+.advertisers-section .adv-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.advertisers-section .adv-card:nth-child(2) {
+    transition-delay: 0.25s;
+}
+
+.advertisers-section .adv-card:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.advertisers-section .adv-card:nth-child(8) {
+    transition-delay: 0.15s;
 }
 
 /* Responsive Media Queries */
