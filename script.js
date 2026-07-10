@@ -429,11 +429,22 @@ function initScrollLinkedHorizontalCards() {
             let progress = (startY - rect.top) / (startY - endY);
             progress = Math.max(0, Math.min(1, progress));
 
-            const totalCardsCount = cards.length;
-            const windowSize = 1.0 / totalCardsCount;
+            const normalCardsCount = cards.filter(c => !c.classList.contains('adv-card-featured')).length;
+            const windowSize = 1.0 / normalCardsCount;
 
             cards.forEach((card, idx) => {
-                // Stagger progress window for each card (sequential start)
+                // Card 8 (featured card) spans full width, we handle it with a subtle translateY fade
+                if (card.classList.contains('adv-card-featured')) {
+                    const startRange = 0.3;
+                    const curOpacity = mapRange(progress, startRange, 0.8, 0, 1);
+                    const curTranslateY = mapRange(progress, startRange, 0.8, 30, 0);
+                    card.style.setProperty('--scroll-tx', '0px');
+                    card.style.setProperty('--scroll-opacity', curOpacity);
+                    card.style.transform = `translateY(${curTranslateY}px)`;
+                    return;
+                }
+
+                // Stagger progress window for each normal card (sequential start)
                 const startRange = idx * windowSize;
                 const endRange = startRange + windowSize;
 

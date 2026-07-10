@@ -1478,6 +1478,10 @@ strong {
     transform: translateX(var(--scroll-tx)) translateY(-5px);
 }
 
+#advertisers .adv-card-featured:hover {
+    transform: translateY(-5px) !important;
+}
+
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
     .intro-grid {
