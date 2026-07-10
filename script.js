@@ -455,6 +455,9 @@ function initScrollLinkedHorizontalCards() {
 
                 card.style.setProperty('--scroll-tx', `${currentTranslateX}px`);
                 card.style.setProperty('--scroll-opacity', currentOpacity);
+
+                // Toggle revealed class to trigger nested graphic reveal animations
+                card.classList.toggle('revealed', progress > startRange);
             });
         });
     }
