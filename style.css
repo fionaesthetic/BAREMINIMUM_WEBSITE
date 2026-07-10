@@ -350,7 +350,7 @@ strong {
 }
 
 .hero-tagline {
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 1.2;
     margin-bottom: 1.5rem;
     max-width: 800px;
@@ -361,7 +361,7 @@ strong {
 }
 
 .hero-description-main {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     max-width: 600px;
     margin-bottom: 3rem;
     color: var(--color-text-muted);
@@ -1488,7 +1488,10 @@ strong {
     }
     
     .hero-tagline {
-        font-size: 2.2rem;
+        font-size: 1.85rem;
+    }
+    .hero-description-main {
+        font-size: 0.95rem;
     }
     .hero-buttons {
         flex-direction: column;
