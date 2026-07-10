@@ -1448,8 +1448,23 @@ strong {
     transform: translateY(0);
 }
 
-/* Scroll-Linked horizontal slide transition for advertiser & offer cards */
-#what-we-offer .adv-card,
+/* Staggered time-based slide from left for what-we-offer cards in advertisers.html */
+#what-we-offer .adv-card[data-reveal] {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+#what-we-offer .adv-card[data-reveal].revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#what-we-offer .adv-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Scroll-Linked horizontal slide transition for advertisers section cards */
 #advertisers .adv-card {
     --scroll-tx: -60px;
     --scroll-opacity: 0;
@@ -1459,13 +1474,8 @@ strong {
     transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
-#what-we-offer .adv-card:hover,
 #advertisers .adv-card:hover {
     transform: translateX(var(--scroll-tx)) translateY(-5px);
-}
-
-#advertisers .adv-card-featured:hover {
-    transform: translateY(-5px) !important;
 }
 
 /* Responsive Media Queries */
