@@ -450,41 +450,7 @@ function initStickyCards() {
     updateCardScales();
 }
 
-// 10. Horizontal Scroll for Advertisers Page "What We Offer" Section
-function initHorizontalScroll() {
-    const hsSection = document.querySelector('.horizontal-scroll-section');
-    const hsContainer = document.querySelector('.horizontal-scroll-container');
-    const hsTrack = document.getElementById('services-track');
-
-    if (hsSection && hsContainer && hsTrack) {
-        function handleHorizontalScroll() {
-            const rect = hsSection.getBoundingClientRect();
-            const startScroll = window.scrollY + rect.top;
-            const endScroll = startScroll + hsSection.offsetHeight - window.innerHeight;
-            const scrollY = window.scrollY;
-            
-            if (scrollY >= startScroll && scrollY <= endScroll) {
-                const progress = (scrollY - startScroll) / (endScroll - startScroll);
-                const maxTranslate = Math.max(0, hsTrack.scrollWidth - window.innerWidth);
-                hsTrack.style.transform = `translateX(${-progress * maxTranslate}px)`;
-            } else if (scrollY < startScroll) {
-                hsTrack.style.transform = 'translateX(0px)';
-            } else if (scrollY > endScroll) {
-                const maxTranslate = Math.max(0, hsTrack.scrollWidth - window.innerWidth);
-                hsTrack.style.transform = `translateX(${-maxTranslate}px)`;
-            }
-        }
-        
-        window.addEventListener('scroll', () => {
-            requestAnimationFrame(handleHorizontalScroll);
-        });
-        window.addEventListener('resize', handleHorizontalScroll);
-        // Initial call
-        handleHorizontalScroll();
-    }
-}
-
-// 11. Document Ready Hook
+// 10. Document Ready Hook
 document.addEventListener('DOMContentLoaded', async () => {
     // Load dispenser locations from backoffice API only on map pages
     const hasMapOrList = document.getElementById('map') || document.getElementById('location-items');
@@ -515,6 +481,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModals();
     initGeneralUI();
     highlightActiveNavLink();
-    initHorizontalScroll();
     // initStickyCards();
 });
