@@ -1451,7 +1451,7 @@ strong {
 /* Scroll-Linked horizontal slide transition for advertiser & offer cards */
 #what-we-offer .adv-card,
 #advertisers .adv-card {
-    --scroll-tx: 60px;
+    --scroll-tx: -60px;
     --scroll-opacity: 0;
     opacity: var(--scroll-opacity);
     transform: translateX(var(--scroll-tx));

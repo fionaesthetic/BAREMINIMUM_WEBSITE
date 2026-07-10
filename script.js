@@ -429,6 +429,9 @@ function initScrollLinkedHorizontalCards() {
                 return window.getComputedStyle(card).display !== 'none';
             });
 
+            const normalCardsCount = cards.filter(c => !c.classList.contains('adv-card-featured')).length;
+            const windowSize = 1.0 / normalCardsCount;
+
             cards.forEach((card, idx) => {
                 // Card 8 (featured card) spans full width, we handle it with a subtle translateY fade
                 if (card.classList.contains('adv-card-featured')) {
@@ -441,14 +444,12 @@ function initScrollLinkedHorizontalCards() {
                     return;
                 }
 
-                // Stagger progress window for each normal card
-                const windowSize = 0.6;
-                const step = 0.15;
-                const startRange = idx * step;
+                // Stagger progress window for each normal card (sequential start)
+                const startRange = idx * windowSize;
                 const endRange = startRange + windowSize;
 
-                // Map progress to translation (from 60px to 0px) and opacity (from 0 to 1)
-                const currentTranslateX = mapRange(progress, startRange, endRange, 60, 0);
+                // Map progress to translation (from -60px to 0px) and opacity (from 0 to 1)
+                const currentTranslateX = mapRange(progress, startRange, endRange, -60, 0);
                 const currentOpacity = mapRange(progress, startRange, endRange, 0, 1);
 
                 card.style.setProperty('--scroll-tx', `${currentTranslateX}px`);
