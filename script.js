@@ -444,10 +444,22 @@ function initScrollLinkedHorizontalCards() {
                 card.style.transform = '';
 
                 // Stagger progress window:
-                // Even cards (Card 1, Card 4): progress 0.0 to 0.7 (animates immediately on entry)
-                // Odd cards (Card 2, Card 8): progress 0.3 to 1.0 (slightly delayed stagger)
-                const startRange = (idx % 2 === 0) ? 0.0 : 0.3;
-                const endRange = (idx % 2 === 0) ? 0.7 : 1.0;
+                // Card 1 (idx 0): progress 0.0 to 0.6 (slides first)
+                // Card 2 (idx 1): progress 0.25 to 0.85 (slides second)
+                // Card 4 (idx 2): progress 0.5 to 1.0 (slides third)
+                // Card 8 (idx 3): progress 0.2 to 0.8 (slides when its row enters viewport)
+                let startRange = 0.0;
+                let endRange = 0.6;
+                if (idx === 1) {
+                    startRange = 0.25;
+                    endRange = 0.85;
+                } else if (idx === 2) {
+                    startRange = 0.5;
+                    endRange = 1.0;
+                } else if (idx === 3) {
+                    startRange = 0.2;
+                    endRange = 0.8;
+                }
 
                 // Map progress to translation (from -60px to 0px) and opacity (from 0 to 1)
                 const currentTranslateX = mapRange(progress, startRange, endRange, -60, 0);
