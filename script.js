@@ -431,22 +431,23 @@ function initScrollLinkedHorizontalCards() {
                 return window.getComputedStyle(card).display !== 'none';
             });
 
-            // Calculate progress: 0 when top enters viewport bottom, 1 when grid is centered/fully visible
-            const startY = viewportHeight;
-            const endY = viewportHeight * 0.75; // Stop animating when grid is 75% from top (slides in extremely fast)
-            let progress = (startY - rect.top) / (startY - endY);
-            progress = Math.max(0, Math.min(1, progress));
-
-            const totalCardsCount = cards.length;
-            const windowSize = 1.0 / totalCardsCount;
-
             cards.forEach((card, idx) => {
+                const cardRect = card.getBoundingClientRect();
+
+                // Calculate progress for each card individually based on its own screen position
+                const startY = viewportHeight;
+                const endY = viewportHeight * 0.45; // Stop animating when card reaches 45% from top of screen
+                let progress = (startY - cardRect.top) / (startY - endY);
+                progress = Math.max(0, Math.min(1, progress));
+
                 // Clear any inline transform overrides to allow CSS transition rules to work
                 card.style.transform = '';
 
-                // Stagger progress window for each card (sequential start)
-                const startRange = idx * windowSize;
-                const endRange = startRange + windowSize;
+                // Stagger progress window:
+                // Even cards (Card 1, Card 4): progress 0.0 to 0.7 (animates immediately on entry)
+                // Odd cards (Card 2, Card 8): progress 0.3 to 1.0 (slightly delayed stagger)
+                const startRange = (idx % 2 === 0) ? 0.0 : 0.3;
+                const endRange = (idx % 2 === 0) ? 0.7 : 1.0;
 
                 // Map progress to translation (from -60px to 0px) and opacity (from 0 to 1)
                 const currentTranslateX = mapRange(progress, startRange, endRange, -60, 0);
