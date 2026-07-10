@@ -1666,6 +1666,11 @@ strong {
     background: radial-gradient(circle at top, rgba(229, 168, 158, 0.15) 0%, rgba(246, 244, 240, 0) 65%) !important;
 }
 
+/* Our Services section spacing when placed at bottom of page content */
+.offer-section {
+    padding: 6rem 0 10rem !important;
+}
+
 .nav-link.active-nav {
     color: var(--color-text-light) !important;
 }
