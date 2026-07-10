@@ -436,7 +436,7 @@ function initScrollLinkedHorizontalCards() {
 
                 // Calculate progress for each card individually based on its own screen position
                 const startY = viewportHeight;
-                const endY = viewportHeight * 0.45; // Stop animating when card reaches 45% from top of screen
+                const endY = viewportHeight * 0.55; // Stop animating when card reaches 55% from top of screen
                 let progress = (startY - cardRect.top) / (startY - endY);
                 progress = Math.max(0, Math.min(1, progress));
 
