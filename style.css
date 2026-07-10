@@ -1191,6 +1191,7 @@ strong {
 .footer-bottom p {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.3);
+    margin-left: -15px;
 }
 
 .footer-meta-links a {
@@ -1583,6 +1584,9 @@ strong {
     .footer-bottom-container {
         flex-direction: column;
         text-align: center;
+    }
+    .footer-bottom p {
+        margin-left: 0;
     }
     .footer-meta-links a {
         margin: 0 0.75rem;
