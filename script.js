@@ -399,11 +399,10 @@ function highlightActiveNavLink() {
     });
 }
 
-// 9. Sticky Stacking Cards Scroll Animation
-function initStickyCards() {
-    const container = document.querySelector('.advertiser-grid');
-    const wrappers = document.querySelectorAll('.card-sticky-wrapper');
-    if (!container || wrappers.length === 0) return;
+// 9. Scroll-Linked Horizontal Cards Animation for advertisers.html
+function initScrollLinkedHorizontalCards() {
+    const grids = document.querySelectorAll('.advertiser-grid');
+    if (grids.length === 0) return;
 
     function mapRange(value, inMin, inMax, outMin, outMax) {
         if (value <= inMin) return outMin;
@@ -411,43 +410,56 @@ function initStickyCards() {
         return outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin);
     }
 
-    function updateCardScales() {
-        const rect = container.getBoundingClientRect();
+    function updateHorizontalSlides() {
         const viewportHeight = window.innerHeight;
-        
-        // Track the container scrolling relative to viewport, offsetting for the sticky top (80px)
-        const totalScrollable = rect.height - viewportHeight + 80;
-        if (totalScrollable <= 0) return;
 
-        // Progress: 0 when container top is pinned at 80px, 1 when last card is stacked and bottom reaches viewport bottom
-        let progress = (80 - rect.top) / totalScrollable;
-        progress = Math.max(0, Math.min(1, progress));
+        grids.forEach((grid) => {
+            const rect = grid.getBoundingClientRect();
+            // Only animate if the grid is entering or inside the viewport
+            if (rect.bottom < 0 || rect.top > viewportHeight) return;
 
-        const totalCards = wrappers.length;
+            // Calculate progress: 0 when top enters viewport bottom, 1 when grid is centered/fully visible
+            const startY = viewportHeight;
+            const endY = viewportHeight * 0.25; // Stop animating when grid is 25% from top
+            let progress = (startY - rect.top) / (startY - endY);
+            progress = Math.max(0, Math.min(1, progress));
 
-        wrappers.forEach((wrapper, idx) => {
-            const card = wrapper.querySelector('.adv-card');
-            if (!card) return;
+            // Select only the visible cards inside this grid
+            const cards = Array.from(grid.querySelectorAll('.adv-card')).filter(card => {
+                return window.getComputedStyle(card).display !== 'none';
+            });
 
-            // Target scale decreases for earlier cards: Card 0 goes down to ~0.72, Card 7 stays at 1.0
-            const targetScale = 1 - (totalCards - idx - 1) * 0.04;
-            
-            // Card starts scaling down after its specific progress window
-            const startRange = idx / totalCards;
-            
-            // Animate scale and dim background cards slightly for a deep parallax feel
-            const currentScale = mapRange(progress, startRange, 1, 1, targetScale);
-            const targetOpacity = 1 - (totalCards - idx - 1) * 0.035;
-            const currentOpacity = mapRange(progress, startRange, 1, 1, targetOpacity);
+            cards.forEach((card, idx) => {
+                // Card 8 (featured card) spans full width, we handle it with a subtle translateY fade
+                if (card.classList.contains('adv-card-featured')) {
+                    const startRange = 0.3;
+                    const curOpacity = mapRange(progress, startRange, 0.8, 0, 1);
+                    const curTranslateY = mapRange(progress, startRange, 0.8, 30, 0);
+                    card.style.setProperty('--scroll-tx', '0px');
+                    card.style.setProperty('--scroll-opacity', curOpacity);
+                    card.style.transform = `translateY(${curTranslateY}px)`;
+                    return;
+                }
 
-            card.style.transform = `scale(${currentScale})`;
-            card.style.opacity = currentOpacity;
+                // Stagger progress window for each normal card
+                const windowSize = 0.6;
+                const step = 0.15;
+                const startRange = idx * step;
+                const endRange = startRange + windowSize;
+
+                // Map progress to translation (from 60px to 0px) and opacity (from 0 to 1)
+                const currentTranslateX = mapRange(progress, startRange, endRange, 60, 0);
+                const currentOpacity = mapRange(progress, startRange, endRange, 0, 1);
+
+                card.style.setProperty('--scroll-tx', `${currentTranslateX}px`);
+                card.style.setProperty('--scroll-opacity', currentOpacity);
+            });
         });
     }
 
-    window.addEventListener('scroll', updateCardScales);
-    window.addEventListener('resize', updateCardScales);
-    updateCardScales();
+    window.addEventListener('scroll', updateHorizontalSlides);
+    window.addEventListener('resize', updateHorizontalSlides);
+    updateHorizontalSlides();
 }
 
 // 10. Document Ready Hook
@@ -481,5 +493,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModals();
     initGeneralUI();
     highlightActiveNavLink();
-    // initStickyCards();
+    initScrollLinkedHorizontalCards();
 });
