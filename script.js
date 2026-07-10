@@ -1,4 +1,4 @@
-// BARE MINIMUM Static Website Core Script
+// BARE MINIMUM MEDIA Static Website Core Script
 
 // API URL selection based on current hostname
 const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
@@ -21,7 +21,7 @@ async function loadDispenserLocations() {
                 name: m.name,
                 locationType: m.location_type,
                 address: m.address,
-                description: m.description || "ตู้จ่ายผ้าอนามัย BARE MINIMUM พร้อมให้บริการรับฟรีสำหรับสมาชิก",
+                description: m.description || "ตู้จ่ายผ้าอนามัย BARE MINIMUM MEDIA พร้อมให้บริการรับฟรีสำหรับสมาชิก",
                 lat: m.lat,
                 lon: m.lon
             }));
