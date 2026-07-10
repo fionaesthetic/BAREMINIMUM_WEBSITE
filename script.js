@@ -196,7 +196,15 @@ function initScrollReveal() {
     });
 
     revealElements.forEach(el => {
-        observer.observe(el);
+        // If element is inside the top services section, reveal it immediately on load
+        if (el.closest('#what-we-offer')) {
+            // Use setTimeout to allow initial layout pass before triggering transition
+            setTimeout(() => {
+                el.classList.add('revealed');
+            }, 50);
+        } else {
+            observer.observe(el);
+        }
     });
 }
 
