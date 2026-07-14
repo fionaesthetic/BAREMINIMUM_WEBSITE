@@ -275,7 +275,8 @@ function setupModals() {
     // Form Submissions Mock Handler
     const forms = {
         host: document.getElementById('host-form'),
-        partner: document.getElementById('partner-form')
+        partner: document.getElementById('partner-form'),
+        contact: document.getElementById('contact-form')
     };
 
     Object.keys(forms).forEach(key => {
