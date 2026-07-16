@@ -1007,9 +1007,11 @@ strong {
 }
 
 .adv-card-palette-2 {
-    background-color: var(--color-secondary);
-    color: #ffffff;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    background-color: #171717;
+    background-image: linear-gradient(135deg, #222222 0%, #171717 100%);
+    border: none;
+    color: var(--color-text-dark);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .adv-card-palette-3 {
@@ -1201,11 +1203,23 @@ strong {
 }
 
 .adv-box-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.1rem; /* smaller to fit in 1 line */
+    white-space: nowrap; /* prevent wrapping */
     font-weight: 700;
     color: var(--color-secondary);
     line-height: 1.2;
     font-family: var(--font-heading);
+}
+
+/* Card 2 Dark Palette hover and SVG overrides to match Card 8 */
+#advertisers .adv-card-palette-2:hover {
+    background-color: #0a0a0a !important;
+    background-image: none !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+}
+
+.adv-card-palette-2 svg.spike-chart path:first-child {
+    stroke: rgba(255, 255, 255, 0.22) !important;
 }
 
 .adv-pill-huge-text {
@@ -1814,17 +1828,17 @@ strong {
     #advertisers .adv-card:nth-child(1) {
         z-index: 1;
         --card-offset-y: 35px;
-        margin-right: -2.2rem;
+        margin-right: -3.2rem;
     }
     #advertisers .adv-card:nth-child(2) {
         z-index: 2;
         --card-offset-y: 75px;
-        margin-right: -2.2rem;
+        margin-right: -3.2rem;
     }
     #advertisers .adv-card:nth-child(3) {
         z-index: 3;
         --card-offset-y: -25px;
-        margin-right: -2.2rem;
+        margin-right: -3.2rem;
     }
     #advertisers .adv-card:nth-child(4) {
         z-index: 4;
