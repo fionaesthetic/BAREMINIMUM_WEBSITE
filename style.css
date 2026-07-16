@@ -15,7 +15,6 @@
     
     --font-heading: 'Outfit', 'IBM Plex Sans Thai', sans-serif;
     --font-body: 'IBM Plex Sans Thai', sans-serif;
-    --font-serif: 'Instrument Serif', 'Playfair Display', 'IBM Plex Sans Thai', serif;
     
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-quick: all 0.2s ease;
@@ -935,17 +934,29 @@ strong {
 
 #advertisers .advertiser-grid {
     grid-template-columns: repeat(4, 1fr);
+    align-items: start; /* Enable uneven heights */
+    gap: 1rem; /* Base gap for spacing */
+}
+
+@media (min-width: 993px) {
+    #advertisers .advertiser-grid {
+        gap: 0; /* Remove gap on desktop to allow horizontal overlapping */
+        padding-top: 3.5rem;
+        padding-bottom: 4.5rem;
+    }
 }
 
 @media (max-width: 992px) {
     #advertisers .advertiser-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 }
 
 @media (max-width: 768px) {
     #advertisers .advertiser-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
 
@@ -960,6 +971,222 @@ strong {
     flex-direction: column;
     width: 100%;
     height: 100%;
+}
+
+/* Premium Staggered Overlapping Cards style */
+.adv-card-premium {
+    padding: 2.5rem 2.2rem;
+    border-radius: 24px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    height: auto; /* Allow auto heights for uneven look */
+}
+
+/* Card background themes */
+.adv-card-red {
+    background-color: #FF4B3A;
+    color: #111111;
+    box-shadow: 0 15px 35px rgba(255, 75, 58, 0.15);
+}
+
+.adv-card-plum {
+    background-color: #6B1530;
+    color: #FFFFFF;
+    box-shadow: 0 15px 35px rgba(107, 21, 48, 0.15);
+}
+
+.adv-card-lime {
+    background-color: #BFFF60;
+    color: #111111;
+    box-shadow: 0 15px 35px rgba(191, 255, 96, 0.15);
+}
+
+/* Badge styling */
+.adv-card-premium .adv-badge-premium {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.adv-card-lime .adv-badge-premium {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #111111;
+}
+
+.adv-card-red .adv-badge-premium {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #111111;
+}
+
+.adv-card-plum .adv-badge-premium {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #BFFF60;
+}
+
+/* Editorial Title */
+.adv-title-premium {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 1.2rem 0;
+    line-height: 1.2;
+}
+
+.adv-card-red .adv-title-premium,
+.adv-card-lime .adv-title-premium {
+    color: #111111;
+}
+
+.adv-card-plum .adv-title-premium {
+    color: #FFFFFF;
+}
+
+.adv-card-premium text.chart-axis-text {
+    font-size: 8px;
+    font-family: var(--font-body);
+    fill: rgba(17, 17, 17, 0.6);
+    font-weight: 500;
+}
+
+.adv-card-plum text.chart-axis-text {
+    fill: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Huge Metrics styling */
+.adv-card-huge-num {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 0.95;
+    margin-bottom: 1.2rem;
+    letter-spacing: -2px;
+}
+
+.adv-card-plum .adv-card-huge-num {
+    color: #BFFF60;
+}
+
+.adv-card-red .adv-card-huge-num {
+    color: #111111;
+}
+
+.adv-card-lime .adv-card-huge-num {
+    color: #111111;
+}
+
+/* Label pills */
+.adv-card-label-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.adv-pill-green {
+    background-color: #BFFF60;
+    color: #111111;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.adv-pill-dark {
+    background-color: #111111;
+    color: #BFFF60;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.adv-pill-outline {
+    border: 1.5px solid rgba(17, 17, 17, 0.25);
+    color: #111111;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+}
+
+.adv-card-plum .adv-pill-outline {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+}
+
+/* Description text inside premium cards */
+.adv-desc-premium {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0;
+    font-weight: 400;
+}
+
+.adv-card-red .adv-desc-premium,
+.adv-card-lime .adv-desc-premium {
+    color: rgba(17, 17, 17, 0.85);
+}
+
+.adv-card-plum .adv-desc-premium {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Dwell Time comparative layout */
+.dwell-visual-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.dwell-row-premium {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dwell-tag-premium {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #111111;
+}
+
+.dwell-box-solid-premium {
+    background-color: #BFFF60;
+    color: #111111;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    min-width: 110px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dwell-box-outline-premium {
+    border: 1.5px solid #111111;
+    color: #111111;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    min-width: 110px;
+    text-align: center;
 }
 
 .adv-card-featured {
@@ -1009,214 +1236,6 @@ strong {
     font-size: 0.92rem;
     line-height: 1.6;
     color: var(--color-text-muted);
-}
-
-/* Redesigned Advertiser Cards (Editorial Subtheme) */
-.adv-card-dwell, .adv-card-plum, .adv-card-lime, .adv-card-perception {
-    border: none !important;
-    padding: 2.2rem 1.8rem !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 380px; /* Ensure uniform height */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
-    transition: var(--transition-smooth) !important;
-}
-
-.card-inner-top {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.card-serif-title {
-    font-family: var(--font-serif);
-    font-size: 2.5rem;
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    color: inherit;
-    text-transform: none;
-}
-
-.card-desc {
-    font-size: 0.92rem !important;
-    line-height: 1.5;
-    margin-top: 1.5rem;
-    color: inherit !important;
-    opacity: 0.85;
-}
-
-/* Card 1: Dwell */
-.adv-card-dwell {
-    background-color: #E75A49 !important;
-    color: #222222 !important;
-}
-
-.comparison-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.8rem;
-}
-
-.brand-label {
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.pill {
-    padding: 0.4rem 1.2rem;
-    border-radius: 50px;
-    font-family: var(--font-serif);
-    font-size: 1.4rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.pill-filled {
-    background-color: #BEF05B;
-    color: #222222;
-    min-width: 100px;
-}
-
-.pill-bordered {
-    border: 1.5px solid #222222;
-    background-color: transparent;
-    color: #222222;
-    min-width: 70px;
-}
-
-/* Card 2: Plum */
-.adv-card-plum {
-    background-color: #5E193C !important;
-    color: #FFFFFF !important;
-}
-
-.huge-number-container {
-    margin-bottom: 0.5rem;
-}
-
-.huge-number {
-    font-family: var(--font-serif);
-    font-size: 5.5rem;
-    line-height: 1;
-    color: #BEF05B;
-}
-
-.card-label-sub {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 600;
-    opacity: 0.9;
-    margin-bottom: 1.5rem;
-}
-
-/* Card 3: Lime */
-.adv-card-lime {
-    background-color: #BEF05B !important;
-    color: #222222 !important;
-}
-
-.adv-card-lime .title-sub {
-    font-family: var(--font-serif);
-    font-size: 2.2rem;
-    font-weight: 400;
-}
-
-.icons-row {
-    display: flex;
-    gap: 0.4rem;
-    margin-bottom: 1.2rem;
-    font-size: 2.2rem;
-}
-
-.icons-row i {
-    color: #222222;
-}
-
-.icons-row i.inactive-icon {
-    opacity: 0.25;
-}
-
-/* Card 4: Perception */
-.adv-card-perception {
-    background-color: #E75A49 !important;
-    color: #222222 !important;
-}
-
-.comparison-columns {
-    display: flex;
-    align-items: flex-end;
-    gap: 1.2rem;
-    margin-top: 0.5rem;
-    height: 130px;
-}
-
-.col-traditional, .col-brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-}
-
-.pill-outline {
-    width: 100%;
-    height: 45px;
-    border: 1.5px solid #222222;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    margin-bottom: 0.6rem;
-}
-
-.pill-filled-tall {
-    width: 100%;
-    height: 100px;
-    background-color: #BEF05B;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-serif);
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-bottom: 0.6rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.col-label {
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    opacity: 0.8;
-    text-align: center;
-}
-
-/* Hover states */
-.adv-card-dwell:hover, .adv-card-perception:hover {
-    transform: translateY(-8px) !important;
-    background-color: #E75A49 !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
-}
-.adv-card-plum:hover {
-    transform: translateY(-8px) !important;
-    background-color: #5E193C !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
-}
-.adv-card-lime:hover {
-    transform: translateY(-8px) !important;
-    background-color: #BEF05B !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* Special Featured Partner card (Solid Dark contrast card in light theme) */
@@ -1710,18 +1729,54 @@ strong {
 #advertisers .adv-card {
     --scroll-tx: -60px;
     --scroll-opacity: 0;
+    --card-offset-y: 0px;
+    --hover-offset-y: 0px;
     opacity: var(--scroll-opacity);
-    transform: translateX(var(--scroll-tx));
+    transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y)));
     /* A quick, smooth transition on transform/opacity helps buffer/dampen scroll steps beautifully */
     transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
+/* Specific overlapping offsets for the cards on desktop */
+@media (min-width: 993px) {
+    #advertisers .adv-card:nth-child(1) {
+        z-index: 1;
+        --card-offset-y: 35px;
+        margin-right: -4rem;
+    }
+    #advertisers .adv-card:nth-child(2) {
+        z-index: 2;
+        --card-offset-y: 75px;
+        margin-right: -4rem;
+    }
+    #advertisers .adv-card:nth-child(3) {
+        z-index: 3;
+        --card-offset-y: -25px;
+        margin-right: -4rem;
+        min-height: 440px; /* Card 3 tall layout */
+    }
+    #advertisers .adv-card:nth-child(4) {
+        z-index: 4;
+        --card-offset-y: 50px;
+        margin-right: 0;
+    }
+}
+
 #advertisers .adv-card:hover {
-    transform: translateX(var(--scroll-tx)) translateY(-5px);
+    --hover-offset-y: -12px;
+    z-index: 10 !important; /* Bring hovered card to the absolute front */
+    transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y))) scale(1.025);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+#advertisers .adv-card-featured {
+    --card-offset-y: 0px;
+    --hover-offset-y: 0px;
 }
 
 #advertisers .adv-card-featured:hover {
-    transform: translateX(var(--scroll-tx)) translateY(-5px);
+    --hover-offset-y: -5px;
+    transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y)));
 }
 
 /* Responsive Media Queries */
