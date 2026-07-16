@@ -1128,6 +1128,26 @@ strong {
     border-radius: 8px;
 }
 
+.adv-pill-outline-box {
+    border: 1.5px solid rgba(17, 17, 17, 0.15);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 1rem 1.25rem;
+    border-radius: 16px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+}
+
+.adv-pill-outline-box .adv-card-huge-num {
+    font-size: 3.5rem;
+    margin-bottom: 0;
+    line-height: 1;
+}
+
 .adv-card-palette-2 .adv-pill-outline {
     border-color: rgba(255, 255, 255, 0.25);
     color: rgba(255, 255, 255, 0.85);
