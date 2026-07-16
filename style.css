@@ -958,6 +958,38 @@ strong {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
+
+    .adv-card-premium {
+        padding: 1.6rem 1.4rem 1.4rem 1.4rem !important;
+    }
+    
+    .adv-pill-pink-box {
+        padding: 0.8rem 1rem !important;
+        gap: 0.8rem !important;
+    }
+
+    .adv-pill-pink-box .adv-card-huge-num {
+        font-size: 2.8rem !important;
+    }
+
+    .adv-box-subtitle {
+        font-size: 1rem !important;
+        white-space: normal !important;
+    }
+
+    .adv-card-metrics-row-nobox .adv-card-huge-num {
+        font-size: 2.8rem !important;
+    }
+
+    .adv-box-subtitle-small {
+        font-size: 1rem !important;
+        white-space: normal !important;
+    }
+    
+    .adv-card-premium svg.spike-chart {
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 .adv-card {
@@ -1248,7 +1280,30 @@ strong {
     white-space: nowrap;
 }
 
-/* Card 2 Dark Palette hover and SVG overrides to match Card 8 */
+.adv-card-metrics-row-nobox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    width: 100%;
+}
+
+.adv-card-metrics-row-nobox .adv-card-huge-num {
+    font-size: 3.5rem;
+    margin-bottom: 0;
+    line-height: 1;
+    color: var(--color-secondary);
+}
+
+.adv-box-subtitle-small {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    line-height: 1.15;
+    font-family: var(--font-heading);
+    white-space: nowrap;
+}
 #advertisers .adv-card-palette-2:hover {
     background-color: #0a0a0a !important;
     background-image: none !important;
@@ -1865,22 +1920,22 @@ strong {
     #advertisers .adv-card:nth-child(1) {
         z-index: 1;
         --card-offset-y: 35px;
-        margin-right: -5.2rem;
+        width: calc(100% + 5.2rem);
     }
     #advertisers .adv-card:nth-child(2) {
         z-index: 2;
         --card-offset-y: 75px;
-        margin-right: -5.2rem;
+        width: calc(100% + 5.2rem);
     }
     #advertisers .adv-card:nth-child(3) {
         z-index: 3;
         --card-offset-y: -25px;
-        margin-right: -5.2rem;
+        width: calc(100% + 5.2rem);
     }
     #advertisers .adv-card:nth-child(4) {
         z-index: 4;
         --card-offset-y: 50px;
-        margin-right: 0;
+        width: 100%;
     }
 }
 
@@ -2892,6 +2947,44 @@ strong {
     .contact-info-card,
     .contact-form-card {
         padding: 1.75rem;
+    }
+}
+
+/* Responsive mobile adjustments for advertisers section cards to prevent page overflow */
+@media (max-width: 992px) {
+    .adv-card-premium {
+        padding: 1.5rem 1.25rem !important;
+    }
+
+    .adv-pill-pink-box {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+        padding: 1rem !important;
+    }
+
+    .adv-pill-pink-box .adv-card-huge-num {
+        font-size: 2.8rem !important;
+    }
+
+    .adv-box-subtitle {
+        font-size: 1rem !important;
+        white-space: normal !important;
+    }
+
+    .adv-card-metrics-row-nobox {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+    }
+
+    .adv-card-metrics-row-nobox .adv-card-huge-num {
+        font-size: 2.8rem !important;
+    }
+
+    .adv-box-subtitle-small {
+        font-size: 1rem !important;
+        white-space: normal !important;
     }
 }
 
