@@ -1148,6 +1148,30 @@ strong {
     line-height: 1;
 }
 
+.adv-pill-huge-text {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.15;
+    font-family: var(--font-heading);
+    color: var(--color-secondary);
+}
+
+.adv-card-metrics-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.65rem;
+    margin-bottom: 1.2rem;
+}
+
+.adv-card-metrics-row .adv-card-huge-num {
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+.adv-card-metrics-row .adv-title-premium {
+    margin-bottom: 0;
+}
+
 .adv-card-palette-2 .adv-pill-outline {
     border-color: rgba(255, 255, 255, 0.25);
     color: rgba(255, 255, 255, 0.85);
