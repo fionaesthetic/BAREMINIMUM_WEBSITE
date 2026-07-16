@@ -90,96 +90,64 @@
 
                 <!-- Advertiser Cards Grid -->
                 <div class="advertiser-grid">
-                    <!-- Card 1: Hyper-Target -->
-                    <div class="adv-card">
-                        <div class="adv-badge"><i class="fas fa-bullseye"></i></div>
-                        <h3>Hyper-Targeted Audience</h3>
-                        <p></p>
-                        <div class="stat-visual-container">
-                            <div class="stat-big-number">100%</div>
-                            <div class="stat-details">
-                                <span class="stat-title">Target Audience</span>
-                                <span class="stat-subtitle">Women, ages 15–45</span>
+                    <!-- Card 1: Dwell Time (Style A) -->
+                    <div class="adv-card adv-card-dwell">
+                        <div class="card-inner-top">
+                            <h3 class="card-serif-title">Dwell time</h3>
+                            <div class="comparison-row primary-comparison">
+                                <span class="brand-label">BARE MINIMUM</span>
+                                <div class="pill pill-filled">80–120s</div>
+                            </div>
+                            <div class="comparison-row secondary-comparison">
+                                <span class="brand-label">Typical OOH</span>
+                                <div class="pill pill-bordered">2s</div>
                             </div>
                         </div>
+                        <p class="card-desc">ผู้ใช้บริการจดจ่ออยู่กับสื่อของเราเฉลี่ย 80-120 วินาที ซึ่งยาวนานกว่า OOH ทั่วไป</p>
                     </div>
 
-                    <!-- Card 2: Better Brand Perception -->
-                    <div class="adv-card">
-                        <div class="adv-badge"><i class="fas fa-thumbs-up"></i></div>
-                        <h3> 100% Better Brand Perception</h3>
-                        <p> หลายแบรนด์ต่างอยากเข้าถึงผู้หญิง เราทำให้ผู้หญิงดีใจที่เห็นแบรนด์ของคุณ
-                        </p>
-
-                        <div class="svg-wrapper">
-                            <svg viewBox="0 0 300 120" class="spike-chart">
-                                <!-- Axes -->
-                                <path d="M 30,20 L 30,100 L 270,100" fill="none" stroke="var(--color-secondary)"
-                                    stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
-
-                                <!--  X Axis indicators -->
-                                <text x="45" y="115" class="chart-axis-text">Before</text>
-                                <text x="255" y="115" class="chart-axis-text" style="text-anchor: end;">After</text>
-
-                                <!-- Gradient under the curve -->
-                                <defs>
-                                    <linearGradient id="spike-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" stop-color="#E5A89E" stop-opacity="0.45" />
-                                        <stop offset="100%" stop-color="#E5A89E" stop-opacity="0" />
-                                    </linearGradient>
-                                </defs>
-
-                                <!-- Area Path -->
-                                <path class="spike-gradient-fill"
-                                    d="M 45,100 L 45,90 L 80,60 L 110,85 L 140,50 L 170,75 L 200,30 L 230,60 L 255,25 L 255,100 Z"
-                                    fill="url(#spike-grad)" />
-
-                                <!-- Line Path -->
-                                <path class="spike-path"
-                                    d="M 45,90 L 80,60 L 110,85 L 140,50 L 170,75 L 200,30 L 230,60 L 255,25"
-                                    fill="none" stroke="#D48C7F" stroke-width="1.8" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-
-                                <!-- Arrow Head -->
-                                <path class="spike-arrow" d="M 240,30 L 255,25 L 250,42" fill="none" stroke="#D48C7F"
-                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Zero Distraction -->
-                    <div class="adv-card" data-reveal>
-                        <div class="adv-badge"><i class="fas fa-volume-mute"></i></div>
-                        <h3>Zero Distraction</h3>
-                        <p> ปราศจากสิ่งรบกวน และ scroll reflex
-                            ด้วยพื้นที่ส่วนตัวในห้องน้ำ</p>
-                    </div>
-
-                    <!-- Card 4: 100x Longer Dwell Time -->
-                    <div class="adv-card">
-                        <div class="adv-badge"><i class="fas fa-hourglass-half"></i></div>
-                        <h3>100x Longer Dwell Time</h3>
-                        <p></p>
-                        <div class="dwell-chart-container">
-                            <div class="chart-row">
-                                <div class="chart-label-container">
-                                    <span class="chart-label">สื่อ OOH ทั่วไป</span>
-                                    <span class="chart-value">2s</span>
-                                </div>
-                                <div class="chart-bar-bg">
-                                    <div class="chart-bar bar-typical" style="width: calc(2 / 60 * 100%)"></div>
-                                </div>
+                    <!-- Card 2: Zero Distraction (Style B) -->
+                    <div class="adv-card adv-card-plum">
+                        <div class="card-inner-top">
+                            <div class="huge-number-container">
+                                <span class="huge-number">0%</span>
                             </div>
-                            <div class="chart-row">
-                                <div class="chart-label-container">
-                                    <span class="chart-label-accent">Bare Minimum</span>
-                                    <span class="chart-value-accent">80–120s</span>
+                            <h3 class="card-label-sub">Scroll Reflex</h3>
+                        </div>
+                        <p class="card-desc">ปราศจากสิ่งรบกวนในระหว่างใช้บริการ ด้วยพื้นที่ส่วนตัวในห้องน้ำ</p>
+                    </div>
+
+                    <!-- Card 3: Brand Consideration (Style C) -->
+                    <div class="adv-card adv-card-lime">
+                        <div class="card-inner-top">
+                            <h3 class="card-serif-title">4/5<br><span class="title-sub">women</span></h3>
+                            <div class="icons-row">
+                                <i class="fas fa-female"></i>
+                                <i class="fas fa-female"></i>
+                                <i class="fas fa-female"></i>
+                                <i class="fas fa-female"></i>
+                                <i class="fas fa-female inactive-icon"></i>
+                            </div>
+                        </div>
+                        <p class="card-desc">4 ใน 5 ของผู้หญิงยินดีพิจารณาแบรนด์พาร์ทเนอร์หลังจากได้รับผลิตภัณฑ์จากเรา</p>
+                    </div>
+
+                    <!-- Card 4: Brand Perception (Style D) -->
+                    <div class="adv-card adv-card-perception">
+                        <div class="card-inner-top">
+                            <h3 class="card-serif-title">Perception<br>Uplift</h3>
+                            <div class="comparison-columns">
+                                <div class="col-traditional">
+                                    <div class="pill-outline">2%</div>
+                                    <span class="col-label">Traditional</span>
                                 </div>
-                                <div class="chart-bar-bg">
-                                    <div class="chart-bar bar-accent" style="width: calc(52 / 60 * 100%)"></div>
+                                <div class="col-brand">
+                                    <div class="pill-filled-tall">92%</div>
+                                    <span class="col-label">BARE MINIMUM</span>
                                 </div>
                             </div>
                         </div>
+                        <p class="card-desc">เราไม่เพียงสร้างการมองเห็น แต่เราทำให้กลุ่มเป้าหมายรู้สึกดีกับแบรนด์ของคุณ</p>
                     </div>
 
                     <!-- Card 5: Multiple Touchpoints -->

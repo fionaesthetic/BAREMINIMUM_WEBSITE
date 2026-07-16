@@ -15,6 +15,7 @@
     
     --font-heading: 'Outfit', 'IBM Plex Sans Thai', sans-serif;
     --font-body: 'IBM Plex Sans Thai', sans-serif;
+    --font-serif: 'Instrument Serif', 'Playfair Display', 'IBM Plex Sans Thai', serif;
     
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-quick: all 0.2s ease;
@@ -933,7 +934,13 @@ strong {
 }
 
 #advertisers .advertiser-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 992px) {
+    #advertisers .advertiser-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1004,6 +1011,214 @@ strong {
     color: var(--color-text-muted);
 }
 
+/* Redesigned Advertiser Cards (Editorial Subtheme) */
+.adv-card-dwell, .adv-card-plum, .adv-card-lime, .adv-card-perception {
+    border: none !important;
+    padding: 2.2rem 1.8rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 380px; /* Ensure uniform height */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+    transition: var(--transition-smooth) !important;
+}
+
+.card-inner-top {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card-serif-title {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: inherit;
+    text-transform: none;
+}
+
+.card-desc {
+    font-size: 0.92rem !important;
+    line-height: 1.5;
+    margin-top: 1.5rem;
+    color: inherit !important;
+    opacity: 0.85;
+}
+
+/* Card 1: Dwell */
+.adv-card-dwell {
+    background-color: #E75A49 !important;
+    color: #222222 !important;
+}
+
+.comparison-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.brand-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.pill {
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pill-filled {
+    background-color: #BEF05B;
+    color: #222222;
+    min-width: 100px;
+}
+
+.pill-bordered {
+    border: 1.5px solid #222222;
+    background-color: transparent;
+    color: #222222;
+    min-width: 70px;
+}
+
+/* Card 2: Plum */
+.adv-card-plum {
+    background-color: #5E193C !important;
+    color: #FFFFFF !important;
+}
+
+.huge-number-container {
+    margin-bottom: 0.5rem;
+}
+
+.huge-number {
+    font-family: var(--font-serif);
+    font-size: 5.5rem;
+    line-height: 1;
+    color: #BEF05B;
+}
+
+.card-label-sub {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+}
+
+/* Card 3: Lime */
+.adv-card-lime {
+    background-color: #BEF05B !important;
+    color: #222222 !important;
+}
+
+.adv-card-lime .title-sub {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 400;
+}
+
+.icons-row {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+    font-size: 2.2rem;
+}
+
+.icons-row i {
+    color: #222222;
+}
+
+.icons-row i.inactive-icon {
+    opacity: 0.25;
+}
+
+/* Card 4: Perception */
+.adv-card-perception {
+    background-color: #E75A49 !important;
+    color: #222222 !important;
+}
+
+.comparison-columns {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+    height: 130px;
+}
+
+.col-traditional, .col-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.pill-outline {
+    width: 100%;
+    height: 45px;
+    border: 1.5px solid #222222;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+}
+
+.pill-filled-tall {
+    width: 100%;
+    height: 100px;
+    background-color: #BEF05B;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.col-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    text-align: center;
+}
+
+/* Hover states */
+.adv-card-dwell:hover, .adv-card-perception:hover {
+    transform: translateY(-8px) !important;
+    background-color: #E75A49 !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+}
+.adv-card-plum:hover {
+    transform: translateY(-8px) !important;
+    background-color: #5E193C !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+}
+.adv-card-lime:hover {
+    transform: translateY(-8px) !important;
+    background-color: #BEF05B !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
 /* Special Featured Partner card (Solid Dark contrast card in light theme) */
 .adv-card-featured {
     flex: 1 1 100% !important;
@@ -1023,7 +1238,13 @@ strong {
 }
 
 #advertisers .adv-card-featured {
-    grid-column: span 2;
+    grid-column: span 4;
+}
+
+@media (max-width: 992px) {
+    #advertisers .adv-card-featured {
+        grid-column: span 2;
+    }
 }
 
 @media (max-width: 768px) {
