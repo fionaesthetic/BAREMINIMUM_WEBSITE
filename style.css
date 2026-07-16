@@ -1941,9 +1941,10 @@ strong {
 
 #advertisers .adv-card:hover {
     --hover-offset-y: -12px;
-    z-index: 10 !important; /* Bring hovered card to the absolute front */
+    z-index: 100 !important; /* Bring hovered card to the absolute front */
+    opacity: 1 !important; /* Make the card solid (not transparent) */
     transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y))) scale(1.025);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
 }
 
 #advertisers .adv-card-featured {
@@ -1953,6 +1954,8 @@ strong {
 
 #advertisers .adv-card-featured:hover {
     --hover-offset-y: -5px;
+    z-index: 100 !important;
+    opacity: 1 !important;
     transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y)));
 }
 
