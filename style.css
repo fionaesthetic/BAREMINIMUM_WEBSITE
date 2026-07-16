@@ -1176,10 +1176,10 @@ strong {
 
 .adv-pill-pink-box {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.7rem;
-    padding: 1.25rem 1.3rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.1rem 1.3rem;
     background-color: rgba(229, 168, 158, 0.12); /* light pink fill */
     border: 1.5px solid rgba(229, 168, 158, 0.22);
     border-radius: 18px;
@@ -1189,17 +1189,16 @@ strong {
 }
 
 .adv-pill-pink-box .adv-card-huge-num {
-    font-size: 4.8rem; /* Make it massive, filling the line! */
+    font-size: 3.5rem;
     margin-bottom: 0;
-    line-height: 0.95;
+    line-height: 1;
     color: var(--color-secondary);
 }
 
 .adv-box-details {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    width: 100%;
+    gap: 0.2rem;
 }
 
 .adv-box-title {
