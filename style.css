@@ -1741,7 +1741,6 @@ strong {
         z-index: 3;
         --card-offset-y: -25px;
         margin-right: -4rem;
-        min-height: 440px; /* Card 3 tall layout */
     }
     #advertisers .adv-card:nth-child(4) {
         z-index: 4;
