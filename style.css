@@ -975,7 +975,7 @@ strong {
 
 /* Premium Staggered Overlapping Cards style */
 .adv-card-premium {
-    padding: 2.5rem 2.2rem;
+    padding: 2.2rem 2.2rem 1.6rem 2.2rem;
     border-radius: 24px;
     border: none;
     display: flex;
@@ -983,6 +983,15 @@ strong {
     justify-content: flex-start;
     box-sizing: border-box;
     height: auto; /* Allow auto heights for uneven look */
+}
+
+/* Eliminate extra spacing at the bottom of the card caused by final element margins */
+.adv-card-premium > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+.adv-card-premium > *:last-child > *:last-child {
+    margin-bottom: 0 !important;
 }
 
 /* Make SVG chart display large inside Card 2 */
@@ -1209,6 +1218,35 @@ strong {
     color: var(--color-secondary);
     line-height: 1.2;
     font-family: var(--font-heading);
+}
+
+.adv-pill-row-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.1rem 1.3rem;
+    background-color: rgba(229, 168, 158, 0.08);
+    border: 1.5px solid rgba(229, 168, 158, 0.18);
+    border-radius: 18px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adv-pill-row-box .adv-card-huge-num {
+    font-size: 3.5rem;
+    margin-bottom: 0;
+    line-height: 1;
+    color: var(--color-secondary);
+}
+
+.adv-pill-row-box .adv-box-subtitle {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    line-height: 1.15;
+    font-family: var(--font-heading);
+    white-space: nowrap;
 }
 
 /* Card 2 Dark Palette hover and SVG overrides to match Card 8 */
@@ -1828,17 +1866,17 @@ strong {
     #advertisers .adv-card:nth-child(1) {
         z-index: 1;
         --card-offset-y: 35px;
-        margin-right: -3.2rem;
+        margin-right: -5.2rem;
     }
     #advertisers .adv-card:nth-child(2) {
         z-index: 2;
         --card-offset-y: 75px;
-        margin-right: -3.2rem;
+        margin-right: -5.2rem;
     }
     #advertisers .adv-card:nth-child(3) {
         z-index: 3;
         --card-offset-y: -25px;
-        margin-right: -3.2rem;
+        margin-right: -5.2rem;
     }
     #advertisers .adv-card:nth-child(4) {
         z-index: 4;
