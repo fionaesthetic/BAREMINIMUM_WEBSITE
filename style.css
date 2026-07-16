@@ -933,13 +933,7 @@ strong {
 }
 
 #advertisers .advertiser-grid {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-@media (max-width: 992px) {
-    #advertisers .advertiser-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    grid-template-columns: repeat(2, 1fr);
 }
 
 @media (max-width: 768px) {
@@ -1029,13 +1023,7 @@ strong {
 }
 
 #advertisers .adv-card-featured {
-    grid-column: span 4;
-}
-
-@media (max-width: 992px) {
-    #advertisers .adv-card-featured {
-        grid-column: span 2;
-    }
+    grid-column: span 2;
 }
 
 @media (max-width: 768px) {
