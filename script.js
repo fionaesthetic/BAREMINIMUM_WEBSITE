@@ -446,19 +446,23 @@ function initScrollLinkedHorizontalCards() {
                 card.style.transform = '';
 
                 // Stagger progress window:
-                // Card 1 (idx 0): progress 0.0 to 0.6 (slides first)
-                // Card 2 (idx 1): progress 0.25 to 0.85 (slides second)
-                // Card 4 (idx 2): progress 0.5 to 1.0 (slides third)
-                // Card 8 (idx 3): progress 0.2 to 0.8 (slides when its row enters viewport)
+                // Card 1 (idx 0): progress 0.0 to 0.6
+                // Card 2 (idx 1): progress 0.15 to 0.75
+                // Card 3 (idx 2): progress 0.30 to 0.90
+                // Card 4 (idx 3): progress 0.45 to 1.00
+                // Card 8 (idx 4): progress 0.20 to 0.80 (slides when its row enters viewport)
                 let startRange = 0.0;
                 let endRange = 0.6;
                 if (idx === 1) {
-                    startRange = 0.25;
-                    endRange = 0.85;
+                    startRange = 0.15;
+                    endRange = 0.75;
                 } else if (idx === 2) {
-                    startRange = 0.5;
-                    endRange = 1.0;
+                    startRange = 0.3;
+                    endRange = 0.9;
                 } else if (idx === 3) {
+                    startRange = 0.45;
+                    endRange = 1.0;
+                } else if (idx === 4) {
                     startRange = 0.2;
                     endRange = 0.8;
                 }
