@@ -1905,6 +1905,7 @@ strong {
 
 /* Scroll-Linked horizontal slide transition for advertisers section cards */
 #advertisers .adv-card {
+    position: relative; /* Enable z-index layering on all browsers */
     --scroll-tx: -60px;
     --scroll-opacity: 0;
     --card-offset-y: 0px;
