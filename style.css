@@ -1052,7 +1052,7 @@ strong {
 
 /* Editorial Title */
 .adv-title-premium {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 700;
     margin: 0 0 1.2rem 0;
@@ -1082,7 +1082,7 @@ strong {
 
 /* Huge Metrics styling */
 .adv-card-huge-num {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: var(--font-heading);
     font-size: 5rem;
     font-weight: 800;
     line-height: 0.95;
