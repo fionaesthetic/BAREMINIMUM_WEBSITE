@@ -1148,6 +1148,49 @@ strong {
     line-height: 1;
 }
 
+.adv-pill-pink-box {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.1rem 1.3rem;
+    background-color: rgba(229, 168, 158, 0.12); /* light pink fill */
+    border: 1.5px solid rgba(229, 168, 158, 0.22);
+    border-radius: 16px;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+.adv-pill-pink-box .adv-card-huge-num {
+    font-size: 3.2rem;
+    margin-bottom: 0;
+    line-height: 1;
+    color: var(--color-secondary);
+}
+
+.adv-box-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.adv-box-title {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.adv-box-subtitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    line-height: 1.15;
+    font-family: var(--font-heading);
+}
+
 .adv-pill-huge-text {
     font-size: 2.1rem;
     font-weight: 700;
