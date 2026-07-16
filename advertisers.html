@@ -91,24 +91,24 @@
                 <!-- Advertiser Cards Grid -->
                 <div class="advertiser-grid">
                     <!-- Card 1: Hyper-Targeted -->
-                    <div class="adv-card adv-card-premium adv-card-red" data-reveal>
+                    <div class="adv-card adv-card-premium adv-card-light" data-reveal>
                         <div class="adv-badge-premium"><i class="fas fa-bullseye"></i></div>
                         <h3 class="adv-title-premium">Hyper-Targeted</h3>
                         <div class="adv-card-huge-num">100%</div>
                         <div class="adv-card-label-row">
-                            <span class="adv-pill-dark">Target Audience</span>
+                            <span class="adv-pill-accent">Target Audience</span>
                             <span class="adv-pill-outline">Women, ages 15–45</span>
                         </div>
                         <p class="adv-desc-premium">เข้าถึงกลุ่มผู้หญิงโดยตรง 100% ในช่วงอายุ 15-45 ปี โดยไร้ wasted engagement งบโฆษณาของคุณจะถูกใช้เพื่อสื่อสารกับกลุ่มเป้าหมายของคุณเท่านั้น</p>
                     </div>
 
                     <!-- Card 2: Better Brand Perception -->
-                    <div class="adv-card adv-card-premium adv-card-plum" data-reveal>
+                    <div class="adv-card adv-card-premium adv-card-dark" data-reveal>
                         <div class="adv-badge-premium"><i class="fas fa-thumbs-up"></i></div>
                         <h3 class="adv-title-premium">Perception Uplift</h3>
                         <div class="adv-card-huge-num">100%</div>
                         <div class="adv-card-label-row">
-                            <span class="adv-pill-green">Better Brand Perception</span>
+                            <span class="adv-pill-accent">Better Brand Perception</span>
                         </div>
                         <p class="adv-desc-premium">หลายแบรนด์ต่างอยากเข้าถึงผู้หญิง เราทำให้ผู้หญิงดีใจที่เห็นแบรนด์ของคุณ</p>
                         
@@ -124,54 +124,65 @@
 
                                 <!-- Gradient under the curve -->
                                 <defs>
-                                    <linearGradient id="spike-grad-plum" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" stop-color="#BFFF60" stop-opacity="0.4" />
-                                        <stop offset="100%" stop-color="#BFFF60" stop-opacity="0" />
+                                    <linearGradient id="spike-grad-accent" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.4" />
+                                        <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />
                                     </linearGradient>
                                 </defs>
 
                                 <!-- Area Path -->
                                 <path class="spike-gradient-fill"
                                     d="M 45,100 L 45,90 L 80,60 L 110,85 L 140,50 L 170,75 L 200,30 L 230,60 L 255,25 L 255,100 Z"
-                                    fill="url(#spike-grad-plum)" />
+                                    fill="url(#spike-grad-accent)" />
 
                                 <!-- Line Path -->
                                 <path class="spike-path"
                                     d="M 45,90 L 80,60 L 110,85 L 140,50 L 170,75 L 200,30 L 230,60 L 255,25"
-                                    fill="none" stroke="#BFFF60" stroke-width="2" stroke-linecap="round"
+                                    fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" />
 
                                 <!-- Arrow Head -->
-                                <path class="spike-arrow" d="M 240,30 L 255,25 L 250,42" fill="none" stroke="#BFFF60"
+                                <path class="spike-arrow" d="M 240,30 L 255,25 L 250,42" fill="none" stroke="var(--color-accent)"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
                     </div>
 
                     <!-- Card 3: Zero Distraction -->
-                    <div class="adv-card adv-card-premium adv-card-lime" data-reveal>
+                    <div class="adv-card adv-card-premium adv-card-light" data-reveal>
                         <div class="adv-badge-premium"><i class="fas fa-volume-mute"></i></div>
                         <h3 class="adv-title-premium">Zero Distraction</h3>
                         <div class="adv-card-huge-num">0%</div>
                         <div class="adv-card-label-row">
-                            <span class="adv-pill-dark">Focus & Attention</span>
+                            <span class="adv-pill-accent">Focus & Attention</span>
                         </div>
                         <p class="adv-desc-premium">ปราศจากสิ่งรบกวน และ scroll reflex ด้วยพื้นที่ส่วนตัวในห้องน้ำ</p>
                     </div>
 
                     <!-- Card 4: 100x Longer Dwell Time -->
-                    <div class="adv-card adv-card-premium adv-card-red" data-reveal>
+                    <div class="adv-card adv-card-premium adv-card-light" data-reveal>
                         <div class="adv-badge-premium"><i class="fas fa-hourglass-half"></i></div>
                         <h3 class="adv-title-premium">Dwell Time</h3>
+                        <div class="adv-card-huge-num">100x</div>
                         
-                        <div class="dwell-visual-premium">
-                            <div class="dwell-row-premium">
-                                <span class="dwell-tag-premium">ON THE HOUSE</span>
-                                <div class="dwell-box-solid-premium">80–120s</div>
+                        <div class="dwell-chart-container" style="margin-bottom: 1.5rem;">
+                            <div class="chart-row">
+                                <div class="chart-label-container">
+                                    <span class="chart-label">สื่อ OOH ทั่วไป</span>
+                                    <span class="chart-value">2s</span>
+                                </div>
+                                <div class="chart-bar-bg">
+                                    <div class="chart-bar bar-typical" style="width: calc(2 / 60 * 100%)"></div>
+                                </div>
                             </div>
-                            <div class="dwell-row-premium">
-                                <span class="dwell-tag-premium">Typical OOH</span>
-                                <div class="dwell-box-outline-premium">2s</div>
+                            <div class="chart-row">
+                                <div class="chart-label-container">
+                                    <span class="chart-label-accent">Bare Minimum</span>
+                                    <span class="chart-value-accent">80–120s</span>
+                                </div>
+                                <div class="chart-bar-bg">
+                                    <div class="chart-bar bar-accent" style="width: calc(52 / 60 * 100%)"></div>
+                                </div>
                             </div>
                         </div>
 

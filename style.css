@@ -986,22 +986,17 @@ strong {
 }
 
 /* Card background themes */
-.adv-card-red {
-    background-color: #FF4B3A;
-    color: #111111;
-    box-shadow: 0 15px 35px rgba(255, 75, 58, 0.15);
+.adv-card-light {
+    background-color: #ffffff;
+    border: 1px solid var(--border-light);
+    color: var(--color-secondary);
+    box-shadow: var(--shadow-soft);
 }
 
-.adv-card-plum {
-    background-color: #6B1530;
-    color: #FFFFFF;
-    box-shadow: 0 15px 35px rgba(107, 21, 48, 0.15);
-}
-
-.adv-card-lime {
-    background-color: #BFFF60;
-    color: #111111;
-    box-shadow: 0 15px 35px rgba(191, 255, 96, 0.15);
+.adv-card-dark {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
 /* Badge styling */
@@ -1016,19 +1011,14 @@ strong {
     border-radius: 50%;
 }
 
-.adv-card-lime .adv-badge-premium {
-    background-color: rgba(0, 0, 0, 0.08);
-    color: #111111;
+.adv-card-light .adv-badge-premium {
+    background-color: rgba(229, 168, 158, 0.15);
+    color: var(--color-accent-hover);
 }
 
-.adv-card-red .adv-badge-premium {
-    background-color: rgba(0, 0, 0, 0.08);
-    color: #111111;
-}
-
-.adv-card-plum .adv-badge-premium {
-    background-color: rgba(255, 255, 255, 0.12);
-    color: #BFFF60;
+.adv-card-dark .adv-badge-premium {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-accent);
 }
 
 /* Editorial Title */
@@ -1040,24 +1030,23 @@ strong {
     line-height: 1.2;
 }
 
-.adv-card-red .adv-title-premium,
-.adv-card-lime .adv-title-premium {
-    color: #111111;
+.adv-card-light .adv-title-premium {
+    color: var(--color-secondary);
 }
 
-.adv-card-plum .adv-title-premium {
-    color: #FFFFFF;
+.adv-card-dark .adv-title-premium {
+    color: #ffffff;
 }
 
 .adv-card-premium text.chart-axis-text {
     font-size: 8px;
     font-family: var(--font-body);
-    fill: rgba(17, 17, 17, 0.6);
+    fill: var(--color-text-muted);
     font-weight: 500;
 }
 
-.adv-card-plum text.chart-axis-text {
-    fill: rgba(255, 255, 255, 0.6) !important;
+.adv-card-dark text.chart-axis-text {
+    fill: rgba(255, 255, 255, 0.5) !important;
 }
 
 /* Huge Metrics styling */
@@ -1070,16 +1059,12 @@ strong {
     letter-spacing: -2px;
 }
 
-.adv-card-plum .adv-card-huge-num {
-    color: #BFFF60;
+.adv-card-light .adv-card-huge-num {
+    color: var(--color-accent-hover);
 }
 
-.adv-card-red .adv-card-huge-num {
-    color: #111111;
-}
-
-.adv-card-lime .adv-card-huge-num {
-    color: #111111;
+.adv-card-dark .adv-card-huge-num {
+    color: var(--color-accent);
 }
 
 /* Label pills */
@@ -1090,20 +1075,9 @@ strong {
     margin-bottom: 1.5rem;
 }
 
-.adv-pill-green {
-    background-color: #BFFF60;
-    color: #111111;
-    font-weight: 700;
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.adv-pill-dark {
-    background-color: #111111;
-    color: #BFFF60;
+.adv-pill-accent {
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
     font-weight: 700;
     font-size: 0.8rem;
     padding: 0.4rem 0.8rem;
@@ -1113,17 +1087,17 @@ strong {
 }
 
 .adv-pill-outline {
-    border: 1.5px solid rgba(17, 17, 17, 0.25);
-    color: #111111;
-    font-weight: 700;
+    border: 1.5px solid rgba(17, 17, 17, 0.15);
+    color: var(--color-text-muted);
+    font-weight: 600;
     font-size: 0.8rem;
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
 }
 
-.adv-card-plum .adv-pill-outline {
+.adv-card-dark .adv-pill-outline {
     border-color: rgba(255, 255, 255, 0.25);
-    color: #FFFFFF;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* Description text inside premium cards */
@@ -1134,59 +1108,12 @@ strong {
     font-weight: 400;
 }
 
-.adv-card-red .adv-desc-premium,
-.adv-card-lime .adv-desc-premium {
-    color: rgba(17, 17, 17, 0.85);
+.adv-card-light .adv-desc-premium {
+    color: var(--color-text-muted);
 }
 
-.adv-card-plum .adv-desc-premium {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-/* Dwell Time comparative layout */
-.dwell-visual-premium {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-}
-
-.dwell-row-premium {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.dwell-tag-premium {
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #111111;
-}
-
-.dwell-box-solid-premium {
-    background-color: #BFFF60;
-    color: #111111;
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 0.6rem 1.2rem;
-    border-radius: 12px;
-    min-width: 110px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-.dwell-box-outline-premium {
-    border: 1.5px solid #111111;
-    color: #111111;
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 0.6rem 1.2rem;
-    border-radius: 12px;
-    min-width: 110px;
-    text-align: center;
+.adv-card-dark .adv-desc-premium {
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .adv-card-featured {
