@@ -1093,11 +1093,11 @@ strong {
 .adv-card-palette-1 .adv-card-huge-num,
 .adv-card-palette-3 .adv-card-huge-num,
 .adv-card-palette-4 .adv-card-huge-num {
-    color: var(--color-accent-hover);
+    color: var(--color-secondary);
 }
 
 .adv-card-palette-2 .adv-card-huge-num {
-    color: var(--color-accent);
+    color: #ffffff;
 }
 
 /* Label pills */
