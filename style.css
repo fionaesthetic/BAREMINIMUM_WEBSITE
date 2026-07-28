@@ -685,16 +685,16 @@ strong {
     align-items: center;
 }
 
-.mission-logo-img {
+.mission-dispenser-img {
     max-width: 100%;
     height: auto;
-    max-height: 280px;
+    max-height: 550px;
     object-fit: contain;
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
     transition: var(--transition-smooth);
 }
 
-.mission-logo-img:hover {
+.mission-dispenser-img:hover {
     transform: scale(1.03);
 }
 
@@ -2129,8 +2129,8 @@ strong {
         font-size: 2rem;
         margin-bottom: 1rem;
     }
-    .mission-logo-img {
-        max-height: 200px;
+    .mission-dispenser-img {
+        max-height: 380px;
     }
     .mission-text {
         font-size: 1.15rem;
