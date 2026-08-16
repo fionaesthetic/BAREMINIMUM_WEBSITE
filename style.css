@@ -688,7 +688,7 @@ strong {
 .mission-dispenser-img {
     max-width: 100%;
     height: auto;
-    max-height: 550px;
+    max-height: 650px;
     object-fit: contain;
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
     transition: var(--transition-smooth);
@@ -2130,7 +2130,7 @@ strong {
         margin-bottom: 1rem;
     }
     .mission-dispenser-img {
-        max-height: 380px;
+        max-height: 450px;
     }
     .mission-text {
         font-size: 1.15rem;
