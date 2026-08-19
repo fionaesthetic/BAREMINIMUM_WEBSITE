@@ -1379,10 +1379,9 @@ strong {
 }
 
 .adv-card:hover {
-    transform: translateY(-5px);
     background-color: rgba(34, 34, 34, 0.05);
-    border-color: rgba(34, 34, 34, 0.12);
-    box-shadow: var(--shadow-premium);
+    border-color: rgba(229, 168, 158, 0.35);
+    box-shadow: 0 0 25px rgba(229, 168, 158, 0.45);
 }
 
 .adv-badge {
@@ -1463,10 +1462,9 @@ strong {
 }
 
 .adv-card-featured:hover {
-    transform: translateY(-5px);
     background-color: #0a0a0a;
     background-image: none;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 30px rgba(229, 168, 158, 0.5);
 }
 
 .featured-content {
@@ -1899,65 +1897,146 @@ strong {
     transform: translateX(0);
 }
 
-#what-we-offer .adv-card:hover {
-    transform: translateY(-5px);
+
+/* Tab Scroll Layout for Become Our Partner section */
+.tab-scroll-container {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    position: relative;
 }
 
-/* Scroll-Linked horizontal slide transition for advertisers section cards */
-#advertisers .adv-card {
-    position: relative; /* Enable z-index layering on all browsers */
-    --scroll-tx: -60px;
-    --scroll-opacity: 0;
-    --card-offset-y: 0px;
-    --hover-offset-y: 0px;
-    opacity: var(--scroll-opacity);
-    transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y)));
-    /* A quick, smooth transition on transform/opacity helps buffer/dampen scroll steps beautifully */
-    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+.tab-scroll-left {
+    flex: 1;
+    position: sticky;
+    top: 130px;
+    height: auto;
+    max-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
-/* Specific overlapping offsets for the cards on desktop */
-@media (min-width: 993px) {
-    #advertisers .adv-card:nth-child(1) {
-        z-index: 1;
-        --card-offset-y: 35px;
-        width: calc(100% + 5.2rem);
-    }
-    #advertisers .adv-card:nth-child(2) {
-        z-index: 2;
-        --card-offset-y: 75px;
-        width: calc(100% + 5.2rem);
-    }
-    #advertisers .adv-card:nth-child(3) {
-        z-index: 3;
-        --card-offset-y: -25px;
-        width: calc(100% + 5.2rem);
-    }
-    #advertisers .adv-card:nth-child(4) {
-        z-index: 4;
-        --card-offset-y: 50px;
-        width: 100%;
-    }
+.tab-scroll-right {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding-bottom: 8rem;
+}
+
+.scroll-tabs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+    border-left: 2px solid rgba(34, 34, 34, 0.08);
+    padding-left: 1.5rem;
+}
+
+.scroll-tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    position: relative;
+    padding: 0.25rem 0;
+}
+
+.scroll-tab-item.active {
+    opacity: 1;
+}
+
+.scroll-tab-item .tab-number {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.2rem;
+}
+
+.scroll-tab-item .tab-label {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+}
+
+.scroll-tab-item.active .tab-label {
+    color: var(--color-accent-hover);
+}
+
+/* Horizontal Progress Line under Tab Label */
+.tab-progress-line {
+    width: 60px;
+    height: 3px;
+    background-color: rgba(34, 34, 34, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-tab-item.active .tab-progress-line {
+    opacity: 1;
+}
+
+.scroll-tab-item .progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+}
+
+/* Right Content Cards */
+.scroll-content-card {
+    padding: 4.5rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0.3;
+    transform: scale(0.96);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-content-card.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.scroll-content-card .adv-card {
+    width: 100% !important;
+    height: auto !important;
+    box-sizing: border-box;
+}
+
+.adv-card-palette-2 .svg-wrapper {
+    max-width: 220px !important;
+    margin: 1.5rem auto 1rem auto !important;
+}
+
+.adv-dwell-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-description-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-top: 1.5rem;
 }
 
 #advertisers .adv-card:hover {
-    --hover-offset-y: -12px;
-    z-index: 100 !important; /* Bring hovered card to the absolute front */
-    opacity: 1 !important; /* Make the card solid (not transparent) */
-    transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y))) scale(1.025);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-}
-
-#advertisers .adv-card-featured {
-    --card-offset-y: 0px;
-    --hover-offset-y: 0px;
-}
-
-#advertisers .adv-card-featured:hover {
-    --hover-offset-y: -5px;
-    z-index: 100 !important;
-    opacity: 1 !important;
-    transform: translate(var(--scroll-tx), calc(var(--card-offset-y) + var(--hover-offset-y)));
+    background-color: rgba(34, 34, 34, 0.05);
+    border-color: rgba(229, 168, 158, 0.35);
+    box-shadow: 0 0 25px rgba(229, 168, 158, 0.45);
 }
 
 /* Responsive Media Queries */
@@ -2146,7 +2225,15 @@ strong {
 
 /* Our Services section spacing when placed at bottom of page content */
 .offer-section {
-    padding: 6rem 0 10rem !important;
+    padding: 6rem 0 4rem !important;
+}
+
+.offer-section.standalone-section {
+    padding-top: 10rem !important;
+}
+
+.advertisers-section {
+    padding: 4rem 0 10rem !important;
 }
 
 .nav-link.active-nav {
@@ -2989,6 +3076,84 @@ strong {
     .adv-box-subtitle-small {
         font-size: 1rem !important;
         white-space: normal !important;
+    }
+
+    /* Tab Scroll Responsive Override */
+    .tab-scroll-container {
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+
+    .tab-scroll-left {
+        position: sticky !important;
+        top: 70px !important;
+        z-index: 100 !important;
+        width: 100% !important;
+        background-color: var(--color-primary) !important;
+        padding: 1rem 0 !important;
+        margin-bottom: 0 !important;
+        max-height: none !important;
+        border-bottom: 1px solid var(--border-light) !important;
+    }
+
+    .tab-scroll-left .section-header {
+        margin-bottom: 0 !important;
+    }
+    
+    .tab-scroll-left .section-header h2,
+    .tab-scroll-left .section-header p {
+        display: none !important; /* Hide h2 and p in the sticky header on mobile to keep it compact */
+    }
+
+    .scroll-tabs-list {
+        flex-direction: row !important;
+        border-left: none !important;
+        padding-left: 0 !important;
+        gap: 1rem !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        width: 100% !important;
+        margin-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+        scrollbar-width: none !important;
+    }
+
+    .scroll-tabs-list::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .scroll-tab-item {
+        flex: 0 0 auto !important;
+        padding: 0.25rem 0.5rem !important;
+        align-items: center !important;
+    }
+
+    .scroll-tab-item .tab-number {
+        margin-bottom: 0 !important;
+        margin-right: 0.3rem !important;
+        display: inline-block !important;
+    }
+    
+    .scroll-tab-item .tab-label {
+        font-size: 1rem !important;
+        display: inline-block !important;
+    }
+
+    .tab-progress-line {
+        display: none !important;
+    }
+
+    .tab-scroll-right {
+        width: 100% !important;
+        gap: 3rem !important;
+        padding-bottom: 4rem !important;
+    }
+
+    .scroll-content-card {
+        min-height: auto !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
     }
 }
 

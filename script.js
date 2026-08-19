@@ -409,80 +409,104 @@ function highlightActiveNavLink() {
     });
 }
 
-// 9. Scroll-Linked Horizontal Cards Animation for advertisers.html
-function initScrollLinkedHorizontalCards() {
-    const grids = document.querySelectorAll('#advertisers .advertiser-grid');
-    if (grids.length === 0) return;
+// 9. Tab Scroll Animation for Become Our Partner section
+function initTabScrollAnimation() {
+    const tabItems = document.querySelectorAll('.scroll-tab-item');
+    const contentCards = document.querySelectorAll('.scroll-content-card');
+    const tabList = document.querySelector('.scroll-tabs-list');
+    if (tabItems.length === 0 || contentCards.length === 0) return;
 
-    function mapRange(value, inMin, inMax, outMin, outMax) {
-        if (value <= inMin) return outMin;
-        if (value >= inMax) return outMax;
-        return outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin);
-    }
-
-    function updateHorizontalSlides() {
+    function updateTabScroll() {
         const viewportHeight = window.innerHeight;
+        const targetLine = viewportHeight * 0.45; // Focus line at 45% of viewport height
+        let activeIdx = 0;
+        let minDiff = Infinity;
 
-        grids.forEach((grid) => {
-            const rect = grid.getBoundingClientRect();
-            // Only animate if the grid is entering or inside the viewport
-            if (rect.bottom < 0 || rect.top > viewportHeight) return;
+        // On mobile, the target line is higher to account for sticky tab bar
+        const isMobile = window.innerWidth <= 992;
+        const activeTargetLine = isMobile ? viewportHeight * 0.55 : targetLine;
 
-            // Select only the visible cards inside this grid
-            const cards = Array.from(grid.querySelectorAll('.adv-card')).filter(card => {
-                return window.getComputedStyle(card).display !== 'none';
-            });
+        contentCards.forEach((card, idx) => {
+            const rect = card.getBoundingClientRect();
+            // We measure distance of the card top to our target line
+            const diff = Math.abs(rect.top - activeTargetLine);
+            if (diff < minDiff) {
+                minDiff = diff;
+                activeIdx = idx;
+            }
+        });
 
-            cards.forEach((card, idx) => {
-                const cardRect = card.getBoundingClientRect();
+        // Update active classes
+        contentCards.forEach((card, idx) => {
+            if (idx === activeIdx) {
+                card.classList.add('active');
+                card.classList.add('revealed');
+            } else {
+                card.classList.remove('active');
+                card.classList.remove('revealed');
+            }
+        });
 
-                // Calculate progress for each card individually based on its own screen position
-                const startY = viewportHeight;
-                const endY = viewportHeight * 0.55; // Stop animating when card reaches 55% from top of screen
-                let progress = (startY - cardRect.top) / (startY - endY);
-                progress = Math.max(0, Math.min(1, progress));
-
-                // Clear any inline transform overrides to allow CSS transition rules to work
-                card.style.transform = '';
-
-                // Stagger progress window:
-                // Card 1 (idx 0): progress 0.0 to 0.6
-                // Card 2 (idx 1): progress 0.15 to 0.75
-                // Card 3 (idx 2): progress 0.30 to 0.90
-                // Card 4 (idx 3): progress 0.45 to 1.00
-                // Card 8 (idx 4): progress 0.20 to 0.80 (slides when its row enters viewport)
-                let startRange = 0.0;
-                let endRange = 0.6;
-                if (idx === 1) {
-                    startRange = 0.15;
-                    endRange = 0.75;
-                } else if (idx === 2) {
-                    startRange = 0.3;
-                    endRange = 0.9;
-                } else if (idx === 3) {
-                    startRange = 0.45;
-                    endRange = 1.0;
-                } else if (idx === 4) {
-                    startRange = 0.2;
-                    endRange = 0.8;
+        tabItems.forEach((tab, idx) => {
+            const progressBar = tab.querySelector('.progress-bar');
+            
+            if (idx === activeIdx) {
+                tab.classList.add('active');
+                
+                // Scroll the mobile horizontal tab bar to keep active tab centered
+                if (isMobile && tabList) {
+                    const tabRect = tab.getBoundingClientRect();
+                    const listRect = tabList.getBoundingClientRect();
+                    const scrollLeftOffset = tab.offsetLeft - (listRect.width / 2) + (tabRect.width / 2);
+                    tabList.scrollTo({
+                        left: scrollLeftOffset,
+                        behavior: 'smooth'
+                    });
                 }
 
-                // Map progress to translation (from -60px to 0px) and opacity (from 0 to 1)
-                const currentTranslateX = mapRange(progress, startRange, endRange, -60, 0);
-                const currentOpacity = mapRange(progress, startRange, endRange, 0, 1);
-
-                card.style.setProperty('--scroll-tx', `${currentTranslateX}px`);
-                card.style.setProperty('--scroll-opacity', currentOpacity);
-
-                // Toggle revealed class to trigger nested graphic reveal animations
-                card.classList.toggle('revealed', progress > startRange);
-            });
+                // Calculate progress within this card
+                const activeCard = contentCards[activeIdx];
+                const cardRect = activeCard.getBoundingClientRect();
+                const startPoint = viewportHeight * 0.8;
+                const endPoint = viewportHeight * 0.2;
+                
+                let progress = (startPoint - cardRect.top) / (startPoint - endPoint);
+                progress = Math.max(0, Math.min(1, progress));
+                
+                if (progressBar) {
+                    progressBar.style.width = `${progress * 100}%`;
+                }
+            } else {
+                tab.classList.remove('active');
+                if (progressBar) {
+                    progressBar.style.width = idx < activeIdx ? '100%' : '0%';
+                }
+            }
         });
     }
 
-    window.addEventListener('scroll', updateHorizontalSlides);
-    window.addEventListener('resize', updateHorizontalSlides);
-    updateHorizontalSlides();
+    // Tab Clicking smooth scroll
+    tabItems.forEach((tab, idx) => {
+        tab.addEventListener('click', () => {
+            const targetCard = contentCards[idx];
+            if (!targetCard) return;
+
+            const isMobile = window.innerWidth <= 992;
+            const yOffset = isMobile ? -140 : -100; // Account for headers/sticky elements
+            const rect = targetCard.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const targetY = rect.top + scrollTop + yOffset;
+
+            window.scrollTo({
+                top: targetY,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    window.addEventListener('scroll', updateTabScroll);
+    window.addEventListener('resize', updateTabScroll);
+    updateTabScroll();
 }
 
 // 10. Document Ready Hook
@@ -516,5 +540,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupModals();
     initGeneralUI();
     highlightActiveNavLink();
-    initScrollLinkedHorizontalCards();
+    initTabScrollAnimation();
 });
