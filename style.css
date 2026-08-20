@@ -2926,10 +2926,8 @@ strong {
 
 /* Contact Page Specific Styles */
 .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 3rem;
-    align-items: start;
+    display: flex;
+    justify-content: center;
     margin-top: 2rem;
     margin-bottom: 6rem;
 }
@@ -2942,6 +2940,8 @@ strong {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 100%;
+    max-width: 580px;
 }
 
 .contact-company-title {
@@ -3008,35 +3008,9 @@ strong {
     color: var(--color-accent-hover) !important;
 }
 
-.contact-form-card {
-    background: #ffffff;
-    border: 1px solid var(--border-light);
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: var(--shadow-premium);
-}
-
-.contact-form-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-secondary);
-}
-
-.contact-form-card p {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin-bottom: 2rem;
-}
-
 /* Mobile responsive contact page */
 @media (max-width: 992px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .contact-info-card,
-    .contact-form-card {
+    .contact-info-card {
         padding: 1.75rem;
     }
 }
