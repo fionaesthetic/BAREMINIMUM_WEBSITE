@@ -23,7 +23,8 @@ async function loadDispenserLocations() {
                 address: m.address,
                 description: m.description || "ตู้จ่ายผ้าอนามัย BARE MINIMUM พร้อมให้บริการรับฟรีสำหรับสมาชิก",
                 lat: m.lat,
-                lon: m.lon
+                lon: m.lon,
+                googleMapsUrl: m.google_maps_url || (m.lat && m.lon ? `https://www.google.com/maps/search/?api=1&query=${m.lat},${m.lon}` : "")
             }));
             console.log("Loaded locations from backoffice API:", dispenserLocations);
         }
@@ -69,9 +70,18 @@ function initMap() {
                         console.warn("Skipping marker due to invalid coordinates:", location);
                         return;
                     }
+                    const gmapUrl = location.googleMapsUrl || (location.lat && location.lon ? `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lon}` : "");
+                    const gmapPopupHtml = gmapUrl ? `
+                        <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid rgba(0,0,0,0.1);">
+                            <a href="${gmapUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 5px; background: #e5a89e; color: #1a1a1a; padding: 4px 10px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; font-weight: 600;">
+                                <i class="fas fa-location-arrow"></i> นำทางผ่าน Google Maps
+                            </a>
+                        </div>
+                    ` : '';
+
                     const marker = new longdo.Marker({ lon: location.lon, lat: location.lat }, {
                         title: location.name,
-                        detail: `${location.address}<br>${location.description}`,
+                        detail: `<div style="font-family: inherit; font-size: 0.85rem; line-height: 1.4;">${location.address}<br><span style="color: #666; font-size: 0.8rem;">${location.description}</span>${gmapPopupHtml}</div>`,
                         icon: {
                             html: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="48"><path fill="#ef4444" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><circle cx="12" cy="9" r="2.5" fill="#FFFFFF"/></svg>',
                             offset: { x: 18, y: 48 }
@@ -135,6 +145,7 @@ function renderLocationsList() {
         `;
     } else {
         dispenserLocations.forEach(loc => {
+            const gmapUrl = loc.googleMapsUrl || (loc.lat && loc.lon ? `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lon}` : "");
             const itemHTML = `
                 <div class="location-item" data-id="${loc.id}" onclick="focusLocation('${loc.id}')">
                     <div class="item-header" style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
@@ -145,6 +156,13 @@ function renderLocationsList() {
                     <div style="font-size: 0.78rem; color: #a6a4a0; margin-top: 0.35rem;">
                         <i class="fas fa-info-circle"></i> ${loc.description}
                     </div>
+                    ${gmapUrl ? `
+                    <div class="item-actions" style="margin-top: 0.75rem;">
+                        <a href="${gmapUrl}" target="_blank" rel="noopener noreferrer" class="btn-gmap-direct" onclick="event.stopPropagation()">
+                            <i class="fas fa-map-marker-alt"></i> เปิดบน Google Maps <i class="fas fa-external-link-alt" style="font-size: 0.68rem; margin-left: 2px; opacity: 0.85;"></i>
+                        </a>
+                    </div>
+                    ` : ''}
                 </div>
             `;
             listContainer.insertAdjacentHTML('beforeend', itemHTML);
