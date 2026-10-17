@@ -272,31 +272,104 @@ function setupModals() {
         document.body.style.overflow = ''; // Restore page scrolling
     }
 
-    // Form Submissions Mock Handler
-    const forms = {
-        host: document.getElementById('host-form'),
-        partner: document.getElementById('partner-form'),
-        contact: document.getElementById('contact-form')
-    };
-
-    Object.keys(forms).forEach(key => {
-        if (!forms[key]) return;
-        forms[key].addEventListener('submit', (e) => {
+    // Form Submissions to Backend API
+    const hostForm = document.getElementById('host-form');
+    if (hostForm) {
+        hostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            // Trigger toast alert
-            if (toast) {
-                toast.classList.add('active');
-                setTimeout(() => {
-                    toast.classList.remove('active');
-                }, 4000);
+            const submitBtn = hostForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerText : 'ส่งข้อมูลเสนอพื้นที่';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'กำลังส่งข้อมูล...';
             }
 
-            // Clean up and close modal
-            closeAllModals();
-            forms[key].reset();
+            const payload = {
+                form_type: 'host_dispenser',
+                name: document.getElementById('host-name')?.value?.trim() || '',
+                email: document.getElementById('host-email')?.value?.trim() || '',
+                phone: document.getElementById('host-phone')?.value?.trim() || '',
+                location_details: document.getElementById('host-location-details')?.value?.trim() || ''
+            };
+
+            try {
+                const res = await fetch(`${apiUrl}/api/website/inquiries`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error('Failed to submit form');
+
+                // Trigger toast alert
+                if (toast) {
+                    toast.classList.add('active');
+                    setTimeout(() => {
+                        toast.classList.remove('active');
+                    }, 4500);
+                }
+
+                closeAllModals();
+                hostForm.reset();
+            } catch (err) {
+                console.error('Submission error:', err);
+                alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                }
+            }
         });
-    });
+    }
+
+    const partnerForm = document.getElementById('partner-form');
+    if (partnerForm) {
+        partnerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = partnerForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerText : 'ส่งคำขอข้อมูลพาร์ทเนอร์';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'กำลังส่งข้อมูล...';
+            }
+
+            const payload = {
+                form_type: 'partner',
+                name: document.getElementById('partner-company')?.value?.trim() || '',
+                contact_person: document.getElementById('partner-contact')?.value?.trim() || '',
+                phone: document.getElementById('partner-phone')?.value?.trim() || '',
+                email: document.getElementById('partner-email')?.value?.trim() || '',
+                message: document.getElementById('partner-msg')?.value?.trim() || ''
+            };
+
+            try {
+                const res = await fetch(`${apiUrl}/api/website/inquiries`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error('Failed to submit form');
+
+                if (toast) {
+                    toast.classList.add('active');
+                    setTimeout(() => {
+                        toast.classList.remove('active');
+                    }, 4500);
+                }
+
+                closeAllModals();
+                partnerForm.reset();
+            } catch (err) {
+                console.error('Submission error:', err);
+                alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                }
+            }
+        });
+    }
 }
 
 // 7. General UI / Scrolling Effects
