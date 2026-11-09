@@ -600,8 +600,120 @@ function initTabScrollAnimation() {
     updateTabScroll();
 }
 
-// 10. Document Ready Hook
+// 10. Impact Counter (Fetch Total Pads Dispensed from Back Office Dispensal Report & Running Digit-Up Animation)
+async function initImpactCounter() {
+    const counterEl = document.getElementById('impact-counter');
+    if (!counterEl) return;
+
+    let totalPads = 0;
+    const baseUrls = [apiUrl];
+    if (apiUrl.includes('localhost') || apiUrl.includes('127.0.0.1')) {
+        baseUrls.push('https://bareminimum-production.up.railway.app');
+    }
+
+    const candidateUrls = [];
+    for (const base of baseUrls) {
+        candidateUrls.push(`${base}/api/admin/reports/dispensals?summary=true`);
+        candidateUrls.push(`${base}/api/website/stats`);
+    }
+
+    for (const url of candidateUrls) {
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                const data = await response.json();
+                const count = typeof data.totalPads === 'number'
+                    ? data.totalPads
+                    : data.total_pads_dispensed;
+                if (typeof count === 'number') {
+                    totalPads = count;
+                    break;
+                }
+            }
+        } catch (err) {
+            console.warn(`Unable to fetch impact stats from ${url}:`, err);
+        }
+    }
+
+    renderRollingDigits(counterEl, Math.max(0, Math.floor(totalPads)));
+}
+
+function renderRollingDigits(container, targetNumber) {
+    const formatted = targetNumber.toLocaleString('en-US');
+    container.innerHTML = '';
+    container.setAttribute('aria-label', `${formatted}`);
+
+    const ribbons = [];
+    let digitIdx = 0;
+
+    for (const ch of formatted) {
+        if (ch === ',') {
+            const sep = document.createElement('span');
+            sep.className = 'impact-digit-separator';
+            sep.textContent = ',';
+            container.appendChild(sep);
+            continue;
+        }
+
+        const targetDigit = parseInt(ch, 10) || 0;
+        const loops = 1 + digitIdx; // Higher place values settle first, ones digit spins more
+        const digitsSequence = [];
+
+        for (let l = 0; l < loops; l++) {
+            for (let d = 0; d <= 9; d++) {
+                digitsSequence.push(d);
+            }
+        }
+        for (let d = 0; d <= targetDigit; d++) {
+            digitsSequence.push(d);
+        }
+
+        const box = document.createElement('span');
+        box.className = 'impact-digit-box';
+
+        const viewport = document.createElement('span');
+        viewport.className = 'impact-digit-viewport';
+
+        const ribbon = document.createElement('span');
+        ribbon.className = 'impact-digit-ribbon';
+
+        digitsSequence.forEach(num => {
+            const digitSpan = document.createElement('span');
+            digitSpan.className = 'impact-digit';
+            digitSpan.textContent = String(num);
+            ribbon.appendChild(digitSpan);
+        });
+
+        viewport.appendChild(ribbon);
+        box.appendChild(viewport);
+        container.appendChild(box);
+
+        ribbons.push({
+            el: ribbon,
+            totalItems: digitsSequence.length,
+            index: digitIdx
+        });
+        digitIdx++;
+    }
+
+    // Trigger upward digit roll animation on next paint frame
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            ribbons.forEach(({ el, totalItems, index }) => {
+                const duration = 1.6 + index * 0.35;
+                const translatePct = ((totalItems - 1) / totalItems) * 100;
+                el.style.transition = `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`;
+                el.style.transform = `translateY(-${translatePct}%)`;
+            });
+        });
+    });
+}
+
+// 11. Document Ready Hook
 document.addEventListener('DOMContentLoaded', async () => {
+    // Load impact counter stats on home page
+    initImpactCounter();
+
     // Load dispenser locations from backoffice API only on map pages
     const hasMapOrList = document.getElementById('map') || document.getElementById('location-items');
     if (hasMapOrList) {
