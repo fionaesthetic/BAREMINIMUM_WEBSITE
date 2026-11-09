@@ -252,6 +252,18 @@ strong {
     transform: translateY(-2px);
 }
 
+.btn-yellow {
+    background-color: #F6D365;
+    color: var(--color-secondary);
+    box-shadow: 0 4px 15px rgba(246, 211, 101, 0.25);
+}
+
+.btn-yellow:hover {
+    background-color: #EBC148;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(246, 211, 101, 0.4);
+}
+
 /* Mobile Toggle */
 .mobile-menu-toggle {
     display: none;
@@ -496,6 +508,16 @@ strong {
     padding-bottom: 0.75rem;
 }
 
+.impact-digit-plus {
+    font-family: var(--font-heading);
+    font-size: 7.5rem;
+    font-weight: 800;
+    color: var(--color-secondary);
+    line-height: 1;
+    margin-left: 0.15rem;
+    user-select: none;
+}
+
 @media (max-width: 768px) {
     .impact-counter-box {
         padding: 1rem 0;
@@ -516,6 +538,10 @@ strong {
 
     .impact-digit-separator {
         font-size: 4rem;
+    }
+
+    .impact-digit-plus {
+        font-size: 4.8rem;
     }
 }
 

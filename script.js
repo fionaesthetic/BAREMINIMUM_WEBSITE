@@ -600,12 +600,12 @@ function initTabScrollAnimation() {
     updateTabScroll();
 }
 
-// 10. Impact Counter (Fetch Unique Users Dispensed from Back Office Dispensal Report & Running Digit-Up Animation)
+// 10. Impact Counter (Fetch Total Pads Dispensed from Back Office Dispensal Report & Running Digit-Up Animation)
 async function initImpactCounter() {
     const counterEl = document.getElementById('impact-counter');
     if (!counterEl) return;
 
-    let uniqueUsersCount = 0;
+    let totalPads = 0;
     const baseUrls = [apiUrl];
     if (apiUrl.includes('localhost') || apiUrl.includes('127.0.0.1')) {
         baseUrls.push('https://bareminimum-production.up.railway.app');
@@ -622,11 +622,11 @@ async function initImpactCounter() {
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
-                const count = typeof data.uniqueUsers === 'number'
-                    ? data.uniqueUsers
-                    : data.unique_users;
+                const count = typeof data.totalPads === 'number'
+                    ? data.totalPads
+                    : data.total_pads_dispensed;
                 if (typeof count === 'number') {
-                    uniqueUsersCount = count;
+                    totalPads = count;
                     break;
                 }
             }
@@ -635,13 +635,13 @@ async function initImpactCounter() {
         }
     }
 
-    renderRollingDigits(counterEl, Math.max(0, Math.floor(uniqueUsersCount)));
+    renderRollingDigits(counterEl, Math.max(0, Math.floor(totalPads)));
 }
 
 function renderRollingDigits(container, targetNumber) {
     const formatted = targetNumber.toLocaleString('en-US');
     container.innerHTML = '';
-    container.setAttribute('aria-label', `${formatted}`);
+    container.setAttribute('aria-label', `${formatted}+`);
 
     const ribbons = [];
     let digitIdx = 0;
@@ -695,6 +695,11 @@ function renderRollingDigits(container, targetNumber) {
         });
         digitIdx++;
     }
+
+    const plusSpan = document.createElement('span');
+    plusSpan.className = 'impact-digit-plus';
+    plusSpan.textContent = '+';
+    container.appendChild(plusSpan);
 
     // Trigger upward digit roll animation on next paint frame
     requestAnimationFrame(() => {
