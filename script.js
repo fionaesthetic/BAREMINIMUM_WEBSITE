@@ -600,12 +600,12 @@ function initTabScrollAnimation() {
     updateTabScroll();
 }
 
-// 10. Impact Counter (Fetch Total Pads Dispensed from Back Office Dispensal Report & Running Digit-Up Animation)
+// 10. Impact Counter (Fetch Unique Users Dispensed from Back Office Dispensal Report & Running Digit-Up Animation)
 async function initImpactCounter() {
     const counterEl = document.getElementById('impact-counter');
     if (!counterEl) return;
 
-    let totalPads = 0;
+    let uniqueUsersCount = 0;
     const baseUrls = [apiUrl];
     if (apiUrl.includes('localhost') || apiUrl.includes('127.0.0.1')) {
         baseUrls.push('https://bareminimum-production.up.railway.app');
@@ -622,11 +622,11 @@ async function initImpactCounter() {
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
-                const count = typeof data.totalPads === 'number'
-                    ? data.totalPads
-                    : data.total_pads_dispensed;
+                const count = typeof data.uniqueUsers === 'number'
+                    ? data.uniqueUsers
+                    : data.unique_users;
                 if (typeof count === 'number') {
-                    totalPads = count;
+                    uniqueUsersCount = count;
                     break;
                 }
             }
@@ -635,7 +635,7 @@ async function initImpactCounter() {
         }
     }
 
-    renderRollingDigits(counterEl, Math.max(0, Math.floor(totalPads)));
+    renderRollingDigits(counterEl, Math.max(0, Math.floor(uniqueUsersCount)));
 }
 
 function renderRollingDigits(container, targetNumber) {
