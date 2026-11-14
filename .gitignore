@@ -1,0 +1,7 @@
+# macOS & iCloud Drive placeholders
+.DS_Store
+**/.DS_Store
+*.icloud
+**/*.icloud
+.*.icloud
+**/.*.icloud
