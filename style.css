@@ -3669,14 +3669,13 @@ strong {
 
 .partner-brands-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1.35rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
 }
 
 .partner-brand-card {
     position: relative;
-    aspect-ratio: 1 / 1;
-    border-radius: 20px;
+    border-radius: 24px;
     background: #ffffff;
     border: 1.5px solid rgba(34, 34, 34, 0.08);
     box-shadow: var(--shadow-soft);
@@ -3696,7 +3695,7 @@ strong {
 
 .partner-brand-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 36px rgba(34, 34, 34, 0.11);
+    box-shadow: 0 20px 42px rgba(34, 34, 34, 0.12);
     border-color: var(--color-accent);
 }
 
@@ -3711,69 +3710,95 @@ strong {
 }
 
 .partner-brand-logo-box {
-    flex: 1;
     width: 100%;
-    min-height: 0;
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.25rem;
+    padding: 0.9rem;
     background: #ffffff;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .partner-brand-logo-img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+    border-radius: 14px;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .partner-brand-card:hover .partner-brand-logo-img {
-    transform: scale(1.06);
+    transform: scale(1.04);
 }
 
 .partner-brand-footer {
     width: 100%;
-    padding: 0.7rem 0.9rem;
+    flex: 1;
+    padding: 1.15rem 1.35rem 1.35rem;
     background: #faf9f6;
     border-top: 1px solid rgba(34, 34, 34, 0.06);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    flex-shrink: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
 }
 
 .partner-brand-name {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-family: var(--font-heading);
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.35;
     color: var(--color-secondary);
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.partner-brand-action-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: rgba(229, 168, 158, 0.22);
-    color: #9f5246;
+.partner-brand-tagline {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--color-text-muted);
+    margin: -0.25rem 0 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.partner-visit-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 0.72rem 1.15rem;
+    border-radius: 999px;
+    background: var(--color-secondary);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
-    flex-shrink: 0;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    gap: 0.5rem;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.partner-brand-card:hover .partner-brand-action-icon {
-    background: var(--color-secondary);
-    color: #ffffff;
-    transform: translateX(1px);
+.partner-visit-btn i {
+    font-size: 0.8rem;
+    transition: transform 0.25s ease;
+}
+
+.partner-brand-card:hover .partner-visit-btn {
+    background: var(--color-accent);
+    color: #111111;
+    box-shadow: 0 6px 18px rgba(229, 168, 158, 0.45);
+}
+
+.partner-brand-card:hover .partner-visit-btn i {
+    transform: translateX(2px);
 }
 
 .partner-brand-channel-badge {
@@ -4032,13 +4057,7 @@ a.partner-contact-card:hover {
 }
 
 /* Responsive Breakpoints for Partner Marketplace */
-@media (max-width: 1100px) {
-    .partner-brands-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 860px) {
+@media (max-width: 960px) {
     .partner-banner-wrapper {
         aspect-ratio: 16 / 8;
         border-radius: 18px;
@@ -4050,8 +4069,8 @@ a.partner-contact-card:hover {
 
     .partner-brands-grid,
     .partner-brands-loading {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
     }
 }
 
@@ -4095,24 +4114,24 @@ a.partner-contact-card:hover {
 
     .partner-brands-grid,
     .partner-brands-loading {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.85rem;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 1.15rem;
     }
 
     .partner-brand-card {
-        border-radius: 16px;
+        border-radius: 20px;
     }
 
     .partner-brand-logo-box {
-        padding: 0.9rem;
+        padding: 0.75rem;
     }
 
     .partner-brand-footer {
-        padding: 0.55rem 0.7rem;
+        padding: 1rem 1.15rem 1.15rem;
     }
 
     .partner-brand-name {
-        font-size: 0.82rem;
+        font-size: 1.05rem;
     }
 
     .partner-category-section-head {

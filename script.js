@@ -1133,19 +1133,26 @@ function renderPartnerBrands() {
             const footer = document.createElement('div');
             footer.className = 'partner-brand-footer';
 
-            const nameSpan = document.createElement('span');
+            const nameSpan = document.createElement('div');
             nameSpan.className = 'partner-brand-name';
             nameSpan.textContent = brand.name;
             nameSpan.title = brand.name;
             footer.appendChild(nameSpan);
 
+            if (brand.tagline && brand.tagline.trim()) {
+                const tagEl = document.createElement('p');
+                tagEl.className = 'partner-brand-tagline';
+                tagEl.textContent = brand.tagline.trim();
+                footer.appendChild(tagEl);
+            }
+
             if (channels.length > 0) {
-                const iconSpan = document.createElement('span');
-                iconSpan.className = 'partner-brand-action-icon';
-                iconSpan.innerHTML = channels.length === 1
-                    ? '<i class="fas fa-arrow-up-right-from-square"></i>'
-                    : '<i class="fas fa-chevron-right"></i>';
-                footer.appendChild(iconSpan);
+                const visitBtn = document.createElement('span');
+                visitBtn.className = 'partner-visit-btn';
+                visitBtn.innerHTML = channels.length === 1
+                    ? 'Visit Brand <i class="fas fa-arrow-up-right-from-square"></i>'
+                    : 'Visit Brand <i class="fas fa-chevron-right"></i>';
+                footer.appendChild(visitBtn);
             }
 
             cardEl.appendChild(footer);
