@@ -964,16 +964,15 @@ function getPartnerCategoryGroups() {
     const { categories, brands } = partnerMarketplaceState;
     const groups = [];
 
+    // Include every active category created in Backoffice so tabs always reflect all categories
     categories.forEach(cat => {
         const catBrands = brands.filter(b => b.category_id === cat.id);
-        if (catBrands.length > 0) {
-            groups.push({
-                key: String(cat.id),
-                name: cat.name,
-                description: cat.description || '',
-                brands: catBrands
-            });
-        }
+        groups.push({
+            key: String(cat.id),
+            name: cat.name,
+            description: cat.description || '',
+            brands: catBrands
+        });
     });
 
     const knownCatIds = new Set(categories.map(c => c.id));
@@ -981,7 +980,7 @@ function getPartnerCategoryGroups() {
     if (uncategorized.length > 0) {
         groups.push({
             key: 'uncategorized',
-            name: groups.length > 0 ? 'พาร์ทเนอร์อื่นๆ' : 'แบรนด์พาร์ทเนอร์ของเรา',
+            name: 'Other',
             description: '',
             brands: uncategorized
         });
@@ -996,7 +995,7 @@ function renderPartnerCategoryPills() {
     if (!bar || !pillsEl) return;
 
     const groups = getPartnerCategoryGroups();
-    if (groups.length <= 1) {
+    if (partnerMarketplaceState.brands.length === 0) {
         bar.style.display = 'none';
         return;
     }
@@ -1005,12 +1004,12 @@ function renderPartnerCategoryPills() {
     pillsEl.innerHTML = '';
 
     const totalBrands = partnerMarketplaceState.brands.length;
-    const pillItems = [
-        { key: 'all', name: 'ทั้งหมด', count: totalBrands },
+    const tabItems = [
+        { key: 'all', name: 'All Brands', count: totalBrands },
         ...groups.map(g => ({ key: g.key, name: g.name, count: g.brands.length }))
     ];
 
-    pillItems.forEach(item => {
+    tabItems.forEach(item => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = `partner-category-pill${partnerMarketplaceState.activeCategory === item.key ? ' active' : ''}`;
@@ -1043,7 +1042,7 @@ function renderPartnerBrands() {
     const groups = getPartnerCategoryGroups();
     container.innerHTML = '';
 
-    if (groups.length === 0) {
+    if (partnerMarketplaceState.brands.length === 0) {
         const section = document.getElementById('bm-partners');
         const offerSection = document.getElementById('what-we-offer');
         if (section) section.style.display = 'none';
@@ -1051,117 +1050,111 @@ function renderPartnerBrands() {
         return;
     }
 
-    const visibleGroups = partnerMarketplaceState.activeCategory === 'all'
-        ? groups
-        : groups.filter(g => g.key === partnerMarketplaceState.activeCategory);
+    const activeKey = partnerMarketplaceState.activeCategory;
+    const isAllTab = activeKey === 'all';
+    const activeGroup = isAllTab ? null : groups.find(g => g.key === activeKey);
+    const displayBrands = isAllTab
+        ? partnerMarketplaceState.brands
+        : (activeGroup ? activeGroup.brands : []);
 
-    visibleGroups.forEach(group => {
-        const sectionEl = document.createElement('div');
-        sectionEl.className = 'partner-category-section';
+    if (activeGroup && activeGroup.description) {
+        const desc = document.createElement('p');
+        desc.className = 'partner-tab-description';
+        desc.textContent = activeGroup.description;
+        container.appendChild(desc);
+    }
 
-        const head = document.createElement('div');
-        head.className = 'partner-category-section-head';
+    if (displayBrands.length === 0) {
+        const emptyTab = document.createElement('div');
+        emptyTab.className = 'partner-tab-empty';
+        emptyTab.textContent = 'ยังไม่มีแบรนด์ในหมวดหมู่นี้';
+        container.appendChild(emptyTab);
+        return;
+    }
 
-        const titleWrap = document.createElement('div');
-        titleWrap.className = 'partner-category-title-wrap';
+    const grid = document.createElement('div');
+    grid.className = 'partner-brands-grid';
 
-        const title = document.createElement('h3');
-        title.className = 'partner-category-title';
-        title.textContent = group.name;
-        titleWrap.appendChild(title);
+    displayBrands.forEach(brand => {
+        const channels = Array.isArray(brand.channels)
+            ? brand.channels.filter(ch => ch && ch.url && ch.url.trim())
+            : [];
+        const brandCategoryName = brand.category_name || (activeGroup ? activeGroup.name : '');
 
-        if (group.description) {
-            const desc = document.createElement('p');
-            desc.className = 'partner-category-desc';
-            desc.textContent = group.description;
-            titleWrap.appendChild(desc);
+        let cardEl;
+        if (channels.length === 1) {
+            cardEl = document.createElement('a');
+            cardEl.href = channels[0].url;
+            cardEl.target = '_blank';
+            cardEl.rel = 'noopener noreferrer';
+            cardEl.className = 'partner-brand-card';
+            cardEl.setAttribute('aria-label', `${brand.name} - ${channels[0].label || 'Website'}`);
+        } else if (channels.length > 1) {
+            cardEl = document.createElement('button');
+            cardEl.type = 'button';
+            cardEl.className = 'partner-brand-card';
+            cardEl.setAttribute('aria-label', `${brand.name} - เลือกช่องทางการจำหน่าย (${channels.length} ช่องทาง)`);
+            cardEl.addEventListener('click', () => openPartnerBrandModal(brand, brandCategoryName));
+        } else {
+            cardEl = document.createElement('div');
+            cardEl.className = 'partner-brand-card is-static';
         }
 
-        const countLabel = document.createElement('span');
-        countLabel.className = 'partner-category-count-label';
-        countLabel.textContent = `${group.brands.length} แบรนด์`;
+        if (channels.length > 1) {
+            const badge = document.createElement('span');
+            badge.className = 'partner-brand-channel-badge';
+            badge.innerHTML = `<i class="fas fa-store"></i> ${channels.length} ช่องทาง`;
+            cardEl.appendChild(badge);
+        }
 
-        head.appendChild(titleWrap);
-        head.appendChild(countLabel);
-        sectionEl.appendChild(head);
+        const logoBox = document.createElement('div');
+        logoBox.className = 'partner-brand-logo-box';
 
-        const grid = document.createElement('div');
-        grid.className = 'partner-brands-grid';
+        const logoImg = document.createElement('img');
+        logoImg.src = resolvePartnerMediaUrl(brand.logo_url);
+        logoImg.alt = brand.name;
+        logoImg.className = 'partner-brand-logo-img';
+        logoImg.loading = 'lazy';
+        logoBox.appendChild(logoImg);
+        cardEl.appendChild(logoBox);
 
-        group.brands.forEach(brand => {
-            const channels = Array.isArray(brand.channels)
-                ? brand.channels.filter(ch => ch && ch.url && ch.url.trim())
-                : [];
+        const footer = document.createElement('div');
+        footer.className = 'partner-brand-footer';
 
-            let cardEl;
-            if (channels.length === 1) {
-                cardEl = document.createElement('a');
-                cardEl.href = channels[0].url;
-                cardEl.target = '_blank';
-                cardEl.rel = 'noopener noreferrer';
-                cardEl.className = 'partner-brand-card';
-                cardEl.setAttribute('aria-label', `${brand.name} - ${channels[0].label || 'Website'}`);
-            } else if (channels.length > 1) {
-                cardEl = document.createElement('button');
-                cardEl.type = 'button';
-                cardEl.className = 'partner-brand-card';
-                cardEl.setAttribute('aria-label', `${brand.name} - เลือกช่องทางการจำหน่าย (${channels.length} ช่องทาง)`);
-                cardEl.addEventListener('click', () => openPartnerBrandModal(brand, group.name));
-            } else {
-                cardEl = document.createElement('div');
-                cardEl.className = 'partner-brand-card is-static';
-            }
+        if (isAllTab && brandCategoryName) {
+            const catTag = document.createElement('span');
+            catTag.className = 'partner-brand-cat-label';
+            catTag.textContent = brandCategoryName;
+            footer.appendChild(catTag);
+        }
 
-            if (channels.length > 1) {
-                const badge = document.createElement('span');
-                badge.className = 'partner-brand-channel-badge';
-                badge.innerHTML = `<i class="fas fa-store"></i> ${channels.length} ช่องทาง`;
-                cardEl.appendChild(badge);
-            }
+        const nameSpan = document.createElement('div');
+        nameSpan.className = 'partner-brand-name';
+        nameSpan.textContent = brand.name;
+        nameSpan.title = brand.name;
+        footer.appendChild(nameSpan);
 
-            const logoBox = document.createElement('div');
-            logoBox.className = 'partner-brand-logo-box';
+        if (brand.tagline && brand.tagline.trim()) {
+            const tagEl = document.createElement('p');
+            tagEl.className = 'partner-brand-tagline';
+            tagEl.textContent = brand.tagline.trim();
+            footer.appendChild(tagEl);
+        }
 
-            const logoImg = document.createElement('img');
-            logoImg.src = resolvePartnerMediaUrl(brand.logo_url);
-            logoImg.alt = brand.name;
-            logoImg.className = 'partner-brand-logo-img';
-            logoImg.loading = 'lazy';
-            logoBox.appendChild(logoImg);
-            cardEl.appendChild(logoBox);
+        if (channels.length > 0) {
+            const visitBtn = document.createElement('span');
+            visitBtn.className = 'partner-visit-btn';
+            visitBtn.innerHTML = channels.length === 1
+                ? 'Visit Brand <i class="fas fa-arrow-up-right-from-square"></i>'
+                : 'Visit Brand <i class="fas fa-chevron-right"></i>';
+            footer.appendChild(visitBtn);
+        }
 
-            const footer = document.createElement('div');
-            footer.className = 'partner-brand-footer';
-
-            const nameSpan = document.createElement('div');
-            nameSpan.className = 'partner-brand-name';
-            nameSpan.textContent = brand.name;
-            nameSpan.title = brand.name;
-            footer.appendChild(nameSpan);
-
-            if (brand.tagline && brand.tagline.trim()) {
-                const tagEl = document.createElement('p');
-                tagEl.className = 'partner-brand-tagline';
-                tagEl.textContent = brand.tagline.trim();
-                footer.appendChild(tagEl);
-            }
-
-            if (channels.length > 0) {
-                const visitBtn = document.createElement('span');
-                visitBtn.className = 'partner-visit-btn';
-                visitBtn.innerHTML = channels.length === 1
-                    ? 'Visit Brand <i class="fas fa-arrow-up-right-from-square"></i>'
-                    : 'Visit Brand <i class="fas fa-chevron-right"></i>';
-                footer.appendChild(visitBtn);
-            }
-
-            cardEl.appendChild(footer);
-            grid.appendChild(cardEl);
-        });
-
-        sectionEl.appendChild(grid);
-        container.appendChild(sectionEl);
+        cardEl.appendChild(footer);
+        grid.appendChild(cardEl);
     });
+
+    container.appendChild(grid);
 }
 
 function openPartnerBrandModal(brand, categoryName) {
