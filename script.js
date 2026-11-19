@@ -232,7 +232,8 @@ function setupModals() {
     const modals = {
         member: document.getElementById('modal-member'),
         host: document.getElementById('modal-host'),
-        partner: document.getElementById('modal-partner')
+        partner: document.getElementById('modal-partner'),
+        partnerBrand: document.getElementById('modal-partner-brand')
     };
 
     const triggers = {
@@ -289,6 +290,12 @@ function setupModals() {
         });
         document.body.style.overflow = ''; // Restore page scrolling
     }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeAllModals();
+        }
+    });
 
     // Form Submissions to Backend API
     const hostForm = document.getElementById('host-form');
@@ -714,10 +721,522 @@ function renderRollingDigits(container, targetNumber) {
     });
 }
 
-// 11. Document Ready Hook
+// ========================================================
+// 11. Bare Minimum's Partner Marketplace (Rotating Banners & Categorized Brands)
+// ========================================================
+const partnerMarketplaceState = {
+    banners: [],
+    categories: [],
+    brands: [],
+    activeCategory: 'all', // 'all' | category id string | 'uncategorized'
+    currentBannerIndex: 0,
+    bannerTimer: null
+};
+
+function resolvePartnerMediaUrl(url) {
+    if (!url) return '';
+    if (url.startsWith('/')) {
+        return `${apiUrl}${url}`;
+    }
+    return url;
+}
+
+function getChannelMeta(type) {
+    const key = (type || 'website').toLowerCase();
+    const map = {
+        website:   { icon: 'fas fa-globe',          defaultLabel: 'Website',        cls: 'type-website' },
+        shopee:    { icon: 'fas fa-shopping-bag',   defaultLabel: 'Shopee',         cls: 'type-shopee' },
+        lazada:    { icon: 'fas fa-shopping-cart',  defaultLabel: 'Lazada',         cls: 'type-lazada' },
+        line:      { icon: 'fab fa-line',           defaultLabel: 'LINE Official',  cls: 'type-line' },
+        instagram: { icon: 'fab fa-instagram',      defaultLabel: 'Instagram',      cls: 'type-instagram' },
+        tiktok:    { icon: 'fab fa-tiktok',         defaultLabel: 'TikTok',         cls: 'type-tiktok' },
+        facebook:  { icon: 'fab fa-facebook-f',     defaultLabel: 'Facebook',       cls: 'type-facebook' },
+        other:     { icon: 'fas fa-store',          defaultLabel: 'ช่องทางจำหน่าย',  cls: 'type-other' }
+    };
+    return map[key] || map.other;
+}
+
+async function initPartnerMarketplace() {
+    const section = document.getElementById('bm-partners');
+    if (!section) return;
+
+    try {
+        const res = await fetch(`${apiUrl}/api/website/partners`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        partnerMarketplaceState.banners = Array.isArray(data.banners) ? data.banners : [];
+        partnerMarketplaceState.categories = Array.isArray(data.categories) ? data.categories : [];
+        partnerMarketplaceState.brands = Array.isArray(data.brands) ? data.brands : [];
+    } catch (err) {
+        console.warn('Unable to load partner marketplace data from API:', err);
+        partnerMarketplaceState.banners = [];
+        partnerMarketplaceState.categories = [];
+        partnerMarketplaceState.brands = [];
+    }
+
+    const offerSection = document.getElementById('what-we-offer');
+
+    // Hide the entire Our Partner section when no active brands are listed
+    if (partnerMarketplaceState.brands.length === 0) {
+        section.style.display = 'none';
+        if (offerSection) offerSection.classList.add('standalone-section');
+        return;
+    }
+
+    section.style.display = '';
+    if (offerSection) offerSection.classList.remove('standalone-section');
+
+    renderPartnerBanners();
+    renderPartnerCategoryPills();
+    renderPartnerBrands();
+}
+
+function renderPartnerBanners() {
+    const wrapper = document.getElementById('partner-banner-wrapper');
+    const carousel = document.getElementById('partner-banner-carousel');
+    const prevBtn = document.getElementById('partner-banner-prev');
+    const nextBtn = document.getElementById('partner-banner-next');
+    const dotsEl = document.getElementById('partner-banner-dots');
+
+    if (!wrapper || !carousel) return;
+
+    if (partnerMarketplaceState.bannerTimer) {
+        clearInterval(partnerMarketplaceState.bannerTimer);
+        partnerMarketplaceState.bannerTimer = null;
+    }
+
+    const banners = partnerMarketplaceState.banners;
+    if (!banners.length) {
+        wrapper.classList.add('is-hidden');
+        return;
+    }
+
+    wrapper.classList.remove('is-hidden');
+    carousel.innerHTML = '';
+    if (dotsEl) dotsEl.innerHTML = '';
+    partnerMarketplaceState.currentBannerIndex = 0;
+
+    banners.forEach((banner, idx) => {
+        const hasLink = Boolean(banner.link_url && banner.link_url.trim());
+        const slideEl = document.createElement(hasLink ? 'a' : 'div');
+        slideEl.className = `partner-banner-slide${idx === 0 ? ' active' : ''}`;
+        if (hasLink) {
+            slideEl.href = banner.link_url;
+            slideEl.target = '_blank';
+            slideEl.rel = 'noopener noreferrer';
+        }
+
+        const img = document.createElement('img');
+        img.src = resolvePartnerMediaUrl(banner.image_url);
+        img.alt = banner.title || `Bare Minimum Partner Banner ${idx + 1}`;
+        img.className = 'partner-banner-slide-img';
+        img.loading = idx === 0 ? 'eager' : 'lazy';
+        slideEl.appendChild(img);
+
+        const hasText = Boolean((banner.title && banner.title.trim()) || (banner.subtitle && banner.subtitle.trim()));
+        if (hasText) {
+            const overlay = document.createElement('div');
+            overlay.className = 'partner-banner-overlay';
+
+            if (banner.title && banner.title.trim()) {
+                const h3 = document.createElement('h3');
+                h3.className = 'partner-banner-title';
+                h3.textContent = banner.title;
+                overlay.appendChild(h3);
+            }
+            if (banner.subtitle && banner.subtitle.trim()) {
+                const p = document.createElement('p');
+                p.className = 'partner-banner-subtitle';
+                p.textContent = banner.subtitle;
+                overlay.appendChild(p);
+            }
+            if (hasLink) {
+                const cta = document.createElement('span');
+                cta.className = 'partner-banner-cta-pill';
+                cta.innerHTML = 'ดูรายละเอียด <i class="fas fa-arrow-right"></i>';
+                overlay.appendChild(cta);
+            }
+            slideEl.appendChild(overlay);
+        }
+
+        carousel.appendChild(slideEl);
+
+        if (dotsEl && banners.length > 1) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = `partner-banner-dot${idx === 0 ? ' active' : ''}`;
+            dot.setAttribute('aria-label', `Banner ${idx + 1}`);
+            dot.addEventListener('click', () => {
+                goToPartnerBanner(idx);
+                restartPartnerBannerAutoplay();
+            });
+            dotsEl.appendChild(dot);
+        }
+    });
+
+    if (prevBtn && nextBtn) {
+        if (banners.length > 1) {
+            prevBtn.style.display = 'flex';
+            nextBtn.style.display = 'flex';
+            prevBtn.onclick = () => {
+                goToPartnerBanner(partnerMarketplaceState.currentBannerIndex - 1);
+                restartPartnerBannerAutoplay();
+            };
+            nextBtn.onclick = () => {
+                goToPartnerBanner(partnerMarketplaceState.currentBannerIndex + 1);
+                restartPartnerBannerAutoplay();
+            };
+        } else {
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+        }
+    }
+
+    if (banners.length > 1) {
+        // Pause rotation on hover
+        wrapper.onmouseenter = () => {
+            if (partnerMarketplaceState.bannerTimer) {
+                clearInterval(partnerMarketplaceState.bannerTimer);
+                partnerMarketplaceState.bannerTimer = null;
+            }
+        };
+        wrapper.onmouseleave = () => {
+            restartPartnerBannerAutoplay();
+        };
+
+        // Touch swipe support for mobile
+        let touchStartX = 0;
+        wrapper.ontouchstart = (e) => {
+            if (e.touches && e.touches.length > 0) {
+                touchStartX = e.touches[0].clientX;
+            }
+        };
+        wrapper.ontouchend = (e) => {
+            if (!e.changedTouches || e.changedTouches.length === 0) return;
+            const deltaX = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(deltaX) > 40) {
+                if (deltaX < 0) {
+                    goToPartnerBanner(partnerMarketplaceState.currentBannerIndex + 1);
+                } else {
+                    goToPartnerBanner(partnerMarketplaceState.currentBannerIndex - 1);
+                }
+                restartPartnerBannerAutoplay();
+            }
+        };
+
+        restartPartnerBannerAutoplay();
+    }
+}
+
+function goToPartnerBanner(targetIndex) {
+    const banners = partnerMarketplaceState.banners;
+    if (banners.length <= 1) return;
+
+    const total = banners.length;
+    const nextIdx = ((targetIndex % total) + total) % total;
+    partnerMarketplaceState.currentBannerIndex = nextIdx;
+
+    const slides = document.querySelectorAll('#partner-banner-carousel .partner-banner-slide');
+    const dots = document.querySelectorAll('#partner-banner-dots .partner-banner-dot');
+
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === nextIdx);
+    });
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === nextIdx);
+    });
+}
+
+function restartPartnerBannerAutoplay() {
+    if (partnerMarketplaceState.bannerTimer) {
+        clearInterval(partnerMarketplaceState.bannerTimer);
+        partnerMarketplaceState.bannerTimer = null;
+    }
+    if (partnerMarketplaceState.banners.length <= 1) return;
+
+    partnerMarketplaceState.bannerTimer = setInterval(() => {
+        goToPartnerBanner(partnerMarketplaceState.currentBannerIndex + 1);
+    }, 4500);
+}
+
+function getPartnerCategoryGroups() {
+    const { categories, brands } = partnerMarketplaceState;
+    const groups = [];
+
+    categories.forEach(cat => {
+        const catBrands = brands.filter(b => b.category_id === cat.id);
+        if (catBrands.length > 0) {
+            groups.push({
+                key: String(cat.id),
+                name: cat.name,
+                description: cat.description || '',
+                brands: catBrands
+            });
+        }
+    });
+
+    const knownCatIds = new Set(categories.map(c => c.id));
+    const uncategorized = brands.filter(b => !b.category_id || !knownCatIds.has(b.category_id));
+    if (uncategorized.length > 0) {
+        groups.push({
+            key: 'uncategorized',
+            name: groups.length > 0 ? 'พาร์ทเนอร์อื่นๆ' : 'แบรนด์พาร์ทเนอร์ของเรา',
+            description: '',
+            brands: uncategorized
+        });
+    }
+
+    return groups;
+}
+
+function renderPartnerCategoryPills() {
+    const bar = document.getElementById('partner-category-bar');
+    const pillsEl = document.getElementById('partner-category-pills');
+    if (!bar || !pillsEl) return;
+
+    const groups = getPartnerCategoryGroups();
+    if (groups.length <= 1) {
+        bar.style.display = 'none';
+        return;
+    }
+
+    bar.style.display = 'block';
+    pillsEl.innerHTML = '';
+
+    const totalBrands = partnerMarketplaceState.brands.length;
+    const pillItems = [
+        { key: 'all', name: 'ทั้งหมด', count: totalBrands },
+        ...groups.map(g => ({ key: g.key, name: g.name, count: g.brands.length }))
+    ];
+
+    pillItems.forEach(item => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `partner-category-pill${partnerMarketplaceState.activeCategory === item.key ? ' active' : ''}`;
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', partnerMarketplaceState.activeCategory === item.key ? 'true' : 'false');
+
+        const labelSpan = document.createElement('span');
+        labelSpan.textContent = item.name;
+        btn.appendChild(labelSpan);
+
+        const countSpan = document.createElement('span');
+        countSpan.className = 'partner-pill-count';
+        countSpan.textContent = String(item.count);
+        btn.appendChild(countSpan);
+
+        btn.addEventListener('click', () => {
+            partnerMarketplaceState.activeCategory = item.key;
+            renderPartnerCategoryPills();
+            renderPartnerBrands();
+        });
+
+        pillsEl.appendChild(btn);
+    });
+}
+
+function renderPartnerBrands() {
+    const container = document.getElementById('partner-brands-container');
+    if (!container) return;
+
+    const groups = getPartnerCategoryGroups();
+    container.innerHTML = '';
+
+    if (groups.length === 0) {
+        const section = document.getElementById('bm-partners');
+        const offerSection = document.getElementById('what-we-offer');
+        if (section) section.style.display = 'none';
+        if (offerSection) offerSection.classList.add('standalone-section');
+        return;
+    }
+
+    const visibleGroups = partnerMarketplaceState.activeCategory === 'all'
+        ? groups
+        : groups.filter(g => g.key === partnerMarketplaceState.activeCategory);
+
+    visibleGroups.forEach(group => {
+        const sectionEl = document.createElement('div');
+        sectionEl.className = 'partner-category-section';
+
+        const head = document.createElement('div');
+        head.className = 'partner-category-section-head';
+
+        const titleWrap = document.createElement('div');
+        titleWrap.className = 'partner-category-title-wrap';
+
+        const title = document.createElement('h3');
+        title.className = 'partner-category-title';
+        title.textContent = group.name;
+        titleWrap.appendChild(title);
+
+        if (group.description) {
+            const desc = document.createElement('p');
+            desc.className = 'partner-category-desc';
+            desc.textContent = group.description;
+            titleWrap.appendChild(desc);
+        }
+
+        const countLabel = document.createElement('span');
+        countLabel.className = 'partner-category-count-label';
+        countLabel.textContent = `${group.brands.length} แบรนด์`;
+
+        head.appendChild(titleWrap);
+        head.appendChild(countLabel);
+        sectionEl.appendChild(head);
+
+        const grid = document.createElement('div');
+        grid.className = 'partner-brands-grid';
+
+        group.brands.forEach(brand => {
+            const channels = Array.isArray(brand.channels)
+                ? brand.channels.filter(ch => ch && ch.url && ch.url.trim())
+                : [];
+
+            let cardEl;
+            if (channels.length === 1) {
+                cardEl = document.createElement('a');
+                cardEl.href = channels[0].url;
+                cardEl.target = '_blank';
+                cardEl.rel = 'noopener noreferrer';
+                cardEl.className = 'partner-brand-card';
+                cardEl.setAttribute('aria-label', `${brand.name} - ${channels[0].label || 'Website'}`);
+            } else if (channels.length > 1) {
+                cardEl = document.createElement('button');
+                cardEl.type = 'button';
+                cardEl.className = 'partner-brand-card';
+                cardEl.setAttribute('aria-label', `${brand.name} - เลือกช่องทางการจำหน่าย (${channels.length} ช่องทาง)`);
+                cardEl.addEventListener('click', () => openPartnerBrandModal(brand, group.name));
+            } else {
+                cardEl = document.createElement('div');
+                cardEl.className = 'partner-brand-card is-static';
+            }
+
+            if (channels.length > 1) {
+                const badge = document.createElement('span');
+                badge.className = 'partner-brand-channel-badge';
+                badge.innerHTML = `<i class="fas fa-store"></i> ${channels.length} ช่องทาง`;
+                cardEl.appendChild(badge);
+            }
+
+            const logoBox = document.createElement('div');
+            logoBox.className = 'partner-brand-logo-box';
+
+            const logoImg = document.createElement('img');
+            logoImg.src = resolvePartnerMediaUrl(brand.logo_url);
+            logoImg.alt = brand.name;
+            logoImg.className = 'partner-brand-logo-img';
+            logoImg.loading = 'lazy';
+            logoBox.appendChild(logoImg);
+            cardEl.appendChild(logoBox);
+
+            const footer = document.createElement('div');
+            footer.className = 'partner-brand-footer';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'partner-brand-name';
+            nameSpan.textContent = brand.name;
+            nameSpan.title = brand.name;
+            footer.appendChild(nameSpan);
+
+            if (channels.length > 0) {
+                const iconSpan = document.createElement('span');
+                iconSpan.className = 'partner-brand-action-icon';
+                iconSpan.innerHTML = channels.length === 1
+                    ? '<i class="fas fa-arrow-up-right-from-square"></i>'
+                    : '<i class="fas fa-chevron-right"></i>';
+                footer.appendChild(iconSpan);
+            }
+
+            cardEl.appendChild(footer);
+            grid.appendChild(cardEl);
+        });
+
+        sectionEl.appendChild(grid);
+        container.appendChild(sectionEl);
+    });
+}
+
+function openPartnerBrandModal(brand, categoryName) {
+    const modal = document.getElementById('modal-partner-brand');
+    const logoEl = document.getElementById('partner-brand-modal-logo');
+    const catEl = document.getElementById('partner-brand-modal-cat');
+    const nameEl = document.getElementById('partner-brand-modal-name');
+    const taglineEl = document.getElementById('partner-brand-modal-tagline');
+    const listEl = document.getElementById('partner-brand-channels-list');
+
+    if (!modal || !listEl) return;
+
+    if (logoEl) {
+        logoEl.src = resolvePartnerMediaUrl(brand.logo_url);
+        logoEl.alt = brand.name;
+    }
+    if (catEl) {
+        const displayCat = brand.category_name || categoryName || '';
+        if (displayCat) {
+            catEl.textContent = displayCat;
+            catEl.style.display = 'inline-block';
+        } else {
+            catEl.style.display = 'none';
+        }
+    }
+    if (nameEl) {
+        nameEl.textContent = brand.name;
+    }
+    if (taglineEl) {
+        if (brand.tagline && brand.tagline.trim()) {
+            taglineEl.textContent = brand.tagline;
+            taglineEl.style.display = 'block';
+        } else {
+            taglineEl.style.display = 'none';
+        }
+    }
+
+    listEl.innerHTML = '';
+    const channels = Array.isArray(brand.channels) ? brand.channels : [];
+    channels.forEach(ch => {
+        if (!ch || !ch.url) return;
+        const meta = getChannelMeta(ch.type);
+
+        const a = document.createElement('a');
+        a.href = ch.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'partner-channel-link';
+
+        const left = document.createElement('div');
+        left.className = 'partner-channel-left';
+
+        const iconBox = document.createElement('span');
+        iconBox.className = `partner-channel-icon ${meta.cls}`;
+        iconBox.innerHTML = `<i class="${meta.icon}"></i>`;
+        left.appendChild(iconBox);
+
+        const label = document.createElement('span');
+        label.className = 'partner-channel-label';
+        label.textContent = (ch.label && ch.label.trim()) ? ch.label : meta.defaultLabel;
+        left.appendChild(label);
+
+        const arrow = document.createElement('span');
+        arrow.className = 'partner-channel-arrow';
+        arrow.innerHTML = '<i class="fas fa-external-link-alt"></i>';
+
+        a.appendChild(left);
+        a.appendChild(arrow);
+        listEl.appendChild(a);
+    });
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// 12. Document Ready Hook
 document.addEventListener('DOMContentLoaded', async () => {
     // Load impact counter stats on home page
     initImpactCounter();
+
+    // Load Bare Minimum's Partner marketplace on advertisers page
+    initPartnerMarketplace();
 
     // Load dispenser locations from backoffice API only on map pages
     const hasMapOrList = document.getElementById('map') || document.getElementById('location-items');

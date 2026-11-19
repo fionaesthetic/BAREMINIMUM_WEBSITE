@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <link rel="stylesheet" href="style.css?v=4.6">
 </head>
 
 <body>
@@ -76,6 +76,42 @@
 
     <!-- Main Content -->
     <main>
+
+        <!-- Our Partner: Bare Minimum Approved Brands (Marketplace Section) -->
+        <section id="bm-partners" class="partner-marketplace-section standalone-section" style="display: none;">
+            <div class="container">
+                <!-- Rotating Promotional Banner Carousel -->
+                <div class="partner-banner-wrapper" id="partner-banner-wrapper" aria-label="Partner Highlights">
+                    <div class="partner-banner-carousel" id="partner-banner-carousel">
+                        <div class="partner-banner-skeleton">
+                            <div class="partner-skeleton-shimmer"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="partner-banner-nav partner-banner-prev" id="partner-banner-prev" aria-label="Previous banner" style="display: none;">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="partner-banner-nav partner-banner-next" id="partner-banner-next" aria-label="Next banner" style="display: none;">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="partner-banner-dots" id="partner-banner-dots"></div>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="partner-category-bar" id="partner-category-bar" style="display: none;">
+                    <div class="partner-category-pills" id="partner-category-pills" role="tablist" aria-label="Brand Categories"></div>
+                </div>
+
+                <!-- Categorized Square Brand Grid -->
+                <div class="partner-brands-container" id="partner-brands-container">
+                    <div class="partner-brands-loading">
+                        <div class="partner-brand-skeleton"></div>
+                        <div class="partner-brand-skeleton"></div>
+                        <div class="partner-brand-skeleton"></div>
+                        <div class="partner-brand-skeleton"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Our Services Section -->
         <section id="what-we-offer" class="offer-section standalone-section">
@@ -344,40 +380,57 @@
         </div>
     </div>
 
-    <!-- MODAL: Partner / Advertiser Inquiry -->
+    <!-- MODAL: Partner Contact Info -->
     <div class="modal" id="modal-partner">
-        <div class="modal-content">
+        <div class="modal-content partner-contact-modal-content">
             <button class="modal-close" aria-label="Close modal">&times;</button>
-            <h3 class="modal-title">ร่วมเป็นพาร์ทเนอร์โฆษณากับเรา</h3>
-            <p class="modal-subtitle">เริ่มต้นสร้าง Campaign OOH รูปแบบใหม่ที่สร้าง Impact
-                สูงสุดให้กับแบรนด์และสังคมของคุณ</p>
+            <div class="partner-contact-modal-header">
+                <span class="section-badge" style="margin-bottom: 0.6rem;">Contact Us</span>
+                <h3 class="modal-title">ติดต่อร่วมเป็นพาร์ทเนอร์กับเรา</h3>
+                <p class="modal-subtitle">
+                    บริษัท แบร์ มินิมัม มีเดีย จำกัด (Bare Minimum Media Co., Ltd.)<br>
+                    ติดต่อทีมงานเพื่อสอบถามข้อมูลการลงโฆษณาหรือร่วมเป็นพาร์ทเนอร์ได้ผ่านช่องทางด้านล่างนี้
+                </p>
+            </div>
 
-            <form id="partner-form" class="modal-form">
-                <div class="form-group">
-                    <label for="partner-company">ชื่อบริษัท / แบรนด์สินค้า</label>
-                    <input type="text" id="partner-company" required placeholder="เช่น บริษัท แบรนด์สุขอนามัย จำกัด">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="partner-contact">ชื่อผู้ติดต่อ</label>
-                        <input type="text" id="partner-contact" required placeholder="คุณกานดา รักดี">
+            <div class="partner-contact-list">
+                <a href="https://www.instagram.com/didthebareminimum?igsh=MXNhOTF0OTR0cHQ2Nw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="partner-contact-card">
+                    <span class="partner-channel-icon type-instagram"><i class="fab fa-instagram"></i></span>
+                    <div class="partner-contact-card-info">
+                        <strong>Instagram</strong>
+                        <span>@didthebareminimum</span>
                     </div>
-                    <div class="form-group">
-                        <label for="partner-phone">เบอร์โทรศัพท์</label>
-                        <input type="tel" id="partner-phone" required placeholder="081-XXX-XXXX">
+                    <i class="fas fa-external-link-alt partner-channel-arrow"></i>
+                </a>
+
+                <a href="mailto:hello@bareminimum.co.th" class="partner-contact-card">
+                    <span class="partner-channel-icon type-website"><i class="fas fa-envelope"></i></span>
+                    <div class="partner-contact-card-info">
+                        <strong>อีเมล</strong>
+                        <span>hello@bareminimum.co.th</span>
                     </div>
+                    <i class="fas fa-external-link-alt partner-channel-arrow"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Partner Brand Sales Channels Picker (Shown when a brand has multiple channels) -->
+    <div class="modal" id="modal-partner-brand">
+        <div class="modal-content partner-brand-modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="partner-brand-modal-header">
+                <div class="partner-brand-modal-logo-wrap">
+                    <img id="partner-brand-modal-logo" src="" alt="" class="partner-brand-modal-logo">
                 </div>
-                <div class="form-group">
-                    <label for="partner-email">อีเมลบริษัท</label>
-                    <input type="email" id="partner-email" required placeholder="kanda@brandcompany.com">
-                </div>
-                <div class="form-group">
-                    <label for="partner-msg">รายละเอียดแคมเปญหรือความต้องการเพิ่มเติม (ไม่บังคับ)</label>
-                    <textarea id="partner-msg" rows="3"
-                        placeholder="ระบุกลุ่มเป้าหมายหรือช่วงเวลาแคมเปญที่คุณต้องการ เช่น ไตรมาส 3 กลุ่มเป้าหมายนักศึกษามหาวิทยาลัย"></textarea>
-                </div>
-                <button type="submit" class="btn btn-secondary btn-full">ส่งคำขอข้อมูลพาร์ทเนอร์</button>
-            </form>
+                <span class="partner-brand-modal-cat" id="partner-brand-modal-cat" style="display: none;"></span>
+                <h3 class="modal-title partner-brand-modal-name" id="partner-brand-modal-name"></h3>
+                <p class="modal-subtitle partner-brand-modal-tagline" id="partner-brand-modal-tagline" style="display: none;"></p>
+            </div>
+            <div class="partner-brand-modal-section-label">
+                <i class="fas fa-store"></i> เลือกเว็บไซต์ / ช่องทางการจำหน่าย
+            </div>
+            <div class="partner-brand-channels-list" id="partner-brand-channels-list"></div>
         </div>
     </div>
 
@@ -393,7 +446,7 @@
     </div>
 
     <!-- Custom JS -->
-    <script src="script.js?v=3.0"></script>
+    <script src="script.js?v=4.5"></script>
 </body>
 
 </html>
