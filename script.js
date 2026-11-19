@@ -729,9 +729,17 @@ const partnerMarketplaceState = {
     categories: [],
     brands: [],
     activeCategory: 'all', // 'all' | category id string | 'uncategorized'
+    expanded: false,
     currentBannerIndex: 0,
     bannerTimer: null
 };
+
+function getInitialPartnerBrandLimit() {
+    const w = window.innerWidth || 1200;
+    // Desktop (3 cols): 3 cards (1 full row); Tablet (2 cols): 4 cards (2 full rows); Mobile (1 col): 3 cards
+    if (w <= 960 && w > 600) return 4;
+    return 3;
+}
 
 function resolvePartnerMediaUrl(url) {
     if (!url) return '';
@@ -1027,6 +1035,7 @@ function renderPartnerCategoryPills() {
 
         btn.addEventListener('click', () => {
             partnerMarketplaceState.activeCategory = item.key;
+            partnerMarketplaceState.expanded = false;
             renderPartnerCategoryPills();
             renderPartnerBrands();
         });
@@ -1072,10 +1081,16 @@ function renderPartnerBrands() {
         return;
     }
 
+    const initialLimit = getInitialPartnerBrandLimit();
+    const hasMore = displayBrands.length > initialLimit;
+    const visibleBrands = (hasMore && !partnerMarketplaceState.expanded)
+        ? displayBrands.slice(0, initialLimit)
+        : displayBrands;
+
     const grid = document.createElement('div');
     grid.className = 'partner-brands-grid';
 
-    displayBrands.forEach(brand => {
+    visibleBrands.forEach(brand => {
         const channels = Array.isArray(brand.channels)
             ? brand.channels.filter(ch => ch && ch.url && ch.url.trim())
             : [];
@@ -1155,6 +1170,29 @@ function renderPartnerBrands() {
     });
 
     container.appendChild(grid);
+
+    if (hasMore) {
+        const remainingCount = displayBrands.length - initialLimit;
+        const moreWrap = document.createElement('div');
+        moreWrap.className = 'partner-see-more-wrap';
+
+        const moreBtn = document.createElement('button');
+        moreBtn.type = 'button';
+        moreBtn.className = 'partner-see-more-btn';
+        if (partnerMarketplaceState.expanded) {
+            moreBtn.innerHTML = 'Show Less <i class="fas fa-chevron-up"></i>';
+        } else {
+            moreBtn.innerHTML = `See More <span class="partner-see-more-count">+${remainingCount}</span> <i class="fas fa-chevron-down"></i>`;
+        }
+
+        moreBtn.addEventListener('click', () => {
+            partnerMarketplaceState.expanded = !partnerMarketplaceState.expanded;
+            renderPartnerBrands();
+        });
+
+        moreWrap.appendChild(moreBtn);
+        container.appendChild(moreWrap);
+    }
 }
 
 function openPartnerBrandModal(brand, categoryName) {
